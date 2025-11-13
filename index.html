@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring - Distributed Monitoring System</title>
+    <style>
+        /* Basic styles for simplicity. Recommended to style better. */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
+        .container { width: 80%; margin: 0 auto; padding: 20px 0; }
+        header { background: #f4f4f4; padding: 1rem 0; text-align: center; }
+        nav { background: #333; color: #fff; padding: 0.5rem 0; }
+        nav a { color: #fff; margin: 0 15px; text-decoration: none; }
+        section { padding: 2rem 0; }
+        .hero { background: #e2e2e2; text-align: center; padding: 3rem 0; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .feature-card { border: 1px solid #ddd; padding: 1rem; border-radius: 5px; }
+        code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; }
+        footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Monitoring</h1>
+            <p>Powerful distributed monitoring system for your infrastructure</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <a href="#features">Features</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#quick-start">Quick Start</a>
+            <a href="#docs">Documentation</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Monitor Your Services Availability Worldwide</h2>
+            <p>Deploy a central server and run lightweight workers in any data centers. Get accurate and reliable downtime alerts.</p>
+            <a href="#quick-start" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 15px;">Start in 5 Minutes</a>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2 style="text-align: center;">Key Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🌐 Distributed Monitoring</h3>
+                    <p>Launch workers in different networks and regions for objective availability assessment.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔐 Multi-tenancy and RBAC</h3>
+                    <p>Multiple users, groups, and detailed access control system for all resources.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Variety of Check Types</h3>
+                    <p>HTTP(S), TCP, Ping, and Docker container status monitoring via API.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔔 Smart Notifications</h3>
+                    <p>Configure alerts in Telegram and Mattermost. The system doesn't spam during partial failures.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🐳 Docker Monitoring</h3>
+                    <p>Centralized tracking of your containers status across all hosts.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📝 Audit Log</h3>
+                    <p>Complete history of all user actions in the system for maintaining order and security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture" style="background: #f9f9f9;">
+        <div class="container">
+            <h2 style="text-align: center;">Simple and Powerful Architecture</h2>
+            <p style="text-align: center;">The system consists of two components:</p>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 2rem;">
+                <div style="text-align: center; margin: 10px;">
+                    <h3>Server</h3>
+                    <p><code>akeb/monitoring</code></p>
+                    <p>Control center. Web interface, database, API.</p>
+                </div>
+                <div style="text-align: center; margin: 10px;">
+                    <h3>Worker</h3>
+                    <p><code>akeb/monitoring-worker</code></p>
+                    <p>Lightweight agent. Performs checks and sends results to the Server.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quick-start">
+        <div class="container">
+            <h2 style="text-align: center;">Quick Start</h2>
+            <ol>
+                <li><strong>Deploy Server:</strong> Run the <code>akeb/monitoring</code> image.</li>
+                <li><strong>Create Worker:</strong> In the web interface, create a worker and copy its key.</li>
+                <li><strong>Launch Worker:</strong> On a remote server, execute:
+                    <pre><code>docker run -d \
+  -e SERVER_URL=https://your-monitoring-server.com \
+  -e WORKER_KEY=your_unique_worker_key_here \
+  akeb/monitoring-worker</code></pre>
+                </li>
+                <li><strong>Create monitor:</strong> In the UI, specify URL, check type and select workers.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="docs" style="background: #f9f9f9;">
+        <div class="container">
+            <h2 style="text-align: center;">Documentation</h2>
+            <p style="text-align: center;">Complete guide for installation, configuration and usage of all project features.</p>
+            <p style="text-align: center;">
+                <!-- Link to full documentation (e.g., GitHub Pages or GitBook) -->
+                <a href="https://your-docs-site.com" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Read Documentation</a>
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Monitoring Project. License: Dual Licensing (AGPLv3/Commercial).</p>
+            <p>
+                <a href="https://github.com/your-repo" style="color: #fff;">GitHub</a> |
+                <a href="https://dockerhub.com/your-repo" style="color: #fff;">Docker Hub</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
