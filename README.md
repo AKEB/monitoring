@@ -44,17 +44,16 @@ Deploy the Docker image `akeb/monitoring:latest` on your main server. Configure 
 ### 3. Deploy the Worker
 
 On each server from which you want to perform monitoring, run a Docker container with the `akeb/monitoring-worker:latest` image, specifying the environment variables:
+
 - `SERVER_URL` - URL of your Server
 - `WORKER_KEY` - Unique key obtained in the previous step
 
 Example command:
 
-```bash
-docker run -d \
-  -e SERVER_URL=https://your-monitoring-server.com \
-  -e WORKER_KEY=your_unique_worker_key_here \
-  akeb/monitoring-worker:latest
-```
+    docker run -d \
+    -e SERVER_URL=https://your-monitoring-server.com \
+    -e WORKER_KEY=your_unique_worker_key_here \
+    akeb/monitoring-worker:latest
 
 ### 4. Create Your First Monitor
 
@@ -108,4 +107,4 @@ This software is available under dual licensing:
 - **Commercial License** - for organizations and commercial use
 
 If you represent a company and want to use Monitoring in your infrastructure,
-please purchase a commercial license. Contact us at vadimakeb@gmail.com
+please purchase a commercial license. Contact us at [vadimakeb@gmail.com](mailto:vadimakeb@gmail.com)

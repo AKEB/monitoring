@@ -10,19 +10,23 @@ You may use, modify, and distribute the program free of charge in accordance wit
 If you are a commercial organization, government entity, or using the program for commercial purposes, you must purchase a **commercial license**.
 
 **The commercial license provides:**
+
 - Right to use the software without disclosing source code
 - Technical support
 - Warranties and security updates
 
-**Contact us to obtain a commercial license:** vadimakeb@gmail.com
+**Contact us to obtain a commercial license:** [vadimakeb@gmail.com](mailto:vadimakeb@gmail.com)
 
 ## Definitions
 
 ### Private Use
+
 Use by an individual for personal, non-commercial purposes.
 
 ### Commercial Use
+
 Any use by organizations, including:
+
 - Companies of any size
 - Government entities
 - Non-profit organizations
@@ -31,4 +35,4 @@ Any use by organizations, including:
 
 ---
 
-*Need to clarify licensing terms? Contact our legal team at vadimakeb@gmail.com*
+*Need to clarify licensing terms? Contact our legal team at [vadimakeb@gmail.com](mailto:vadimakeb@gmail.com)*

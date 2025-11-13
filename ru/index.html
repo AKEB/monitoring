@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title>Monitoring - Распределенная система мониторинга</title>
     <style>
-        /* Базовые стили для простоты. Рекомендуется оформить красивее. */
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
         .container { width: 80%; margin: 0 auto; padding: 20px 0; }
         header { background: #f4f4f4; padding: 1rem 0; text-align: center; }
@@ -15,8 +15,10 @@
         .hero { background: #e2e2e2; text-align: center; padding: 3rem 0; }
         .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .feature-card { border: 1px solid #ddd; padding: 1rem; border-radius: 5px; }
-        code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 1rem; border-radius: 5px; overflow-x: auto; }
         footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; margin-top: 2rem; }
+        .tab { margin-left: 20px; }
+        .env-file { background: #f8f8f8; border-left: 4px solid #007bff; padding: 1rem; margin: 1rem 0; }
     </style>
 </head>
 <body>
@@ -30,6 +32,7 @@
         <div class="container">
             <a href="#features">Возможности</a>
             <a href="#architecture">Архитектура</a>
+            <a href="#installation">Установка</a>
             <a href="#quick-start">Быстрый старт</a>
             <a href="#docs">Документация</a>
         </div>
@@ -39,7 +42,7 @@
         <div class="container">
             <h2>Контролируйте доступность ваших сервисов со всего мира</h2>
             <p>Разверните центральный сервер и запустите легковесные обработчики в любых дата-центрах. Получайте точные и надежные оповещения о простоях.</p>
-            <a href="#quick-start" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 15px;">Начать за 5 минут</a>
+            <a href="#installation" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 15px;">Начать за 5 минут</a>
         </div>
     </section>
 
@@ -82,32 +85,151 @@
             <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 2rem;">
                 <div style="text-align: center; margin: 10px;">
                     <h3>Сервер</h3>
-                    <p><code>akeb/monitoring</code></p>
+                    <p><code><strong>akeb/monitoring:latest</strong></code></p>
                     <p>Центр управления. Веб-интерфейс, база данных, API.</p>
+                    <p><a href="https://hub.docker.com/repository/docker/akeb/monitoring/general" style="color: #000000">Docker Hub</a></p>
                 </div>
                 <div style="text-align: center; margin: 10px;">
                     <h3>Обработчик</h3>
-                    <p><code>akeb/monitoring-worker</code></p>
+                    <p><code><strong>akeb/monitoring-worker:latest</strong></code></p>
                     <p>Легковесный агент. Выполняет проверки и отправляет результаты на Сервер.</p>
+                    <p><a href="https://hub.docker.com/repository/docker/akeb/monitoring-worker/general" style="color: #000000">Docker Hub</a></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="quick-start">
+    <section id="installation">
+        <div class="container">
+            <h2 style="text-align: center;">Установка Сервера</h2>
+            
+            <h3>1. Создайте директорию проекта</h3>
+            <div class="env-file">
+                <code>
+                    mkdir monitoring-server<br/>
+                    cd monitoring-server
+                </code>
+            </div>
+
+            <h3>2. Создайте файл окружения</h3>
+            <p>Создайте файл <code><strong>.env</strong></code> с вашей конфигурацией:</p>
+            <div class="env-file">
+                <code>
+                    # Часовой пояс<br/>
+                    TZ=Europe/Moscow<br/>
+                    <br/>
+                    # MySQL<br/>
+                    MYSQL_PASSWORD=YourSecureRootPassword123<br/>
+                    <br/>
+                    # Порт веб-сервера<br/>
+                    NGINX_PORT=80<br/>
+                    <br/>
+                    # Memcached<br/>
+                    MEMCACHED_HOST=memcached<br/>
+                    <br/>
+                    # Безопасность - ИЗМЕНИТЕ ЭТО!<br/>
+                    PASSWORD_SALT=YourRandomSaltStringHere123456789
+                </code>
+            </div>
+
+            <h3>3. Создайте Docker Compose файл</h3>
+            <p>Создайте <code><strong>docker-compose.yml</strong></code>:</p>
+            <div class="env-file"><code>
+                ---<br/>
+                services:<br/>
+                    &nbsp;&nbsp;mysql:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: monitoring-mysql<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: mysql:latest<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-RootPassword}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;volumes:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./mysql_data:/var/lib/mysql<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;healthcheck:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test: ["CMD", "mysql", "-h", "127.0.0.1", "-u", "root", "--password=${MYSQL_ROOT_PASSWORD}", "-e", "show databases;"]<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_period: 10s<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval: 5s<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeout: 5s<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retries: 55<br/>
+                    <br/>
+                    &nbsp;&nbsp;memcached:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: "monitoring-memcached"<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: memcached<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;command:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --conn-limit=1024<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --memory-limit=32<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --threads=4<br/>
+                    <br/>
+                    &nbsp;&nbsp;server:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: "monitoring-server"<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: "akeb/monitoring:latest"<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NGINX_PORT: ${NGINX_PORT:-80}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_HOST: mysql<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_PASSWORD: ${MYSQL_PASSWORD:-RootPassword}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMCACHED_HOST: ${MEMCACHED_HOST:-memcached}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PASSWORD_SALT: ${PASSWORD_SALT:-bHchLzC3B99Ss1213127fdw876EDghc2gkDdtg}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;volumes:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./logs/php/:/var/log/php/:rw<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./logs/nginx/:/var/log/nginx/:rw<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ports:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "${NGINX_PORT:-80}:80"<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;depends_on:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mysql:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;condition: service_healthy<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memcached:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;condition: service_started<br/>
+            </code></div>
+
+            <h3>4. Запустите Сервер</h3>
+            <div class="env-file"><code>docker-compose up -d</code></div>
+
+            <p>Сервер будет доступен по адресу <code><strong>http://ваш-ip-сервера</strong></code></p>
+        </div>
+    </section>
+
+    <section id="quick-start" style="background: #f9f9f9;">
         <div class="container">
             <h2 style="text-align: center;">Быстрый старт</h2>
-            <ol>
-                <li><strong>Разверните Сервер:</strong> Запустите образ <code>akeb/monitoring</code>.</li>
-                <li><strong>Создайте Обработчик:</strong> В веб-интерфейсе создайте обработчик и скопируйте его ключ.</li>
-                <li><strong>Запустите Обработчик:</strong> На удаленном сервере выполните:
-                    <pre><code>docker run -d \
-  -e SERVER_URL=https://your-monitoring-server.com \
-  -e WORKER_KEY=your_unique_worker_key_here \
-  akeb/monitoring-worker</code></pre>
-                </li>
-                <li><strong>Создайте монитор:</strong> В UI укажите URL, тип проверки и выберите обработчики.</li>
-            </ol>
+            
+            <h3>1. Доступ к веб-интерфейсу</h3>
+            <p>Откройте браузер и перейдите по IP-адресу вашего сервера.</p>
+
+            <h3>2. Создайте первый Обработчик</h3>
+            <ul>
+                <li>Войдите в веб-интерфейс (учетная запись по умолчанию: E-mail <code><strong>admin@admin.com</strong></code> и пароль <code><strong>Admin@123</strong></code>)</li>
+                <li>Перейдите в раздел "Обработчики"</li>
+                <li>Нажмите "Создать обработчик"</li>
+                <li>Скопируйте сгенерированный уникальный ключ обработчика</li>
+            </ul>
+
+            <h3>3. Разверните агент Обработчика</h3>
+            <p>На каждом удаленном сервере, где вы хотите выполнять мониторинг, выполните:</p>
+            <div class="env-file"><code>
+                docker run -d \<br/>
+                &nbsp;&nbsp;--name monitoring-worker \<br/>
+                &nbsp;&nbsp;-e SERVER_URL=https://your-monitoring-server.com \<br/>
+                &nbsp;&nbsp;-e WORKER_KEY=your_unique_worker_key_here \<br/>
+                &nbsp;&nbsp;akeb/monitoring-worker:latest<br/>
+            </code></div>
+
+            <h3>4. Создайте первый Монитор</h3>
+            <ul>
+                <li>Перейдите в раздел "Мониторы"</li>
+                <li>Нажмите "Создать монитор"</li>
+                <li>Выберите тип проверки (HTTPS, TCP, Ping или Docker)</li>
+                <li>Настройте параметры проверки и частоту</li>
+                <li>Выберите, какие обработчики должны выполнять проверки</li>
+                <li>Сохраните монитор</li>
+            </ul>
+
+            <p>Вы увидите первые результаты в течение минуты!</p>
         </div>
     </section>
 
@@ -116,18 +238,18 @@
             <h2 style="text-align: center;">Документация</h2>
             <p style="text-align: center;">Полное руководство по установке, настройке и использованию всех функций проекта.</p>
             <p style="text-align: center;">
-                <!-- Ссылка на полную документацию (например, на GitHub Pages или GitBook) -->
-                <a href="https://your-docs-site.com" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Читать документацию</a>
+                <a href="https://github.com/AKEB/monitoring/wiki" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Читать документацию</a>
             </p>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>© 2023 Monitoring Project. Лицензия: [Ваша лицензия].</p>
+            <p>© 2025 Monitoring Project. Лицензия: Двойное лицензирование (<a href="https://github.com/AKEB/monitoring/blob/main/LICENSE.md" style="color: #fff;">AGPLv3/Коммерческая</a>).</p>
             <p>
-                <a href="https://github.com/your-repo" style="color: #fff;">GitHub</a> |
-                <a href="https://dockerhub.com/your-repo" style="color: #fff;">Docker Hub</a>
+                <a href="https://github.com/AKEB/monitoring" style="color: #fff;">GitHub</a> |
+                <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general" style="color: #fff;">Docker Hub</a> |
+                <a href="mailto:vadimakeb@gmail.com" style="color: #fff;">Контакты</a>
             </p>
         </div>
     </footer>
