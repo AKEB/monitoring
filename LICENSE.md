@@ -14,7 +14,7 @@ If you are a commercial organization, government entity, or using the program fo
 - Technical support
 - Warranties and security updates
 
-**Contact us to obtain a commercial license:** contact@yourcompany.com
+**Contact us to obtain a commercial license:** vadimakeb@gmail.com
 
 ## Definitions
 
