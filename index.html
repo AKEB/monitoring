@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <title>Monitoring - Distributed Monitoring System</title>
     <style>
-        /* Basic styles for simplicity. Recommended to style better. */
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
         .container { width: 80%; margin: 0 auto; padding: 20px 0; }
         header { background: #f4f4f4; padding: 1rem 0; text-align: center; }
@@ -15,8 +15,10 @@
         .hero { background: #e2e2e2; text-align: center; padding: 3rem 0; }
         .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .feature-card { border: 1px solid #ddd; padding: 1rem; border-radius: 5px; }
-        code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 1rem; border-radius: 5px; overflow-x: auto; }
         footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; margin-top: 2rem; }
+        .tab { margin-left: 20px; }
+        .env-file { background: #f8f8f8; border-left: 4px solid #007bff; padding: 1rem; margin: 1rem 0; }
     </style>
 </head>
 <body>
@@ -30,6 +32,7 @@
         <div class="container">
             <a href="#features">Features</a>
             <a href="#architecture">Architecture</a>
+            <a href="#installation">Installation</a>
             <a href="#quick-start">Quick Start</a>
             <a href="#docs">Documentation</a>
         </div>
@@ -39,7 +42,7 @@
         <div class="container">
             <h2>Monitor Your Services Availability Worldwide</h2>
             <p>Deploy a central server and run lightweight workers in any data centers. Get accurate and reliable downtime alerts.</p>
-            <a href="#quick-start" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 15px;">Start in 5 Minutes</a>
+            <a href="#installation" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 15px;">Start in 5 Minutes</a>
         </div>
     </section>
 
@@ -82,32 +85,152 @@
             <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 2rem;">
                 <div style="text-align: center; margin: 10px;">
                     <h3>Server</h3>
-                    <p><code>akeb/monitoring</code></p>
+                    <p><code><strong>akeb/monitoring:latest</strong></code></p>
                     <p>Control center. Web interface, database, API.</p>
+                    <p><a href="https://hub.docker.com/repository/docker/akeb/monitoring/general" style="color: #000000">Docker Hub</a></p>
                 </div>
                 <div style="text-align: center; margin: 10px;">
                     <h3>Worker</h3>
-                    <p><code>akeb/monitoring-worker</code></p>
+                    <p><code><strong>akeb/monitoring-worker:latest</strong></code></p>
                     <p>Lightweight agent. Performs checks and sends results to the Server.</p>
+                    <p><a href="https://hub.docker.com/repository/docker/akeb/monitoring-worker/general" style="color: #000000">Docker Hub</a></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="quick-start">
+    <section id="installation">
+        <div class="container">
+            <h2 style="text-align: center;">Server Installation</h2>
+            
+            <h3>1. Create Project Directory</h3>
+            <div class="env-file">
+                <code>
+                    mkdir monitoring-server<br/>
+                    cd monitoring-server
+                </code>
+            </div>
+
+            <h3>2. Create Environment File</h3>
+            <p>Create <code><strong>.env</strong></code> file with your configuration:</p>
+            <div class="env-file">
+                <code>
+                    # Timezone<br/>
+                    TZ=Europe/Moscow<br/>
+                    <br/>
+                    # MySQL<br/>
+                    MYSQL_PASSWORD=YourSecureRootPassword123<br/>
+                    <br/>
+                    # Web Server Port<br/>
+                    NGINX_PORT=80<br/>
+                    <br/>
+                    # Memcached<br/>
+                    MEMCACHED_HOST=memcached<br/>
+                    <br/>
+                    # Security - CHANGE THIS!<br/>
+                    PASSWORD_SALT=YourRandomSaltStringHere123456789
+                </code>
+            </div>
+
+            <h3>3. Create Docker Compose File</h3>
+            <p>Create <code><strong>docker-compose.yml</strong></code>:</p>
+            <div class="env-file"><code>
+                ---<br/>
+                services:<br/>
+                    &nbsp;&nbsp;mysql:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: monitoring-mysql<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: mysql:latest<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-RootPassword}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;volumes:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./mysql_data:/var/lib/mysql<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;healthcheck:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test: ["CMD", "mysql", "-h", "127.0.0.1", "-u", "root", "--password=${MYSQL_ROOT_PASSWORD}", "-e", "show databases;"]<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_period: 10s<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval: 5s<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeout: 5s<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retries: 55<br/>
+                    <br/>
+                    &nbsp;&nbsp;memcached:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: "monitoring-memcached"<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: memcached<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;command:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --conn-limit=1024<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --memory-limit=32<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --threads=4<br/>
+                    <br/>
+                    &nbsp;&nbsp;server:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: "monitoring-server"<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;image: "akeb/monitoring:latest"<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NGINX_PORT: ${NGINX_PORT:-80}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_HOST: mysql<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_PASSWORD: ${MYSQL_PASSWORD:-RootPassword}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMCACHED_HOST: ${MEMCACHED_HOST:-memcached}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PASSWORD_SALT: ${PASSWORD_SALT:-bHchLzC3B99Ss1213127fdw876EDghc2gkDdtg}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;volumes:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./logs/php/:/var/log/php/:rw<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./logs/nginx/:/var/log/nginx/:rw<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ports:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "${NGINX_PORT:-80}:80"<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;depends_on:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mysql:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;condition: service_healthy<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memcached:<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;condition: service_started<br/>
+            </code></div>
+
+            <h3>4. Start the Server</h3>
+            <div class="env-file"><code>docker-compose up -d</code></div>
+
+            <p>The server will be available at <code><strong>http://your-server-ip</strong></code></p>
+        </div>
+    </section>
+
+
+    <section id="quick-start" style="background: #f9f9f9;">
         <div class="container">
             <h2 style="text-align: center;">Quick Start</h2>
-            <ol>
-                <li><strong>Deploy Server:</strong> Run the <code>akeb/monitoring</code> image.</li>
-                <li><strong>Create Worker:</strong> In the web interface, create a worker and copy its key.</li>
-                <li><strong>Launch Worker:</strong> On a remote server, execute:
-                    <pre><code>docker run -d \
-  -e SERVER_URL=https://your-monitoring-server.com \
-  -e WORKER_KEY=your_unique_worker_key_here \
-  akeb/monitoring-worker</code></pre>
-                </li>
-                <li><strong>Create monitor:</strong> In the UI, specify URL, check type and select workers.</li>
-            </ol>
+            
+            <h3>1. Access the Web Interface</h3>
+            <p>Open your browser and navigate to your server's IP address.</p>
+
+            <h3>2. Create Your First Worker</h3>
+            <ul>
+                <li>Log in to the web interface (default admin account: E-mail <code><strong>admin@admin.com</strong></code> and password <code><strong>Admin@123</strong></code>)</li>
+                <li>Navigate to "Workers" section</li>
+                <li>Click "Create Worker"</li>
+                <li>Copy the generated unique worker key</li>
+            </ul>
+
+            <h3>3. Deploy Worker Agent</h3>
+            <p>On each remote server where you want to perform monitoring, run:</p>
+            <div class="env-file"><code>
+                docker run -d \<br/>
+                &nbsp;&nbsp;--name monitoring-worker \<br/>
+                &nbsp;&nbsp;-e SERVER_URL=https://your-monitoring-server.com \<br/>
+                &nbsp;&nbsp;-e WORKER_KEY=your_unique_worker_key_here \<br/>
+                &nbsp;&nbsp;akeb/monitoring-worker:latest<br/>
+            </code></div>
+
+            <h3>4. Create Your First Monitor</h3>
+            <ul>
+                <li>Go to "Monitors" section</li>
+                <li>Click "Create Monitor"</li>
+                <li>Select check type (HTTPS, TCP, Ping, or Docker)</li>
+                <li>Configure check parameters and frequency</li>
+                <li>Select which workers should perform the checks</li>
+                <li>Save the monitor</li>
+            </ul>
+
+            <p>You'll see the first results within a minute!</p>
         </div>
     </section>
 
@@ -117,17 +240,18 @@
             <p style="text-align: center;">Complete guide for installation, configuration and usage of all project features.</p>
             <p style="text-align: center;">
                 <!-- Link to full documentation (e.g., GitHub Pages or GitBook) -->
-                <a href="https://your-docs-site.com" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Read Documentation</a>
+                <a href="https://github.com/AKEB/monitoring/wiki" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Read Documentation</a>
             </p>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>© 2023 Monitoring Project. License: Dual Licensing (AGPLv3/Commercial).</p>
+            <p>© 2025 Monitoring Project. License: Dual Licensing (<a href="https://github.com/AKEB/monitoring/blob/main/LICENSE.md" style="color: #fff;">AGPLv3/Commercial</a>).</p>
             <p>
-                <a href="https://github.com/your-repo" style="color: #fff;">GitHub</a> |
-                <a href="https://dockerhub.com/your-repo" style="color: #fff;">Docker Hub</a>
+                <a href="https://github.com/AKEB/monitoring" style="color: #fff;">GitHub</a> |
+                <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general" style="color: #fff;">Docker Hub</a> |
+                <a href="mailto:vadimakeb@gmail.com" style="color: #fff;">Contact</a>
             </p>
         </div>
     </footer>
