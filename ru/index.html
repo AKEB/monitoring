@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <title>Monitoring - Распределенная система мониторинга</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
         .container { width: 80%; margin: 0 auto; padding: 20px 0; }
-        header { background: #f4f4f4; padding: 1rem 0; text-align: center; }
+        header { background: #f4f4f4; padding: 1rem 0; text-align: center; position: relative; }
         nav { background: #333; color: #fff; padding: 0.5rem 0; }
         nav a { color: #fff; margin: 0 15px; text-decoration: none; }
         section { padding: 2rem 0; }
@@ -19,11 +19,24 @@
         footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; margin-top: 2rem; }
         .tab { margin-left: 20px; }
         .env-file { background: #f8f8f8; border-left: 4px solid #007bff; padding: 1rem; margin: 1rem 0; }
+        .language-switcher { position: absolute; top: 1rem; right: 1rem; }
+        .language-switcher a { 
+            background: #007bff; 
+            color: white; 
+            padding: 5px 10px; 
+            text-decoration: none; 
+            border-radius: 3px; 
+            font-size: 0.9rem;
+        }
+        .language-switcher a:hover { background: #0056b3; }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
+            <div class="language-switcher">
+                <a href="../index.html">English</a>
+            </div>
             <h1>Monitoring</h1>
             <p>Мощная распределенная система мониторинга для вашей инфраструктуры</p>
         </div>
