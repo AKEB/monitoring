@@ -2,6 +2,13 @@
 
 ![Логотип](/images/icon.png)
 
+- Server
+![Docker Pulls](https://img.shields.io/docker/pulls/akeb/monitoring) ![Docker Image Size](https://img.shields.io/docker/image-size/akeb/monitoring/latest) ![Docker Version](https://img.shields.io/docker/v/akeb/monitoring) ![Docker Stars](https://img.shields.io/docker/stars/akeb/monitoring) ![License](https://img.shields.io/badge/license-AGPLv3-blue)
+
+- Worker
+![Docker Pulls](https://img.shields.io/docker/pulls/akeb/monitoring-worker) ![Docker Image Size](https://img.shields.io/docker/image-size/akeb/monitoring-worker/latest) ![Docker Version](https://img.shields.io/docker/v/akeb/monitoring-worker) ![Docker Stars](https://img.shields.io/docker/stars/akeb/monitoring-worker) ![License](https://img.shields.io/badge/license-AGPLv3-blue)
+
+
 Monitoring — это мощная распределенная система мониторинга с веб-интерфейсом, построенная на архитектуре "Сервер-Обработчик". Система позволяет контролировать доступность и работоспособность ваших сайтов, сервисов и Docker-контейнеров с множества географически распределенных точек.
 
 - [Веб-сайт Monitoring](https://akeb.github.io/monitoring/)
