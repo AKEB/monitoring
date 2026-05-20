@@ -105,9 +105,9 @@
                 </div>
                 <div style="text-align: center; margin: 10px;">
                     <h3>Обработчик</h3>
-                    <p><code><strong>akeb/monitoring-worker:latest</strong></code></p>
+                    <p><code><strong>akeb/monitoring-worker-go:latest</strong></code></p>
                     <p>Легковесный агент. Выполняет проверки и отправляет результаты на Сервер.</p>
-                    <p><a href="https://hub.docker.com/repository/docker/akeb/monitoring-worker/general" style="color: #000000">Docker Hub</a></p>
+                    <p><a href="https://hub.docker.com/repository/docker/akeb/monitoring-worker-go/general" style="color: #000000">Docker Hub</a></p>
                 </div>
             </div>
             <p style="text-align: center;"><img src="../images/architecture.png" title="architecture" alt="architecture"/></p>
@@ -231,7 +231,7 @@
                 &nbsp;&nbsp;--name monitoring-worker \<br/>
                 &nbsp;&nbsp;-e SERVER_URL=https://your-monitoring-server.com \<br/>
                 &nbsp;&nbsp;-e WORKER_KEY=your_unique_worker_key_here \<br/>
-                &nbsp;&nbsp;akeb/monitoring-worker:latest<br/>
+                &nbsp;&nbsp;akeb/monitoring-worker-go:latest<br/>
             </code></div>
 
             <h3>4. Создайте первый Монитор</h3>
