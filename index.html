@@ -162,7 +162,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;volumes:<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./mysql_data:/var/lib/mysql<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;healthcheck:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test: ["CMD", "mysql", "-h", "127.0.0.1", "-u", "root", "--password=${MYSQL_ROOT_PASSWORD}", "-e", "show databases;"]<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test: ["CMD", "mysql", "-h", "127.0.0.1", "-u", "root", "--password=${MYSQL_PASSWORD:-RootPassword}", "-e", "show databases;"]<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_period: 10s<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval: 5s<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeout: 5s<br/>
@@ -229,8 +229,8 @@
             <div class="env-file"><code>
                 docker run -d \<br/>
                 &nbsp;&nbsp;--name monitoring-worker \<br/>
-                &nbsp;&nbsp;-e SERVER_URL=https://your-monitoring-server.com \<br/>
-                &nbsp;&nbsp;-e WORKER_KEY=your_unique_worker_key_here \<br/>
+                &nbsp;&nbsp;-e SERVER_HOST=https://your-monitoring-server.com \<br/>
+                &nbsp;&nbsp;-e WORKER_KEY_HASH=your_unique_worker_key_here \<br/>
                 &nbsp;&nbsp;akeb/monitoring-worker-go:latest<br/>
             </code></div>
 
