@@ -1232,17 +1232,39 @@ add_doc(
       <h2>Check types</h2>
       <div class="table-wrap"><table>
         <tr><th>Type</th><th>What it does</th></tr>
-        <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout</td></tr>
-        <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type</td></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout. Optional response header <code>Log</code> for custom alert text</td></tr>
+        <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type; same optional <code>Log</code> response header</td></tr>
         <tr><td>TCP</td><td>Host:port connectivity</td></tr>
         <tr><td>Ping</td><td>ICMP reachability</td></tr>
         <tr><td>Docker</td><td>Container status via configured Docker Engine API</td></tr>
-        <tr><td>External</td><td>Push/callback via public <code>/api/external/{{hash}}/</code> OK/FAIL links</td></tr>
+        <tr><td>External</td><td>Push/callback via public <code>/api/external/{{hash}}/</code>; optional <code>Log</code> header or <code>?log=</code> / <code>?message=</code></td></tr>
         <tr><td>node-exporter disk/memory</td><td>Prometheus exporter scrapes with % thresholds</td></tr>
         <tr><td>Server offline</td><td>Agent heartbeat age (minutes)</td></tr>
         <tr><td>Server CPU / memory / disk / container</td><td>Thresholds from agent metrics</td></tr>
         <tr><td>Server net RX / TX</td><td>Bandwidth thresholds in Mbps</td></tr>
       </table></div>
+      <h2 id="custom-log">Custom error text via <code>Log</code></h2>
+      <p>HTTPS, HTTP JSON and External can attach a human-readable message that appears in events and notifications as <code>Log: …</code>.</p>
+      <h3>HTTPS / HTTP JSON (checked resource → worker)</h3>
+      <p>The endpoint under check returns an optional response header named exactly <code>Log</code>. The worker copies it into <code>response_error</code> (prefixed with <code>Log: </code>, sanitized, truncated). If present, it overrides other <code>response_error</code> text for that check (including HTTP JSON messages). The server stores it on the monitor as <code>external_log</code> on FAIL and uses it in fail alerts.</p>
+      {pre('''HTTP/1.1 500 Internal Server Error
+Log: upstream timeout on payment-api
+''')}
+      <h3>External (callback → server)</h3>
+      <p>On <code>GET /api/external/{{hash}}/?status=ok|fail</code> (also accepts synonyms like <code>error</code>/<code>down</code>/<code>0</code> for fail), pass custom text with priority:</p>
+      <ol>
+        <li>HTTP request header <code>Log</code></li>
+        <li>Query <code>?log=…</code></li>
+        <li>Query <code>?message=…</code> (alias)</li>
+      </ol>
+      {pre('''# Header
+curl -H 'Log: disk full on backup' \\
+  'https://monitoring.example.com/api/external/<64hex>/?status=fail'
+
+# Query parameter
+curl 'https://monitoring.example.com/api/external/<64hex>/?status=fail&log=disk%20full'
+''')}
+      <p>Without custom text, fail alerts use a default like <code>External status: fail</code>. The last log is kept for heartbeat-style re-alerts.</p>
       {shot("screenshot_monitors.png", "Monitors admin")}
       {shot("screenshot_createMonitor_1.png", "Create monitor (1)")}
       {shot("screenshot_createMonitor_2.png", "Create monitor (2)")}
@@ -1262,17 +1284,39 @@ add_doc(
       <h2>Типы проверок</h2>
       <div class="table-wrap"><table>
         <tr><th>Тип</th><th>Назначение</th></tr>
-        <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify</td></tr>
-        <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение</td></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify. Опциональный response-заголовок <code>Log</code> для текста алерта</td></tr>
+        <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение; тот же заголовок <code>Log</code></td></tr>
         <tr><td>TCP</td><td>Доступность host:port</td></tr>
         <tr><td>Ping</td><td>ICMP</td></tr>
         <tr><td>Docker</td><td>Статус контейнера через Docker Engine API</td></tr>
-        <tr><td>External</td><td>Push через <code>/api/external/{{hash}}/</code></td></tr>
+        <tr><td>External</td><td>Push через <code>/api/external/{{hash}}/</code>; заголовок <code>Log</code> или <code>?log=</code> / <code>?message=</code></td></tr>
         <tr><td>node-exporter disk/memory</td><td>Скрейп exporter с порогами %</td></tr>
         <tr><td>Server offline</td><td>Возраст heartbeat агента</td></tr>
         <tr><td>Server CPU / memory / disk / container</td><td>Пороги по метрикам агента</td></tr>
         <tr><td>Server net RX / TX</td><td>Пороги Mbps</td></tr>
       </table></div>
+      <h2 id="custom-log">Свой текст ошибки через <code>Log</code></h2>
+      <p>HTTPS, HTTP JSON и External могут передать понятное сообщение — в событиях и алертах оно видно как <code>Log: …</code>.</p>
+      <h3>HTTPS / HTTP JSON (проверяемый ресурс → воркер)</h3>
+      <p>Ответ проверяемого URL может содержать заголовок ровно <code>Log</code>. Воркер кладёт его в <code>response_error</code> (с префиксом <code>Log: </code>, очистка и обрезка). Если заголовок есть, он перекрывает другой текст ошибки этой проверки (в т.ч. сообщения HTTP JSON). Сервер сохраняет его в <code>external_log</code> при FAIL и использует в алертах.</p>
+      {pre('''HTTP/1.1 500 Internal Server Error
+Log: upstream timeout on payment-api
+''')}
+      <h3>External (callback → сервер)</h3>
+      <p>На <code>GET /api/external/{{hash}}/?status=ok|fail</code> (для fail также <code>error</code>/<code>down</code>/<code>0</code>) текст передаётся с приоритетом:</p>
+      <ol>
+        <li>HTTP-заголовок запроса <code>Log</code></li>
+        <li>Query <code>?log=…</code></li>
+        <li>Query <code>?message=…</code> (алиас)</li>
+      </ol>
+      {pre('''# Заголовок
+curl -H 'Log: disk full on backup' \\
+  'https://monitoring.example.com/api/external/<64hex>/?status=fail'
+
+# Параметр
+curl 'https://monitoring.example.com/api/external/<64hex>/?status=fail&log=disk%20full'
+''')}
+      <p>Без своего текста fail даёт сообщение вроде <code>External status: fail</code>. Последний log сохраняется для повторных heartbeat-алертов.</p>
       {shot("screenshot_monitors.png", "Админка мониторов")}
       {shot("screenshot_createMonitor_1.png", "Создание монитора (1)")}
       {shot("screenshot_createMonitor_2.png", "Создание монитора (2)")}
@@ -1650,7 +1694,7 @@ add_doc(
       <p><code>POST /mcp/</code> JSON-RPC; tools mirror v2 plus <code>api_docs</code>. Suitable for Cursor-style remote MCP configs.</p>
       <h2>Other endpoints</h2>
       <ul>
-        <li>External callback: public hash URLs for External monitors</li>
+        <li>External callback: public hash URLs for External monitors; optional <code>Log</code> header or <code>?log=</code> / <code>?message=</code> (see <a href="monitors.html#custom-log">Monitors → Log</a>)</li>
         <li>Agent report: <code>POST /api/agent/report/</code></li>
         <li>Alert-action callbacks for messenger buttons</li>
       </ul>
@@ -1670,7 +1714,7 @@ add_doc(
       <p><code>POST /mcp/</code> — инструменты как у v2 плюс <code>api_docs</code>.</p>
       <h2>Прочее</h2>
       <ul>
-        <li>External callback</li>
+        <li>External callback: заголовок <code>Log</code> или <code>?log=</code> / <code>?message=</code> (см. <a href="monitors.html#custom-log">Мониторы → Log</a>)</li>
         <li>Agent report</li>
         <li>Alert-action callbacks</li>
       </ul>

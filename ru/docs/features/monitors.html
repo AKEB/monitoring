@@ -67,17 +67,37 @@
       <h2>Типы проверок</h2>
       <div class="table-wrap"><table>
         <tr><th>Тип</th><th>Назначение</th></tr>
-        <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify</td></tr>
-        <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение</td></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify. Опциональный response-заголовок <code>Log</code> для текста алерта</td></tr>
+        <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение; тот же заголовок <code>Log</code></td></tr>
         <tr><td>TCP</td><td>Доступность host:port</td></tr>
         <tr><td>Ping</td><td>ICMP</td></tr>
         <tr><td>Docker</td><td>Статус контейнера через Docker Engine API</td></tr>
-        <tr><td>External</td><td>Push через <code>/api/external/{hash}/</code></td></tr>
+        <tr><td>External</td><td>Push через <code>/api/external/{hash}/</code>; заголовок <code>Log</code> или <code>?log=</code> / <code>?message=</code></td></tr>
         <tr><td>node-exporter disk/memory</td><td>Скрейп exporter с порогами %</td></tr>
         <tr><td>Server offline</td><td>Возраст heartbeat агента</td></tr>
         <tr><td>Server CPU / memory / disk / container</td><td>Пороги по метрикам агента</td></tr>
         <tr><td>Server net RX / TX</td><td>Пороги Mbps</td></tr>
       </table></div>
+      <h2 id="custom-log">Свой текст ошибки через <code>Log</code></h2>
+      <p>HTTPS, HTTP JSON и External могут передать понятное сообщение — в событиях и алертах оно видно как <code>Log: …</code>.</p>
+      <h3>HTTPS / HTTP JSON (проверяемый ресурс → воркер)</h3>
+      <p>Ответ проверяемого URL может содержать заголовок ровно <code>Log</code>. Воркер кладёт его в <code>response_error</code> (с префиксом <code>Log: </code>, очистка и обрезка). Если заголовок есть, он перекрывает другой текст ошибки этой проверки (в т.ч. сообщения HTTP JSON). Сервер сохраняет его в <code>external_log</code> при FAIL и использует в алертах.</p>
+      <div class="pre-wrap"><pre><code>HTTP/1.1 500 Internal Server Error
+Log: upstream timeout on payment-api</code></pre></div>
+      <h3>External (callback → сервер)</h3>
+      <p>На <code>GET /api/external/{hash}/?status=ok|fail</code> (для fail также <code>error</code>/<code>down</code>/<code>0</code>) текст передаётся с приоритетом:</p>
+      <ol>
+        <li>HTTP-заголовок запроса <code>Log</code></li>
+        <li>Query <code>?log=…</code></li>
+        <li>Query <code>?message=…</code> (алиас)</li>
+      </ol>
+      <div class="pre-wrap"><pre><code># Заголовок
+curl -H 'Log: disk full on backup' \
+  'https://monitoring.example.com/api/external/&lt;64hex&gt;/?status=fail'
+
+# Параметр
+curl 'https://monitoring.example.com/api/external/&lt;64hex&gt;/?status=fail&amp;log=disk%20full'</code></pre></div>
+      <p>Без своего текста fail даёт сообщение вроде <code>External status: fail</code>. Последний log сохраняется для повторных heartbeat-алертов.</p>
       <figure class="shot">
   <img src="../../../screenshots/screenshot_monitors.png" alt="Админка мониторов" loading="lazy">
   <figcaption>Админка мониторов</figcaption>

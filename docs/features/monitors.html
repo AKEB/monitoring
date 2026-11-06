@@ -67,17 +67,37 @@
       <h2>Check types</h2>
       <div class="table-wrap"><table>
         <tr><th>Type</th><th>What it does</th></tr>
-        <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout</td></tr>
-        <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type</td></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout. Optional response header <code>Log</code> for custom alert text</td></tr>
+        <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type; same optional <code>Log</code> response header</td></tr>
         <tr><td>TCP</td><td>Host:port connectivity</td></tr>
         <tr><td>Ping</td><td>ICMP reachability</td></tr>
         <tr><td>Docker</td><td>Container status via configured Docker Engine API</td></tr>
-        <tr><td>External</td><td>Push/callback via public <code>/api/external/{hash}/</code> OK/FAIL links</td></tr>
+        <tr><td>External</td><td>Push/callback via public <code>/api/external/{hash}/</code>; optional <code>Log</code> header or <code>?log=</code> / <code>?message=</code></td></tr>
         <tr><td>node-exporter disk/memory</td><td>Prometheus exporter scrapes with % thresholds</td></tr>
         <tr><td>Server offline</td><td>Agent heartbeat age (minutes)</td></tr>
         <tr><td>Server CPU / memory / disk / container</td><td>Thresholds from agent metrics</td></tr>
         <tr><td>Server net RX / TX</td><td>Bandwidth thresholds in Mbps</td></tr>
       </table></div>
+      <h2 id="custom-log">Custom error text via <code>Log</code></h2>
+      <p>HTTPS, HTTP JSON and External can attach a human-readable message that appears in events and notifications as <code>Log: …</code>.</p>
+      <h3>HTTPS / HTTP JSON (checked resource → worker)</h3>
+      <p>The endpoint under check returns an optional response header named exactly <code>Log</code>. The worker copies it into <code>response_error</code> (prefixed with <code>Log: </code>, sanitized, truncated). If present, it overrides other <code>response_error</code> text for that check (including HTTP JSON messages). The server stores it on the monitor as <code>external_log</code> on FAIL and uses it in fail alerts.</p>
+      <div class="pre-wrap"><pre><code>HTTP/1.1 500 Internal Server Error
+Log: upstream timeout on payment-api</code></pre></div>
+      <h3>External (callback → server)</h3>
+      <p>On <code>GET /api/external/{hash}/?status=ok|fail</code> (also accepts synonyms like <code>error</code>/<code>down</code>/<code>0</code> for fail), pass custom text with priority:</p>
+      <ol>
+        <li>HTTP request header <code>Log</code></li>
+        <li>Query <code>?log=…</code></li>
+        <li>Query <code>?message=…</code> (alias)</li>
+      </ol>
+      <div class="pre-wrap"><pre><code># Header
+curl -H 'Log: disk full on backup' \
+  'https://monitoring.example.com/api/external/&lt;64hex&gt;/?status=fail'
+
+# Query parameter
+curl 'https://monitoring.example.com/api/external/&lt;64hex&gt;/?status=fail&amp;log=disk%20full'</code></pre></div>
+      <p>Without custom text, fail alerts use a default like <code>External status: fail</code>. The last log is kept for heartbeat-style re-alerts.</p>
       <figure class="shot">
   <img src="../../screenshots/screenshot_monitors.png" alt="Monitors admin" loading="lazy">
   <figcaption>Monitors admin</figcaption>
