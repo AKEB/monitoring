@@ -8,12 +8,17 @@
 - Worker
 ![Docker Pulls](https://img.shields.io/docker/pulls/akeb/monitoring-worker-go) ![Docker Image Size](https://img.shields.io/docker/image-size/akeb/monitoring-worker-go/latest) ![Docker Version](https://img.shields.io/docker/v/akeb/monitoring-worker-go) ![Docker Stars](https://img.shields.io/docker/stars/akeb/monitoring-worker-go) ![License](https://img.shields.io/badge/license-AGPLv3-blue)
 
+- Agent
+![Docker Pulls](https://img.shields.io/docker/pulls/akeb/monitoring-agent) ![Docker Image Size](https://img.shields.io/docker/image-size/akeb/monitoring-agent/latest) ![Docker Version](https://img.shields.io/docker/v/akeb/monitoring-agent) ![Docker Stars](https://img.shields.io/docker/stars/akeb/monitoring-agent) ![License](https://img.shields.io/badge/license-AGPLv3-blue)
+
 Monitoring is a powerful distributed monitoring system with a web interface, built on a Server / Worker / Agent architecture. Monitor websites, services, Docker containers and host metrics from geographically distributed points.
 
 - [Website](https://akeb.github.io/monitoring/)
-- [Documentation](https://akeb.github.io/monitoring/docs/)
-- [Features](https://akeb.github.io/monitoring/docs/features/)
-- [Русская версия](https://akeb.github.io/monitoring/ru/)
+
+Docker images:
+- [akeb/monitoring:latest](https://hub.docker.com/r/akeb/monitoring)
+- [akeb/monitoring-worker-go:latest](https://hub.docker.com/r/akeb/monitoring-worker-go)
+- [akeb/monitoring-agent:latest](https://hub.docker.com/r/akeb/monitoring-agent)
 
 ## Site map
 
