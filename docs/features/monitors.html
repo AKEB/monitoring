@@ -70,6 +70,7 @@
         <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout. Optional response header <code>Log</code> for custom alert text</td></tr>
         <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type; same optional <code>Log</code> response header</td></tr>
         <tr><td>TCP</td><td>Host:port connectivity</td></tr>
+        <tr><td>UDP</td><td>UDP host:port listen probe (ICMP unreachable = down; timeout/reply = up). Not a protocol handshake (e.g. WireGuard)</td></tr>
         <tr><td>Ping</td><td>ICMP reachability</td></tr>
         <tr><td>Docker</td><td>Container status via configured Docker Engine API</td></tr>
         <tr><td>External</td><td>Push/callback via public <code>/api/external/{hash}/</code>; optional <code>Log</code> header or <code>?log=</code> / <code>?message=</code></td></tr>

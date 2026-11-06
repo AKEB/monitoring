@@ -70,6 +70,7 @@
         <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify. Опциональный response-заголовок <code>Log</code> для текста алерта</td></tr>
         <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение; тот же заголовок <code>Log</code></td></tr>
         <tr><td>TCP</td><td>Доступность host:port</td></tr>
+        <tr><td>UDP</td><td>UDP host:port: ICMP unreachable = down, таймаут/ответ = up. Не handshake протокола (например WireGuard)</td></tr>
         <tr><td>Ping</td><td>ICMP</td></tr>
         <tr><td>Docker</td><td>Статус контейнера через Docker Engine API</td></tr>
         <tr><td>External</td><td>Push через <code>/api/external/{hash}/</code>; заголовок <code>Log</code> или <code>?log=</code> / <code>?message=</code></td></tr>

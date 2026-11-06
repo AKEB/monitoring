@@ -340,7 +340,7 @@ def landing_en() -> str:
   <section class="hero">
     <div class="container">
       <h1>Monitoring</h1>
-      <p class="lead">Distributed uptime and host monitoring with a Server, remote Workers, and host Agents. Check HTTP, TCP, Ping, Docker, exporters and server metrics from many regions — and alert without noise.</p>
+      <p class="lead">Distributed uptime and host monitoring with a Server, remote Workers, and host Agents. Check HTTP, TCP, UDP, Ping, Docker, exporters and server metrics from many regions — and alert without noise.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="docs/installation.html">Install in 5 minutes</a>
         <a class="btn btn-secondary" href="docs/index.html">Read the docs</a>
@@ -353,7 +353,7 @@ def landing_en() -> str:
       <h2>What you can do</h2>
       <p class="section-lead">Open any card for a full feature guide with setup steps and screenshots.</p>
       <div class="grid-3">
-        <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS, HTTP JSON, TCP, Ping, Docker, External callbacks, node-exporter and host-agent metrics.</p></a></div>
+        <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS, HTTP JSON, TCP, UDP, Ping, Docker, External callbacks, node-exporter and host-agent metrics.</p></a></div>
         <div class="card feature-card"><span class="tag">Scale</span><a class="stretched" href="docs/features/workers.html"><h3>Distributed workers</h3><p>Run lightweight Go workers in any network or region for objective availability.</p></a></div>
         <div class="card feature-card"><span class="tag">Hosts</span><a class="stretched" href="docs/features/agents.html"><h3>Host agents</h3><p>CPU, RAM, disks, network, listening ports, Docker, Proxmox guests and auth events from each server.</p></a></div>
         <div class="card feature-card"><span class="tag">Alerts</span><a class="stretched" href="docs/features/notifications.html"><h3>Smart notifications</h3><p>Telegram, Mattermost, Gotify, MAX, webhooks — with mute, take, resolve actions.</p></a></div>
@@ -413,7 +413,7 @@ def landing_ru() -> str:
   <section class="hero">
     <div class="container">
       <h1>Monitoring</h1>
-      <p class="lead">Распределённый мониторинг доступности и хостов: сервер, удалённые воркеры и агенты. HTTP, TCP, Ping, Docker, exporter и метрики серверов из разных регионов — с умными алертами без спама.</p>
+      <p class="lead">Распределённый мониторинг доступности и хостов: сервер, удалённые воркеры и агенты. HTTP, TCP, UDP, Ping, Docker, exporter и метрики серверов из разных регионов — с умными алертами без спама.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="docs/installation.html">Установка за 5 минут</a>
         <a class="btn btn-secondary" href="docs/index.html">Документация</a>
@@ -426,7 +426,7 @@ def landing_ru() -> str:
       <h2>Что умеет система</h2>
       <p class="section-lead">Откройте карточку — подробное описание с настройкой и скриншотами.</p>
       <div class="grid-3">
-        <div class="card feature-card"><span class="tag">Ядро</span><a class="stretched" href="docs/features/monitors.html"><h3>Типы проверок</h3><p>HTTPS, HTTP JSON, TCP, Ping, Docker, External, node-exporter и метрики агента.</p></a></div>
+        <div class="card feature-card"><span class="tag">Ядро</span><a class="stretched" href="docs/features/monitors.html"><h3>Типы проверок</h3><p>HTTPS, HTTP JSON, TCP, UDP, Ping, Docker, External, node-exporter и метрики агента.</p></a></div>
         <div class="card feature-card"><span class="tag">Масштаб</span><a class="stretched" href="docs/features/workers.html"><h3>Распределённые воркеры</h3><p>Лёгкие Go-воркеры в любых сетях и регионах для объективной доступности.</p></a></div>
         <div class="card feature-card"><span class="tag">Хосты</span><a class="stretched" href="docs/features/agents.html"><h3>Агенты хостов</h3><p>CPU, RAM, диски, сеть, слушающие порты, Docker, гости Proxmox и события auth с каждого сервера.</p></a></div>
         <div class="card feature-card"><span class="tag">Алерты</span><a class="stretched" href="docs/features/notifications.html"><h3>Умные уведомления</h3><p>Telegram, Mattermost, Gotify, MAX, webhook — с действиями mute / take / resolve.</p></a></div>
@@ -583,7 +583,7 @@ add_doc(
       <div class="table-wrap"><table>
         <tr><th>Component</th><th>Image / binary</th><th>Role</th></tr>
         <tr><td>Server</td><td><code>akeb/monitoring</code></td><td>UI, MySQL, Memcached, scheduling, ACL, alerts, APIs</td></tr>
-        <tr><td>Worker</td><td><code>akeb/monitoring-worker-go</code></td><td>Executes HTTP/TCP/Ping/Docker/exporter jobs; protocol 2.0+</td></tr>
+        <tr><td>Worker</td><td><code>akeb/monitoring-worker-go</code></td><td>Executes HTTP/TCP/UDP/Ping/Docker/exporter jobs; protocol 2.0+</td></tr>
         <tr><td>Agent</td><td><code>akeb/monitoring-agent</code></td><td>Reports CPU/RAM/disk/net/listeners/Docker/Proxmox/auth every ~30s</td></tr>
       </table></div>
       <h2>Data flow</h2>
@@ -619,7 +619,7 @@ add_doc(
       <div class="table-wrap"><table>
         <tr><th>Компонент</th><th>Образ / бинарник</th><th>Роль</th></tr>
         <tr><td>Сервер</td><td><code>akeb/monitoring</code></td><td>UI, MySQL, Memcached, расписание, ACL, алерты, API</td></tr>
-        <tr><td>Воркер</td><td><code>akeb/monitoring-worker-go</code></td><td>HTTP/TCP/Ping/Docker/exporter; протокол 2.0+</td></tr>
+        <tr><td>Воркер</td><td><code>akeb/monitoring-worker-go</code></td><td>HTTP/TCP/UDP/Ping/Docker/exporter; протокол 2.0+</td></tr>
         <tr><td>Агент</td><td><code>akeb/monitoring-agent</code></td><td>CPU/RAM/диск/сеть/порты/Docker/Proxmox/auth каждые ~30 с</td></tr>
       </table></div>
       <h2>Поток данных</h2>
@@ -799,7 +799,7 @@ add_doc(
 
 WORKER_DOWNLOAD_INSTALL = """# Pick the latest tag on https://github.com/AKEB/monitoring-worker-go/releases
 # Use linux-arm64 on Raspberry Pi / ARM hosts.
-VER=v2.3.0
+VER=v2.4.0
 ARCH=amd64   # or arm64
 
 sudo mkdir -p /opt/monitoring-worker
@@ -1237,6 +1237,7 @@ add_doc(
         <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout. Optional response header <code>Log</code> for custom alert text</td></tr>
         <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type; same optional <code>Log</code> response header</td></tr>
         <tr><td>TCP</td><td>Host:port connectivity</td></tr>
+        <tr><td>UDP</td><td>UDP host:port listen probe (ICMP unreachable = down; timeout/reply = up). Not a protocol handshake (e.g. WireGuard)</td></tr>
         <tr><td>Ping</td><td>ICMP reachability</td></tr>
         <tr><td>Docker</td><td>Container status via configured Docker Engine API</td></tr>
         <tr><td>External</td><td>Push/callback via public <code>/api/external/{{hash}}/</code>; optional <code>Log</code> header or <code>?log=</code> / <code>?message=</code></td></tr>
@@ -1290,6 +1291,7 @@ curl 'https://monitoring.example.com/api/external/<64hex>/?status=fail&log=disk%
         <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify. Опциональный response-заголовок <code>Log</code> для текста алерта</td></tr>
         <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение; тот же заголовок <code>Log</code></td></tr>
         <tr><td>TCP</td><td>Доступность host:port</td></tr>
+        <tr><td>UDP</td><td>UDP host:port: ICMP unreachable = down, таймаут/ответ = up. Не handshake протокола (например WireGuard)</td></tr>
         <tr><td>Ping</td><td>ICMP</td></tr>
         <tr><td>Docker</td><td>Статус контейнера через Docker Engine API</td></tr>
         <tr><td>External</td><td>Push через <code>/api/external/{{hash}}/</code>; заголовок <code>Log</code> или <code>?log=</code> / <code>?message=</code></td></tr>
