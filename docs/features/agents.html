@@ -63,9 +63,10 @@
         <li>Docker containers when the socket is available</li>
         <li>Proxmox VE QEMU/LXC guests when <code>/etc/pve</code> exists</li>
         <li>Auth log delta (SSH/sudo), top processes</li>
+        <li>Listening TCP/UDP ports (bind IP, port, process, service)</li>
       </ul>
       <h2>Server UI</h2>
-      <p>Admin → Servers → Create yields <code>AGENT_KEY_HASH</code>. Edit page shows live charts, Proxmox guests, auth events, key rotate, desired agent version / update now.</p>
+      <p>Admin → Servers → Create yields <code>AGENT_KEY_HASH</code>. Edit page shows live charts, listening ports, Proxmox guests, auth events, key rotate, desired agent version / update now.</p>
       <h2>Install with Docker</h2>
       <div class="pre-wrap"><pre><code>docker run -d --name monitoring-agent --restart unless-stopped \
   --net host \
@@ -76,7 +77,7 @@
       <h2>Install without Docker — download binary from GitHub</h2>
       <p>No Go on the host. Assets: <code>monitoring-agent-linux-amd64</code> / <code>linux-arm64</code> (+ <code>.sha256</code>) from <a href="https://github.com/AKEB/monitoring-agent/releases">AKEB/monitoring-agent releases</a>. Works on Proxmox, Debian, Raspberry Pi, LXC.</p>
       <div class="pre-wrap"><pre><code># Pick the latest tag on https://github.com/AKEB/monitoring-agent/releases
-VER=v1.2.0
+VER=v1.3.0
 ARCH=amd64   # or arm64
 
 sudo mkdir -p /opt/monitoring-agent
@@ -127,7 +128,7 @@ go build -buildvcs=false -o monitoring-agent ./cmd/agent/
 GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-amd64 ./cmd/agent/
 GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-arm64 ./cmd/agent/</code></pre></div>
       <h2>Derived monitors</h2>
-      <p>Create Server-* monitor types bound to a registered server for offline/CPU/RAM/disk/container/net alerts.</p>
+      <p>Create Server-* monitor types bound to a registered server for offline/CPU/RAM/disk/container/net/listening-port alerts.</p>
       <div class="page-nav"><div><a href="workers.html">← Workers</a></div><div><a href="docker.html">Docker hosts →</a></div></div>
     
     </article>

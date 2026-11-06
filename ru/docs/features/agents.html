@@ -63,9 +63,10 @@
         <li>Docker-контейнеры при доступном сокете</li>
         <li>Гости Proxmox VE при наличии <code>/etc/pve</code></li>
         <li>События auth, топ процессов</li>
+        <li>Слушающие TCP/UDP порты (IP, порт, процесс, сервис)</li>
       </ul>
       <h2>UI сервера</h2>
-      <p>Admin → Servers → Create даёт <code>AGENT_KEY_HASH</code>. На карточке — графики, Proxmox, auth, ротация ключа, целевая версия.</p>
+      <p>Admin → Servers → Create даёт <code>AGENT_KEY_HASH</code>. На карточке — графики, слушающие порты, Proxmox, auth, ротация ключа, целевая версия.</p>
       <h2>Установка в Docker</h2>
       <div class="pre-wrap"><pre><code>docker run -d --name monitoring-agent --restart unless-stopped \
   --net host \
@@ -76,7 +77,7 @@
       <h2>Без Docker — скачать бинарник с GitHub</h2>
       <p>Go на хосте не нужен. Файлы: <code>monitoring-agent-linux-amd64</code> / <code>linux-arm64</code> (+ <code>.sha256</code>) в <a href="https://github.com/AKEB/monitoring-agent/releases">релизах AKEB/monitoring-agent</a>. Подходит для Proxmox, Debian, Raspberry Pi, LXC.</p>
       <div class="pre-wrap"><pre><code># Pick the latest tag on https://github.com/AKEB/monitoring-agent/releases
-VER=v1.2.0
+VER=v1.3.0
 ARCH=amd64   # or arm64
 
 sudo mkdir -p /opt/monitoring-agent
@@ -127,7 +128,7 @@ go build -buildvcs=false -o monitoring-agent ./cmd/agent/
 GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-amd64 ./cmd/agent/
 GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-arm64 ./cmd/agent/</code></pre></div>
       <h2>Производные мониторы</h2>
-      <p>Типы Server-* привязываются к зарегистрированному серверу.</p>
+      <p>Типы Server-* привязываются к зарегистрированному серверу: offline/CPU/RAM/диск/контейнер/сеть/слушающий порт.</p>
       <div class="page-nav"><div><a href="workers.html">← Воркеры</a></div><div><a href="docker.html">Docker-хосты →</a></div></div>
     
     </article>

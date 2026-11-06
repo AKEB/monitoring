@@ -355,7 +355,7 @@ def landing_en() -> str:
       <div class="grid-3">
         <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS, HTTP JSON, TCP, Ping, Docker, External callbacks, node-exporter and host-agent metrics.</p></a></div>
         <div class="card feature-card"><span class="tag">Scale</span><a class="stretched" href="docs/features/workers.html"><h3>Distributed workers</h3><p>Run lightweight Go workers in any network or region for objective availability.</p></a></div>
-        <div class="card feature-card"><span class="tag">Hosts</span><a class="stretched" href="docs/features/agents.html"><h3>Host agents</h3><p>CPU, RAM, disks, network, Docker, Proxmox guests and auth events from each server.</p></a></div>
+        <div class="card feature-card"><span class="tag">Hosts</span><a class="stretched" href="docs/features/agents.html"><h3>Host agents</h3><p>CPU, RAM, disks, network, listening ports, Docker, Proxmox guests and auth events from each server.</p></a></div>
         <div class="card feature-card"><span class="tag">Alerts</span><a class="stretched" href="docs/features/notifications.html"><h3>Smart notifications</h3><p>Telegram, Mattermost, Gotify, MAX, webhooks — with mute, take, resolve actions.</p></a></div>
         <div class="card feature-card"><span class="tag">Access</span><a class="stretched" href="docs/features/rbac.html"><h3>Multi-tenant RBAC</h3><p>Users, groups, folder-inherited ACL, secrets permissions and audit log.</p></a></div>
         <div class="card feature-card"><span class="tag">Integrations</span><a class="stretched" href="docs/features/api.html"><h3>API &amp; MCP</h3><p>Status feed, Management API v2, Swagger UI and MCP tools for automation.</p></a></div>
@@ -428,7 +428,7 @@ def landing_ru() -> str:
       <div class="grid-3">
         <div class="card feature-card"><span class="tag">Ядро</span><a class="stretched" href="docs/features/monitors.html"><h3>Типы проверок</h3><p>HTTPS, HTTP JSON, TCP, Ping, Docker, External, node-exporter и метрики агента.</p></a></div>
         <div class="card feature-card"><span class="tag">Масштаб</span><a class="stretched" href="docs/features/workers.html"><h3>Распределённые воркеры</h3><p>Лёгкие Go-воркеры в любых сетях и регионах для объективной доступности.</p></a></div>
-        <div class="card feature-card"><span class="tag">Хосты</span><a class="stretched" href="docs/features/agents.html"><h3>Агенты хостов</h3><p>CPU, RAM, диски, сеть, Docker, гости Proxmox и события auth с каждого сервера.</p></a></div>
+        <div class="card feature-card"><span class="tag">Хосты</span><a class="stretched" href="docs/features/agents.html"><h3>Агенты хостов</h3><p>CPU, RAM, диски, сеть, слушающие порты, Docker, гости Proxmox и события auth с каждого сервера.</p></a></div>
         <div class="card feature-card"><span class="tag">Алерты</span><a class="stretched" href="docs/features/notifications.html"><h3>Умные уведомления</h3><p>Telegram, Mattermost, Gotify, MAX, webhook — с действиями mute / take / resolve.</p></a></div>
         <div class="card feature-card"><span class="tag">Доступ</span><a class="stretched" href="docs/features/rbac.html"><h3>RBAC и тенанты</h3><p>Пользователи, группы, ACL с наследованием от папок, секреты и журнал аудита.</p></a></div>
         <div class="card feature-card"><span class="tag">Интеграции</span><a class="stretched" href="docs/features/api.html"><h3>API и MCP</h3><p>Status API, Management API v2, Swagger и MCP-инструменты для автоматизации.</p></a></div>
@@ -584,7 +584,7 @@ add_doc(
         <tr><th>Component</th><th>Image / binary</th><th>Role</th></tr>
         <tr><td>Server</td><td><code>akeb/monitoring</code></td><td>UI, MySQL, Memcached, scheduling, ACL, alerts, APIs</td></tr>
         <tr><td>Worker</td><td><code>akeb/monitoring-worker-go</code></td><td>Executes HTTP/TCP/Ping/Docker/exporter jobs; protocol 2.0+</td></tr>
-        <tr><td>Agent</td><td><code>akeb/monitoring-agent</code></td><td>Reports CPU/RAM/disk/net/Docker/Proxmox/auth every ~30s</td></tr>
+        <tr><td>Agent</td><td><code>akeb/monitoring-agent</code></td><td>Reports CPU/RAM/disk/net/listeners/Docker/Proxmox/auth every ~30s</td></tr>
       </table></div>
       <h2>Data flow</h2>
       {mermaid('''sequenceDiagram
@@ -620,7 +620,7 @@ add_doc(
         <tr><th>Компонент</th><th>Образ / бинарник</th><th>Роль</th></tr>
         <tr><td>Сервер</td><td><code>akeb/monitoring</code></td><td>UI, MySQL, Memcached, расписание, ACL, алерты, API</td></tr>
         <tr><td>Воркер</td><td><code>akeb/monitoring-worker-go</code></td><td>HTTP/TCP/Ping/Docker/exporter; протокол 2.0+</td></tr>
-        <tr><td>Агент</td><td><code>akeb/monitoring-agent</code></td><td>CPU/RAM/диск/сеть/Docker/Proxmox/auth каждые ~30 с</td></tr>
+        <tr><td>Агент</td><td><code>akeb/monitoring-agent</code></td><td>CPU/RAM/диск/сеть/порты/Docker/Proxmox/auth каждые ~30 с</td></tr>
       </table></div>
       <h2>Поток данных</h2>
       {mermaid('''sequenceDiagram
@@ -849,7 +849,7 @@ GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-wor
 """
 
 AGENT_DOWNLOAD_INSTALL = """# Pick the latest tag on https://github.com/AKEB/monitoring-agent/releases
-VER=v1.2.0
+VER=v1.3.0
 ARCH=amd64   # or arm64
 
 sudo mkdir -p /opt/monitoring-agent
@@ -1027,6 +1027,7 @@ add_doc(
         <tr><td><code>COLLECT_PROXMOX</code></td><td><code>true</code></td><td>Proxmox VE QEMU/LXC inventory</td></tr>
         <tr><td><code>COLLECT_AUTH</code></td><td><code>true</code></td><td>Auth log delta (SSH/sudo)</td></tr>
         <tr><td><code>COLLECT_PROCESSES</code></td><td><code>true</code></td><td>Process snapshot</td></tr>
+        <tr><td><code>COLLECT_LISTENERS</code></td><td><code>true</code></td><td>TCP/UDP listening sockets</td></tr>
         <tr><td><code>PROCESS_TOP_N</code></td><td><code>20</code></td><td>Top processes by CPU (5–100)</td></tr>
         <tr><td><code>AUTO_UPDATE</code></td><td><code>true</code></td><td>Honor update payload from report API</td></tr>
         <tr><td><code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Allow only <code>github.com/AKEB/monitoring-agent</code> release URLs</td></tr>
@@ -1124,6 +1125,7 @@ add_doc(
         <tr><td><code>COLLECT_PROXMOX</code></td><td><code>true</code></td><td>Гости Proxmox VE</td></tr>
         <tr><td><code>COLLECT_AUTH</code></td><td><code>true</code></td><td>Дельта auth-лога</td></tr>
         <tr><td><code>COLLECT_PROCESSES</code></td><td><code>true</code></td><td>Снимок процессов</td></tr>
+        <tr><td><code>COLLECT_LISTENERS</code></td><td><code>true</code></td><td>Слушающие TCP/UDP сокеты</td></tr>
         <tr><td><code>PROCESS_TOP_N</code></td><td><code>20</code></td><td>Топ процессов по CPU (5–100)</td></tr>
         <tr><td><code>AUTO_UPDATE</code> / <code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Автообновление с GitHub</td></tr>
       </table></div>
@@ -1242,6 +1244,7 @@ add_doc(
         <tr><td>Server offline</td><td>Agent heartbeat age (minutes)</td></tr>
         <tr><td>Server CPU / memory / disk / container</td><td>Thresholds from agent metrics</td></tr>
         <tr><td>Server net RX / TX</td><td>Bandwidth thresholds in Mbps</td></tr>
+        <tr><td>Server listening port</td><td>Agent reports that TCP/UDP port is bound on the host (any bind IP)</td></tr>
       </table></div>
       <h2 id="custom-log">Custom error text via <code>Log</code></h2>
       <p>HTTPS, HTTP JSON and External can attach a human-readable message that appears in events and notifications as <code>Log: …</code>.</p>
@@ -1294,6 +1297,7 @@ curl 'https://monitoring.example.com/api/external/<64hex>/?status=fail&log=disk%
         <tr><td>Server offline</td><td>Возраст heartbeat агента</td></tr>
         <tr><td>Server CPU / memory / disk / container</td><td>Пороги по метрикам агента</td></tr>
         <tr><td>Server net RX / TX</td><td>Пороги Mbps</td></tr>
+        <tr><td>Server listening port</td><td>Агент подтверждает, что TCP/UDP порт слушается на хосте (любой bind IP)</td></tr>
       </table></div>
       <h2 id="custom-log">Свой текст ошибки через <code>Log</code></h2>
       <p>HTTPS, HTTP JSON и External могут передать понятное сообщение — в событиях и алертах оно видно как <code>Log: …</code>.</p>
@@ -1394,9 +1398,10 @@ add_doc(
         <li>Docker containers when the socket is available</li>
         <li>Proxmox VE QEMU/LXC guests when <code>/etc/pve</code> exists</li>
         <li>Auth log delta (SSH/sudo), top processes</li>
+        <li>Listening TCP/UDP ports (bind IP, port, process, service)</li>
       </ul>
       <h2>Server UI</h2>
-      <p>Admin → Servers → Create yields <code>AGENT_KEY_HASH</code>. Edit page shows live charts, Proxmox guests, auth events, key rotate, desired agent version / update now.</p>
+      <p>Admin → Servers → Create yields <code>AGENT_KEY_HASH</code>. Edit page shows live charts, listening ports, Proxmox guests, auth events, key rotate, desired agent version / update now.</p>
       <h2>Install with Docker</h2>
       {pre(AGENT_RUN)}
       <h2>Install without Docker — download binary from GitHub</h2>
@@ -1407,7 +1412,7 @@ add_doc(
       <p>Only for custom builds — not needed on production servers.</p>
       {pre(AGENT_BUILD)}
       <h2>Derived monitors</h2>
-      <p>Create Server-* monitor types bound to a registered server for offline/CPU/RAM/disk/container/net alerts.</p>
+      <p>Create Server-* monitor types bound to a registered server for offline/CPU/RAM/disk/container/net/listening-port alerts.</p>
       <div class="page-nav"><div><a href="workers.html">← Workers</a></div><div><a href="docker.html">Docker hosts →</a></div></div>
     """,
     f"""
@@ -1420,9 +1425,10 @@ add_doc(
         <li>Docker-контейнеры при доступном сокете</li>
         <li>Гости Proxmox VE при наличии <code>/etc/pve</code></li>
         <li>События auth, топ процессов</li>
+        <li>Слушающие TCP/UDP порты (IP, порт, процесс, сервис)</li>
       </ul>
       <h2>UI сервера</h2>
-      <p>Admin → Servers → Create даёт <code>AGENT_KEY_HASH</code>. На карточке — графики, Proxmox, auth, ротация ключа, целевая версия.</p>
+      <p>Admin → Servers → Create даёт <code>AGENT_KEY_HASH</code>. На карточке — графики, слушающие порты, Proxmox, auth, ротация ключа, целевая версия.</p>
       <h2>Установка в Docker</h2>
       {pre(AGENT_RUN)}
       <h2>Без Docker — скачать бинарник с GitHub</h2>
@@ -1433,7 +1439,7 @@ add_doc(
       <p>Только для кастомной сборки — на серверах обычно не нужна.</p>
       {pre(AGENT_BUILD)}
       <h2>Производные мониторы</h2>
-      <p>Типы Server-* привязываются к зарегистрированному серверу.</p>
+      <p>Типы Server-* привязываются к зарегистрированному серверу: offline/CPU/RAM/диск/контейнер/сеть/слушающий порт.</p>
       <div class="page-nav"><div><a href="workers.html">← Воркеры</a></div><div><a href="docker.html">Docker-хосты →</a></div></div>
     """,
 )
