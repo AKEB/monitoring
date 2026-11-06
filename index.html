@@ -1,272 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <title>Monitoring - Distributed Monitoring System</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
-        .container { width: 80%; margin: 0 auto; padding: 20px 0; }
-        header { background: #f4f4f4; padding: 1rem 0; text-align: center; position: relative; }
-        nav { background: #333; color: #fff; padding: 0.5rem 0; }
-        nav a { color: #fff; margin: 0 15px; text-decoration: none; }
-        section { padding: 2rem 0; }
-        .hero { background: #e2e2e2; text-align: center; padding: 3rem 0; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .feature-card { border: 1px solid #ddd; padding: 1rem; border-radius: 5px; }
-        pre { background: #2d2d2d; color: #f8f8f2; padding: 1rem; border-radius: 5px; overflow-x: auto; }
-        footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; margin-top: 2rem; }
-        .tab { margin-left: 20px; }
-        .env-file { background: #f8f8f8; border-left: 4px solid #007bff; padding: 1rem; margin: 1rem 0; }
-        .language-switcher { position: absolute; top: 1rem; right: 1rem; }
-        .language-switcher a { 
-            background: #007bff; 
-            color: white; 
-            padding: 5px 10px; 
-            text-decoration: none; 
-            border-radius: 3px; 
-            font-size: 0.9rem;
-        }
-        .language-switcher a:hover { background: #0056b3; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Distributed uptime and host monitoring with Server, Workers and Agents.">
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/site.css">
+  <title>Monitoring — Distributed Monitoring System</title>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="language-switcher">
-                <a href="ru/index.html">Русский</a>
-            </div>
-            <img src="images/icon.png" />
-            <h1>Monitoring</h1>
-            <p>Powerful distributed monitoring system for your infrastructure</p>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <img src="./images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="docs/features/index.html">Features</a>
+          <a href="docs/index.html">Docs</a>
+          <a href="docs/installation.html">Install</a>
+          <a href="docs/quick-start.html">Quick Start</a>
+          <a href="docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="index.html" class="is-active">EN</a>
+          <a href="ru/index.html">RU</a>
         </div>
-    </header>
-    <nav>
-        <div class="container">
-            <a href="#features">Features</a>
-            <a href="#architecture">Architecture</a>
-            <a href="#installation">Installation</a>
-            <a href="#quick-start">Quick Start</a>
-            <a href="#docs">Documentation</a>
-        </div>
-    </nav>
+      </nav>
+    </div>
+  </header>
 
-    <section class="hero">
-        <div class="container">
-            <h2>Monitor Your Services Availability Worldwide</h2>
-            <p>Deploy a central server and run lightweight workers in any data centers. Get accurate and reliable downtime alerts.</p>
-            <a href="#installation" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 15px;">Start in 5 Minutes</a>
-        </div>
-    </section>
+  <section class="hero">
+    <div class="container">
+      <h1>Monitoring</h1>
+      <p class="lead">Distributed uptime and host monitoring with a Server, remote Workers, and host Agents. Check HTTP, TCP, Ping, Docker, exporters and server metrics from many regions — and alert without noise.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="docs/installation.html">Install in 5 minutes</a>
+        <a class="btn btn-secondary" href="docs/index.html">Read the docs</a>
+      </div>
+    </div>
+  </section>
 
-    <section id="features">
-        <div class="container">
-            <h2 style="text-align: center;">Key Features</h2>
-            <div class="features">
-                <div class="feature-card">
-                    <h3>🌐 Distributed Monitoring</h3>
-                    <p>Launch workers in different networks and regions for objective availability assessment.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔐 Multi-tenancy and RBAC</h3>
-                    <p>Multiple users, groups, and detailed access control system for all resources.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📊 Variety of Check Types</h3>
-                    <p>HTTP(S), TCP, Ping, External (callback), and Docker container status monitoring via API.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔔 Smart Notifications</h3>
-                    <p>Configure alerts in Telegram and Mattermost. The system doesn't spam during partial failures.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🐳 Docker Monitoring</h3>
-                    <p>Centralized tracking of your containers status across all hosts.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📝 Audit Log</h3>
-                    <p>Complete history of all user actions in the system for maintaining order and security.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <section class="section" id="features">
+    <div class="container">
+      <h2>What you can do</h2>
+      <p class="section-lead">Open any card for a full feature guide with setup steps and screenshots.</p>
+      <div class="grid-3">
+        <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS, HTTP JSON, TCP, Ping, Docker, External callbacks, node-exporter and host-agent metrics.</p></a></div>
+        <div class="card feature-card"><span class="tag">Scale</span><a class="stretched" href="docs/features/workers.html"><h3>Distributed workers</h3><p>Run lightweight Go workers in any network or region for objective availability.</p></a></div>
+        <div class="card feature-card"><span class="tag">Hosts</span><a class="stretched" href="docs/features/agents.html"><h3>Host agents</h3><p>CPU, RAM, disks, network, Docker, Proxmox guests and auth events from each server.</p></a></div>
+        <div class="card feature-card"><span class="tag">Alerts</span><a class="stretched" href="docs/features/notifications.html"><h3>Smart notifications</h3><p>Telegram, Mattermost, Gotify, MAX, webhooks — with mute, take, resolve actions.</p></a></div>
+        <div class="card feature-card"><span class="tag">Access</span><a class="stretched" href="docs/features/rbac.html"><h3>Multi-tenant RBAC</h3><p>Users, groups, folder-inherited ACL, secrets permissions and audit log.</p></a></div>
+        <div class="card feature-card"><span class="tag">Integrations</span><a class="stretched" href="docs/features/api.html"><h3>API &amp; MCP</h3><p>Status feed, Management API v2, Swagger UI and MCP tools for automation.</p></a></div>
+      </div>
+      <p style="margin-top:1.25rem"><a class="btn btn-outline" href="docs/features/index.html">All features →</a></p>
+    </div>
+  </section>
 
-    <section id="architecture" style="background: #f9f9f9;">
-        <div class="container">
-            <h2 style="text-align: center;">Simple and Powerful Architecture</h2>
-            <p style="text-align: center;">The system consists of two components:</p>
-            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 2rem;">
-                <div style="text-align: center; margin: 10px;">
-                    <h3>Server</h3>
-                    <p><code><strong>akeb/monitoring:latest</strong></code></p>
-                    <p>Control center. Web interface, database, API.</p>
-                    <p><a href="https://hub.docker.com/repository/docker/akeb/monitoring/general" style="color: #000000">Docker Hub</a></p>
-                </div>
-                <div style="text-align: center; margin: 10px;">
-                    <h3>Worker</h3>
-                    <p><code><strong>akeb/monitoring-worker-go:latest</strong></code></p>
-                    <p>Lightweight agent. Performs checks and sends results to the Server.</p>
-                    <p><a href="https://hub.docker.com/repository/docker/akeb/monitoring-worker-go/general" style="color: #000000">Docker Hub</a></p>
-                </div>
-            </div>
-            <p style="text-align: center;"><img src="images/architecture.png" title="architecture" alt="architecture"/></p>
-        </div>
-    </section>
+  <section class="section section-muted" id="architecture">
+    <div class="container">
+      <h2>Architecture</h2>
+      <p class="section-lead">Three roles, one control plane. Details on the <a href="docs/architecture.html">architecture page</a>.</p>
+      <div class="arch-components">
+        <div class="card"><h3>Server</h3><code>akeb/monitoring</code><p>Web UI, MySQL, API, alerts, ACL.</p></div>
+        <div class="card"><h3>Worker</h3><code>akeb/monitoring-worker-go</code><p>Runs checks from remote locations.</p></div>
+        <div class="card"><h3>Agent</h3><code>akeb/monitoring-agent</code><p>Pushes host metrics every ~30s.</p></div>
+      </div>
+      <div class="mermaid">
+flowchart LR
+  Workers -->|check results| Server
+  Agents -->|host metrics| Server
+  Server -->|jobs and config| Workers
+  Server -->|desired version| Agents
+  Server -->|alerts| Notify[Telegram Mattermost Gotify MAX Webhook]
+  User[Operators] -->|Web UI / API / MCP| Server
+</div>
+      <p style="text-align:center;margin-top:1.5rem"><img src="./images/architecture.png" alt="Architecture diagram" style="max-width:720px;margin:0 auto;display:block"></p>
+    </div>
+  </section>
 
-    <section id="installation">
-        <div class="container">
-            <h2 style="text-align: center;">Server Installation</h2>
-            
-            <h3>1. Create Project Directory</h3>
-            <div class="env-file">
-                <code>
-                    mkdir monitoring-server<br/>
-                    cd monitoring-server
-                </code>
-            </div>
+  <section class="section" id="screenshots">
+    <div class="container">
+      <h2>Product screenshots</h2>
+      <p class="section-lead">Live dashboard with uptime bars, response charts and events.</p>
+      <div class="grid-2">
+        <figure class="shot">
+  <img src="./screenshots/screenshot_mainpage.png" alt="Dashboard — monitor tree and statuses" loading="lazy">
+  <figcaption>Dashboard — monitor tree and statuses</figcaption>
+</figure>
+        <figure class="shot">
+  <img src="./screenshots/screenshot_mainpage_monitor.png" alt="Selected monitor — charts and worker breakdown" loading="lazy">
+  <figcaption>Selected monitor — charts and worker breakdown</figcaption>
+</figure>
+      </div>
+    </div>
+  </section>
 
-            <h3>2. Create Environment File</h3>
-            <p>Create <code><strong>.env</strong></code> file with your configuration:</p>
-            <div class="env-file">
-                <code>
-                    # Timezone<br/>
-                    TZ=Europe/London<br/>
-                    <br/>
-                    # MySQL<br/>
-                    MYSQL_PASSWORD=YourSecureRootPassword123<br/>
-                    <br/>
-                    # Web Server Port<br/>
-                    NGINX_PORT=80<br/>
-                    <br/>
-                    # Memcached<br/>
-                    MEMCACHED_HOST=memcached<br/>
-                    <br/>
-                    # Security - CHANGE THIS!<br/>
-                    PASSWORD_SALT=YourRandomSaltStringHere123456789
-                </code>
-            </div>
-
-            <h3>3. Create Docker Compose File</h3>
-            <p>Create <code><strong>docker-compose.yml</strong></code>:</p>
-            <div class="env-file"><code>
-                ---<br/>
-                services:<br/>
-                    &nbsp;&nbsp;mysql:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: monitoring-mysql<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;image: mysql:latest<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-RootPassword}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;volumes:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./mysql_data:/var/lib/mysql<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;healthcheck:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;test: ["CMD", "mysql", "-h", "127.0.0.1", "-u", "root", "--password=${MYSQL_PASSWORD:-RootPassword}", "-e", "show databases;"]<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;start_period: 10s<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval: 5s<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timeout: 5s<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retries: 55<br/>
-                    <br/>
-                    &nbsp;&nbsp;memcached:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: "monitoring-memcached"<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;image: memcached<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;command:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --conn-limit=1024<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --memory-limit=32<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- --threads=4<br/>
-                    <br/>
-                    &nbsp;&nbsp;server:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;container_name: "monitoring-server"<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;image: "akeb/monitoring:latest"<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;restart: always<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;environment:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TZ: ${TZ:-UTC}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NGINX_PORT: ${NGINX_PORT:-80}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_HOST: mysql<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MYSQL_PASSWORD: ${MYSQL_PASSWORD:-RootPassword}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMCACHED_HOST: ${MEMCACHED_HOST:-memcached}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PASSWORD_SALT: ${PASSWORD_SALT:-bHchLzC3B99Ss1213127fdw876EDghc2gkDdtg}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;volumes:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./logs/php/:/var/log/php/:rw<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ./logs/nginx/:/var/log/nginx/:rw<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;ports:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- "${NGINX_PORT:-80}:80"<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;depends_on:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mysql:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;condition: service_healthy<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memcached:<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;condition: service_started<br/>
-            </code></div>
-
-            <h3>4. Start the Server</h3>
-            <div class="env-file"><code>docker-compose up -d</code></div>
-
-            <p>The server will be available at <code><strong>http://your-server-ip</strong></code></p>
-        </div>
-    </section>
-
-    <section id="quick-start" style="background: #f9f9f9;">
-        <div class="container">
-            <h2 style="text-align: center;">Quick Start</h2>
-            
-            <h3>1. Access the Web Interface</h3>
-            <p>Open your browser and navigate to your server's IP address.</p>
-
-            <h3>2. Create Your First Worker</h3>
-            <ul>
-                <li>Log in to the web interface (default admin account: E-mail <code><strong>admin@admin.com</strong></code> and password <code><strong>Admin@123</strong></code>)</li>
-                <li>Navigate to "Workers" section</li>
-                <li>Click "Create Worker"</li>
-                <li>Copy the generated unique worker key</li>
-            </ul>
-
-            <h3>3. Deploy Worker Agent</h3>
-            <p>On each remote server where you want to perform monitoring, run:</p>
-            <div class="env-file"><code>
-                docker run -d \<br/>
-                &nbsp;&nbsp;--name monitoring-worker \<br/>
-                &nbsp;&nbsp;-e SERVER_HOST=https://your-monitoring-server.com \<br/>
-                &nbsp;&nbsp;-e WORKER_KEY_HASH=your_unique_worker_key_here \<br/>
-                &nbsp;&nbsp;akeb/monitoring-worker-go:latest<br/>
-            </code></div>
-
-            <h3>4. Create Your First Monitor</h3>
-            <ul>
-                <li>Go to "Monitors" section</li>
-                <li>Click "Create Monitor"</li>
-                <li>Select check type (HTTPS, TCP, Ping, or Docker)</li>
-                <li>Configure check parameters and frequency</li>
-                <li>Select which workers should perform the checks</li>
-                <li>Save the monitor</li>
-            </ul>
-
-            <p>You'll see the first results within a minute!</p>
-        </div>
-    </section>
-
-    <section id="docs" style="background: #f9f9f9;">
-        <div class="container">
-            <h2 style="text-align: center;">Documentation</h2>
-            <p style="text-align: center;">Complete guide for installation, configuration and usage of all project features.</p>
-            <p style="text-align: center;">
-                <a href="https://github.com/AKEB/monitoring/wiki" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Read Documentation</a>
-            </p>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>© 2025 Monitoring Project. License: Dual Licensing (<a href="https://github.com/AKEB/monitoring/blob/main/LICENSE.md" style="color: #fff;">AGPLv3/Commercial</a>).</p>
-            <p>
-                <a href="https://github.com/AKEB/monitoring" style="color: #fff;">GitHub</a> |
-                <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general" style="color: #fff;">Docker Hub</a> |
-                <a href="mailto:vadimakeb@gmail.com" style="color: #fff;">Contact</a>
-            </p>
-        </div>
-    </footer>
+  <section class="section section-muted">
+    <div class="container" style="text-align:center">
+      <h2>Start monitoring</h2>
+      <p class="section-lead" style="margin-inline:auto">Docker Compose for the server, one container per worker, optional host agents.</p>
+      <div class="hero-actions" style="justify-content:center">
+        <a class="btn btn-primary" href="docs/installation.html">Installation guide</a>
+        <a class="btn btn-outline" href="docs/quick-start.html">Quick start</a>
+      </div>
+    </div>
+  </section>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="./js/site.js"></script>
 </body>
 </html>

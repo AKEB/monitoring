@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Host agents — Monitoring">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/site.css">
+  <title>Host agents — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Features</a>
+          <a href="../../docs/index.html">Docs</a>
+          <a href="../../docs/installation.html">Install</a>
+          <a href="../../docs/quick-start.html">Quick Start</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="agents.html" class="is-active">EN</a>
+          <a href="../../ru/docs/features/agents.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../../docs/index.html">Documentation</a>
+        <a href="../../docs/architecture.html">Architecture</a>
+        <a href="../../docs/installation.html">Installation</a>
+        <a href="../../docs/quick-start.html">Quick Start</a>
+        <a href="../../docs/environment.html">Environment variables</a>
+        <a href="../../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../../docs/features/index.html">Overview</a>
+        <a href="../../docs/features/dashboard.html">Dashboard</a>
+        <a href="../../docs/features/monitors.html">Monitors</a>
+        <a href="../../docs/features/workers.html">Workers</a>
+        <a href="../../docs/features/agents.html">Host Agents</a>
+        <a href="../../docs/features/docker.html">Docker Hosts</a>
+        <a href="../../docs/features/notifications.html">Notifications</a>
+        <a href="../../docs/features/maintenance.html">Maintenance</a>
+        <a href="../../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../../docs/features/auth.html">Authentication</a>
+        <a href="../../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Host agents</h1>
+      <p class="lead">The <code>monitoring-agent</code> binary pushes host telemetry to the server about every 30 seconds.</p>
+      <h2>What it reports</h2>
+      <ul>
+        <li>Host identity, uptime, virtualization</li>
+        <li>CPU (cores, load, usage %), memory/swap, disks, network (IPs, bps)</li>
+        <li>Docker containers when the socket is available</li>
+        <li>Proxmox VE QEMU/LXC guests when <code>/etc/pve</code> exists</li>
+        <li>Auth log delta (SSH/sudo), top processes</li>
+      </ul>
+      <h2>Server UI</h2>
+      <p>Admin → Servers → Create yields <code>AGENT_KEY_HASH</code>. Edit page shows live charts, Proxmox guests, auth events, key rotate, desired agent version / update now.</p>
+      <h2>Install with Docker</h2>
+      <div class="pre-wrap"><pre><code>docker run -d --name monitoring-agent --restart unless-stopped \
+  --net host \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  -e SERVER_HOST=https://monitoring.example.com/ \
+  -e AGENT_KEY_HASH=... \
+  akeb/monitoring-agent:latest</code></pre></div>
+      <h2>Install without Docker (binary + systemd)</h2>
+      <p>Download from <a href="https://github.com/AKEB/monitoring-agent/releases">GitHub Releases</a>, or build:</p>
+      <div class="pre-wrap"><pre><code>go build -buildvcs=false -o monitoring-agent ./cmd/agent/
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-amd64 ./cmd/agent/
+GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-arm64 ./cmd/agent/</code></pre></div>
+      <p>Typical host install (Proxmox, Debian, Raspberry Pi, LXC):</p>
+      <div class="pre-wrap"><pre><code>sudo mkdir -p /opt/monitoring-agent
+sudo cp monitoring-agent-linux-amd64 /opt/monitoring-agent/monitoring-agent
+sudo chmod 755 /opt/monitoring-agent/monitoring-agent
+sudo tee /opt/monitoring-agent/.env &gt;/dev/null &lt;&lt;'EOF'
+TZ=Europe/Moscow
+SERVER_HOST=https://monitoring.example.com/
+AGENT_KEY_HASH=paste_agent_key_here
+REPORT_INTERVAL_SEC=30
+AUTO_UPDATE=true
+EOF
+sudo cp deploy/monitoring-agent.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now monitoring-agent
+journalctl -u monitoring-agent -f</code></pre></div>
+      <p>Unit file: <code>deploy/monitoring-agent.service</code> (loads <code>EnvironmentFile=-/opt/monitoring-agent/.env</code>). The agent also reads <code>.env</code> next to the binary. Full variables: <a href="../environment.html#agent">Environment → Agent</a>.</p>
+      <h2>Derived monitors</h2>
+      <p>Create Server-* monitor types bound to a registered server for offline/CPU/RAM/disk/container/net alerts.</p>
+      <div class="page-nav"><div><a href="workers.html">← Workers</a></div><div><a href="docker.html">Docker hosts →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/site.js"></script>
+</body>
+</html>

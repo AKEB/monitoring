@@ -1,6 +1,6 @@
 # Monitoring Project Documentation
 
-![Logo](/images/icon.png)
+![Logo](images/icon.png)
 
 - Server
 ![Docker Pulls](https://img.shields.io/docker/pulls/akeb/monitoring) ![Docker Image Size](https://img.shields.io/docker/image-size/akeb/monitoring/latest) ![Docker Version](https://img.shields.io/docker/v/akeb/monitoring) ![Docker Stars](https://img.shields.io/docker/stars/akeb/monitoring) ![License](https://img.shields.io/badge/license-AGPLv3-blue)
@@ -8,18 +8,35 @@
 - Worker
 ![Docker Pulls](https://img.shields.io/docker/pulls/akeb/monitoring-worker-go) ![Docker Image Size](https://img.shields.io/docker/image-size/akeb/monitoring-worker-go/latest) ![Docker Version](https://img.shields.io/docker/v/akeb/monitoring-worker-go) ![Docker Stars](https://img.shields.io/docker/stars/akeb/monitoring-worker-go) ![License](https://img.shields.io/badge/license-AGPLv3-blue)
 
-Monitoring is a powerful distributed monitoring system with a web interface, built on a "Server-Worker" architecture. The system allows you to monitor the availability and performance of your websites, services, and Docker containers from multiple geographically distributed points.
+Monitoring is a powerful distributed monitoring system with a web interface, built on a Server / Worker / Agent architecture. Monitor websites, services, Docker containers and host metrics from geographically distributed points.
 
-- [Monitoring website](https://akeb.github.io/monitoring/)
-- [Documentation](https://github.com/AKEB/monitoring/wiki)
-- [Screenshots](https://github.com/AKEB/monitoring/tree/main/screenshots)
+- [Website](https://akeb.github.io/monitoring/)
+- [Documentation](https://akeb.github.io/monitoring/docs/)
+- [Features](https://akeb.github.io/monitoring/docs/features/)
+- [Русская версия](https://akeb.github.io/monitoring/ru/)
 
-## 📄 License
+## Site map
 
-This software is available under dual licensing:
+| Page | Path |
+|------|------|
+| Landing | [`index.html`](index.html) |
+| Docs hub | [`docs/index.html`](docs/index.html) |
+| Architecture | [`docs/architecture.html`](docs/architecture.html) |
+| Installation | [`docs/installation.html`](docs/installation.html) |
+| Quick Start | [`docs/quick-start.html`](docs/quick-start.html) |
+| Environment variables | [`docs/environment.html`](docs/environment.html) |
+| Using the UI | [`docs/usage.html`](docs/usage.html) |
+| Features | [`docs/features/`](docs/features/index.html) |
 
-- **AGPLv3** - for private, non-commercial use
-- **Commercial License** - for organizations and commercial use
+Russian mirrors live under [`ru/`](ru/index.html).
 
-If you represent a company and want to use Monitoring in your infrastructure,
-please purchase a commercial license. Contact us at [vadimakeb@gmail.com](mailto:vadimakeb@gmail.com)
+Regenerate HTML after content edits: `python3 _generate.py`.
+
+## License
+
+Dual licensing:
+
+- **AGPLv3** — private, non-commercial use
+- **Commercial License** — organizations and commercial use
+
+Contact: [vadimakeb@gmail.com](mailto:vadimakeb@gmail.com)

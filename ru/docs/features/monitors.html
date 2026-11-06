@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Мониторы — Monitoring">
+  <link rel="shortcut icon" href="../../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../../css/site.css">
+  <title>Мониторы — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Возможности</a>
+          <a href="../../docs/index.html">Документация</a>
+          <a href="../../docs/installation.html">Установка</a>
+          <a href="../../docs/quick-start.html">Быстрый старт</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="../../../docs/features/monitors.html">EN</a>
+          <a href="monitors.html" class="is-active">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Руководства</h4>
+        <a href="../../docs/index.html">Документация</a>
+        <a href="../../docs/architecture.html">Архитектура</a>
+        <a href="../../docs/installation.html">Установка</a>
+        <a href="../../docs/quick-start.html">Быстрый старт</a>
+        <a href="../../docs/environment.html">Переменные окружения</a>
+        <a href="../../docs/usage.html">Интерфейс</a>
+        <h4>Возможности</h4>
+        <a href="../../docs/features/index.html">Обзор</a>
+        <a href="../../docs/features/dashboard.html">Дашборд</a>
+        <a href="../../docs/features/monitors.html">Мониторы</a>
+        <a href="../../docs/features/workers.html">Воркеры</a>
+        <a href="../../docs/features/agents.html">Агенты хостов</a>
+        <a href="../../docs/features/docker.html">Docker-хосты</a>
+        <a href="../../docs/features/notifications.html">Уведомления</a>
+        <a href="../../docs/features/maintenance.html">Обслуживание</a>
+        <a href="../../docs/features/rbac.html">RBAC и аудит</a>
+        <a href="../../docs/features/auth.html">Аутентификация</a>
+        <a href="../../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../../docs/features/api.html">API и MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Мониторы</h1>
+      <p class="lead">Мониторы — проверки (или папки), которые определяют, что смотрит система и как алертит.</p>
+      <h2>Организация</h2>
+      <ul>
+        <li><strong>Папки</strong> — иерархия; ACL и maintenance наследуются вниз</li>
+        <li>Включение/выключение; копирование в админке</li>
+        <li>Назначение воркеров и каналов уведомлений</li>
+        <li><strong>Fail modes</strong>: any / majority (≥50%) / all</li>
+        <li>Интервал, таймаут, повтор алерта; signatures; <code>api_enabled</code> для Status API</li>
+      </ul>
+      <h2>Типы проверок</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Тип</th><th>Назначение</th></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify</td></tr>
+        <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение</td></tr>
+        <tr><td>TCP</td><td>Доступность host:port</td></tr>
+        <tr><td>Ping</td><td>ICMP</td></tr>
+        <tr><td>Docker</td><td>Статус контейнера через Docker Engine API</td></tr>
+        <tr><td>External</td><td>Push через <code>/api/external/{hash}/</code></td></tr>
+        <tr><td>node-exporter disk/memory</td><td>Скрейп exporter с порогами %</td></tr>
+        <tr><td>Server offline</td><td>Возраст heartbeat агента</td></tr>
+        <tr><td>Server CPU / memory / disk / container</td><td>Пороги по метрикам агента</td></tr>
+        <tr><td>Server net RX / TX</td><td>Пороги Mbps</td></tr>
+      </table></div>
+      <figure class="shot">
+  <img src="../../../screenshots/screenshot_monitors.png" alt="Админка мониторов" loading="lazy">
+  <figcaption>Админка мониторов</figcaption>
+</figure>
+      <figure class="shot">
+  <img src="../../../screenshots/screenshot_createMonitor_1.png" alt="Создание монитора (1)" loading="lazy">
+  <figcaption>Создание монитора (1)</figcaption>
+</figure>
+      <figure class="shot">
+  <img src="../../../screenshots/screenshot_createMonitor_2.png" alt="Создание монитора (2)" loading="lazy">
+  <figcaption>Создание монитора (2)</figcaption>
+</figure>
+      <div class="page-nav"><div><a href="dashboard.html">← Дашборд</a></div><div><a href="workers.html">Воркеры →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Двойная лицензия (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Контакт</a> | <a href="../../LICENSE.md">Лицензия</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Using the UI — Monitoring">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/site.css">
+  <title>Using the UI — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <img src="../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../docs/features/index.html">Features</a>
+          <a href="../docs/index.html">Docs</a>
+          <a href="../docs/installation.html">Install</a>
+          <a href="../docs/quick-start.html">Quick Start</a>
+          <a href="../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="usage.html" class="is-active">EN</a>
+          <a href="../ru/docs/usage.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../docs/index.html">Documentation</a>
+        <a href="../docs/architecture.html">Architecture</a>
+        <a href="../docs/installation.html">Installation</a>
+        <a href="../docs/quick-start.html">Quick Start</a>
+        <a href="../docs/environment.html">Environment variables</a>
+        <a href="../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../docs/features/index.html">Overview</a>
+        <a href="../docs/features/dashboard.html">Dashboard</a>
+        <a href="../docs/features/monitors.html">Monitors</a>
+        <a href="../docs/features/workers.html">Workers</a>
+        <a href="../docs/features/agents.html">Host Agents</a>
+        <a href="../docs/features/docker.html">Docker Hosts</a>
+        <a href="../docs/features/notifications.html">Notifications</a>
+        <a href="../docs/features/maintenance.html">Maintenance</a>
+        <a href="../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../docs/features/auth.html">Authentication</a>
+        <a href="../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Using the UI</h1>
+      <p class="lead">Day-to-day operations on the dashboard and admin screens.</p>
+      <h2>Dashboard</h2>
+      <ul>
+        <li>Folder tree of monitors you can read; collapse state is remembered</li>
+        <li>Status badges and 24h availability %</li>
+        <li>Filter by Success / Error / Warning / Unknown / Maintenance; search by title</li>
+        <li>WebSocket background refresh for the list and the selected monitor</li>
+        <li>On mobile: bottom nav toggles List vs Data panes</li>
+      </ul>
+      <figure class="shot">
+  <img src="../screenshots/screenshot_mainpage.png" alt="Main dashboard" loading="lazy">
+  <figcaption>Main dashboard</figcaption>
+</figure>
+      <h2>Monitor detail</h2>
+      <ul>
+        <li>Uptime bar (24h segments)</li>
+        <li>Response-time or metric charts (30m–24h), per worker when applicable</li>
+        <li>Events table (status transitions)</li>
+        <li>Theme follows system light/dark</li>
+      </ul>
+      <figure class="shot">
+  <img src="../screenshots/screenshot_mainpage_monitor.png" alt="Monitor detail with charts" loading="lazy">
+  <figcaption>Monitor detail with charts</figcaption>
+</figure>
+      <h2>Admin areas</h2>
+      <p>Permission-gated menus: Workers, Monitors, Notify, Signatures, Dockers, Servers, Maintenances, Users/Groups/Permissions/Logs, API tokens under Settings.</p>
+      <div class="page-nav"><div><a href="quick-start.html">← Quick Start</a></div><div><a href="environment.html">Environment →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/site.js"></script>
+</body>
+</html>

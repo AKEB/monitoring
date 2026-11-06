@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="API & MCP — Monitoring">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/site.css">
+  <title>API & MCP — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Features</a>
+          <a href="../../docs/index.html">Docs</a>
+          <a href="../../docs/installation.html">Install</a>
+          <a href="../../docs/quick-start.html">Quick Start</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="api.html" class="is-active">EN</a>
+          <a href="../../ru/docs/features/api.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../../docs/index.html">Documentation</a>
+        <a href="../../docs/architecture.html">Architecture</a>
+        <a href="../../docs/installation.html">Installation</a>
+        <a href="../../docs/quick-start.html">Quick Start</a>
+        <a href="../../docs/environment.html">Environment variables</a>
+        <a href="../../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../../docs/features/index.html">Overview</a>
+        <a href="../../docs/features/dashboard.html">Dashboard</a>
+        <a href="../../docs/features/monitors.html">Monitors</a>
+        <a href="../../docs/features/workers.html">Workers</a>
+        <a href="../../docs/features/agents.html">Host Agents</a>
+        <a href="../../docs/features/docker.html">Docker Hosts</a>
+        <a href="../../docs/features/notifications.html">Notifications</a>
+        <a href="../../docs/features/maintenance.html">Maintenance</a>
+        <a href="../../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../../docs/features/auth.html">Authentication</a>
+        <a href="../../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>API &amp; MCP</h1>
+      <p class="lead">Automate Monitoring with personal tokens, REST, Swagger and an MCP endpoint.</p>
+      <h2>API tokens</h2>
+      <p>Settings → API: create/revoke tokens (<code>mnt_…</code>). Send as <code>Authorization: Bearer</code> or <code>X-Api-Token</code>. Rights equal the token owner; secrets redacted without permission.</p>
+      <h2>User Status API</h2>
+      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits.</p>
+      <h2>Management API v2</h2>
+      <p>REST CRUD for monitors, notify, signatures, workers, maintenances, dockers, servers; users/groups read-only; logs by date; permissions GET/PUT. Interactive docs: <code>/api/docs/</code> (OpenAPI <code>/api/docs/openapi.json</code>).</p>
+      <h2>MCP</h2>
+      <p><code>POST /mcp/</code> JSON-RPC; tools mirror v2 plus <code>api_docs</code>. Suitable for Cursor-style remote MCP configs.</p>
+      <h2>Other endpoints</h2>
+      <ul>
+        <li>External callback: public hash URLs for External monitors</li>
+        <li>Agent report: <code>POST /api/agent/report/</code></li>
+        <li>Alert-action callbacks for messenger buttons</li>
+      </ul>
+      <p>Deep protocol notes: <a href="https://github.com/AKEB/monitoring">server docs</a> (<code>WORKER_API.md</code>, <code>USER_API.md</code>, <code>MANAGEMENT_API.md</code>, <code>AGENT_API.md</code>).</p>
+      <div class="page-nav"><div><a href="ssl-events.html">← SSL &amp; events</a></div><div><a href="../index.html">Docs home →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/site.js"></script>
+</body>
+</html>

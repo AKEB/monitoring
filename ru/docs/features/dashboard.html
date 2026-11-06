@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Дашборд — Monitoring">
+  <link rel="shortcut icon" href="../../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../../css/site.css">
+  <title>Дашборд — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Возможности</a>
+          <a href="../../docs/index.html">Документация</a>
+          <a href="../../docs/installation.html">Установка</a>
+          <a href="../../docs/quick-start.html">Быстрый старт</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="../../../docs/features/dashboard.html">EN</a>
+          <a href="dashboard.html" class="is-active">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Руководства</h4>
+        <a href="../../docs/index.html">Документация</a>
+        <a href="../../docs/architecture.html">Архитектура</a>
+        <a href="../../docs/installation.html">Установка</a>
+        <a href="../../docs/quick-start.html">Быстрый старт</a>
+        <a href="../../docs/environment.html">Переменные окружения</a>
+        <a href="../../docs/usage.html">Интерфейс</a>
+        <h4>Возможности</h4>
+        <a href="../../docs/features/index.html">Обзор</a>
+        <a href="../../docs/features/dashboard.html">Дашборд</a>
+        <a href="../../docs/features/monitors.html">Мониторы</a>
+        <a href="../../docs/features/workers.html">Воркеры</a>
+        <a href="../../docs/features/agents.html">Агенты хостов</a>
+        <a href="../../docs/features/docker.html">Docker-хосты</a>
+        <a href="../../docs/features/notifications.html">Уведомления</a>
+        <a href="../../docs/features/maintenance.html">Обслуживание</a>
+        <a href="../../docs/features/rbac.html">RBAC и аудит</a>
+        <a href="../../docs/features/auth.html">Аутентификация</a>
+        <a href="../../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../../docs/features/api.html">API и MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Дашборд</h1>
+      <p class="lead">Главный экран — живое представление всех мониторов, доступных на чтение.</p>
+      <h2>Возможности</h2>
+      <ul>
+        <li>Вложенные папки с запоминанием сворачивания</li>
+        <li>Бейджи статуса и availability за 24 часа</li>
+        <li>Мультифильтр по статусу и поиск по названию</li>
+        <li>Обновление списка и карточки по WebSocket</li>
+        <li>Uptime, графики (ECharts), разбивка по воркерам, события</li>
+        <li>Автотема light/dark</li>
+      </ul>
+      <figure class="shot">
+  <img src="../../../screenshots/screenshot_mainpage.png" alt="Список на дашборде" loading="lazy">
+  <figcaption>Список на дашборде</figcaption>
+</figure>
+      <figure class="shot">
+  <img src="../../../screenshots/screenshot_mainpage_monitor.png" alt="Выбранный монитор" loading="lazy">
+  <figcaption>Выбранный монитор</figcaption>
+</figure>
+      <div class="page-nav"><div><a href="index.html">← Возможности</a></div><div><a href="monitors.html">Мониторы →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Двойная лицензия (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Контакт</a> | <a href="../../LICENSE.md">Лицензия</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../js/site.js"></script>
+</body>
+</html>

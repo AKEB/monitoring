@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="API и MCP — Monitoring">
+  <link rel="shortcut icon" href="../../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../../css/site.css">
+  <title>API и MCP — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Возможности</a>
+          <a href="../../docs/index.html">Документация</a>
+          <a href="../../docs/installation.html">Установка</a>
+          <a href="../../docs/quick-start.html">Быстрый старт</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="../../../docs/features/api.html">EN</a>
+          <a href="api.html" class="is-active">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Руководства</h4>
+        <a href="../../docs/index.html">Документация</a>
+        <a href="../../docs/architecture.html">Архитектура</a>
+        <a href="../../docs/installation.html">Установка</a>
+        <a href="../../docs/quick-start.html">Быстрый старт</a>
+        <a href="../../docs/environment.html">Переменные окружения</a>
+        <a href="../../docs/usage.html">Интерфейс</a>
+        <h4>Возможности</h4>
+        <a href="../../docs/features/index.html">Обзор</a>
+        <a href="../../docs/features/dashboard.html">Дашборд</a>
+        <a href="../../docs/features/monitors.html">Мониторы</a>
+        <a href="../../docs/features/workers.html">Воркеры</a>
+        <a href="../../docs/features/agents.html">Агенты хостов</a>
+        <a href="../../docs/features/docker.html">Docker-хосты</a>
+        <a href="../../docs/features/notifications.html">Уведомления</a>
+        <a href="../../docs/features/maintenance.html">Обслуживание</a>
+        <a href="../../docs/features/rbac.html">RBAC и аудит</a>
+        <a href="../../docs/features/auth.html">Аутентификация</a>
+        <a href="../../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../../docs/features/api.html">API и MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>API и MCP</h1>
+      <p class="lead">Автоматизация через токены, REST, Swagger и MCP.</p>
+      <h2>API-токены</h2>
+      <p>Settings → API: токены <code>mnt_…</code> как <code>Authorization: Bearer</code> или <code>X-Api-Token</code>. Права = владелец токена.</p>
+      <h2>User Status API</h2>
+      <p><code>GET /api/v1/status/</code> — только мониторы с <code>api_enabled</code>. Статусы, availability, SSL, воркеры, maintenance.</p>
+      <h2>Management API v2</h2>
+      <p>CRUD сущностей, права, логи. Swagger: <code>/api/docs/</code>.</p>
+      <h2>MCP</h2>
+      <p><code>POST /mcp/</code> — инструменты как у v2 плюс <code>api_docs</code>.</p>
+      <h2>Прочее</h2>
+      <ul>
+        <li>External callback</li>
+        <li>Agent report</li>
+        <li>Alert-action callbacks</li>
+      </ul>
+      <p>Детали протоколов — в репозитории сервера (<code>*_API.md</code>).</p>
+      <div class="page-nav"><div><a href="ssl-events.html">← SSL и события</a></div><div><a href="../index.html">К документации →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Двойная лицензия (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Контакт</a> | <a href="../../LICENSE.md">Лицензия</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../js/site.js"></script>
+</body>
+</html>

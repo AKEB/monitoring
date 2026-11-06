@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Installation — Monitoring">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/site.css">
+  <title>Installation — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <img src="../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../docs/features/index.html">Features</a>
+          <a href="../docs/index.html">Docs</a>
+          <a href="../docs/installation.html">Install</a>
+          <a href="../docs/quick-start.html">Quick Start</a>
+          <a href="../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="installation.html" class="is-active">EN</a>
+          <a href="../ru/docs/installation.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../docs/index.html">Documentation</a>
+        <a href="../docs/architecture.html">Architecture</a>
+        <a href="../docs/installation.html">Installation</a>
+        <a href="../docs/quick-start.html">Quick Start</a>
+        <a href="../docs/environment.html">Environment variables</a>
+        <a href="../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../docs/features/index.html">Overview</a>
+        <a href="../docs/features/dashboard.html">Dashboard</a>
+        <a href="../docs/features/monitors.html">Monitors</a>
+        <a href="../docs/features/workers.html">Workers</a>
+        <a href="../docs/features/agents.html">Host Agents</a>
+        <a href="../docs/features/docker.html">Docker Hosts</a>
+        <a href="../docs/features/notifications.html">Notifications</a>
+        <a href="../docs/features/maintenance.html">Maintenance</a>
+        <a href="../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../docs/features/auth.html">Authentication</a>
+        <a href="../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Server installation</h1>
+      <p class="lead">Deploy the Monitoring server with Docker Compose: MySQL, Memcached and the server image.</p>
+      <h2>1. Project directory</h2>
+      <div class="pre-wrap"><pre><code>mkdir monitoring-server\ncd monitoring-server</code></pre></div>
+      <h2>2. Environment file</h2>
+      <p>Create <code>.env</code> (change the password and salt):</p>
+      <div class="pre-wrap"><pre><code>TZ=Europe/London
+MYSQL_PASSWORD=YourSecureRootPassword123
+NGINX_PORT=80
+MEMCACHED_HOST=memcached
+PASSWORD_SALT=YourRandomSaltStringHere123456789</code></pre></div>
+      <div class="callout warn"><strong>Security</strong>Use a long random <code>PASSWORD_SALT</code> and a strong MySQL password. Never commit <code>.env</code>.</div>
+      <h2>3. docker-compose.yml</h2>
+      <div class="pre-wrap"><pre><code>---
+services:
+  mysql:
+    container_name: monitoring-mysql
+    image: mysql:latest
+    restart: always
+    environment:
+      TZ: ${TZ:-UTC}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-RootPassword}
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysql", "-h", "127.0.0.1", "-u", "root", "--password=${MYSQL_PASSWORD:-RootPassword}", "-e", "show databases;"]
+      start_period: 10s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+
+  memcached:
+    container_name: "monitoring-memcached"
+    image: memcached
+    restart: always
+    environment:
+      TZ: ${TZ:-UTC}
+    command:
+      - --conn-limit=1024
+      - --memory-limit=32
+      - --threads=4
+
+  server:
+    container_name: "monitoring-server"
+    image: "akeb/monitoring:latest"
+    restart: always
+    environment:
+      TZ: ${TZ:-UTC}
+      NGINX_PORT: ${NGINX_PORT:-80}
+      MYSQL_HOST: mysql
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-RootPassword}
+      MEMCACHED_HOST: ${MEMCACHED_HOST:-memcached}
+      PASSWORD_SALT: ${PASSWORD_SALT:-bHchLzC3B99Ss1213127fdw876EDghc2gkDdtg}
+    volumes:
+      - ./logs/php/:/var/log/php/:rw
+      - ./logs/nginx/:/var/log/nginx/:rw
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      memcached:
+        condition: service_started</code></pre></div>
+      <h2>4. Start</h2>
+      <div class="pre-wrap"><pre><code>docker compose up -d</code></pre></div>
+      <p>Open <code>http://your-server-ip</code> (or the host/port you mapped).</p>
+      <h2>First login</h2>
+      <ul>
+        <li>Email: <code>admin@admin.com</code></li>
+        <li>Password: <code>Admin@123</code></li>
+      </ul>
+      <p>Optional: configure SMTP, Telegram bot token, OpenID/OAuth via environment variables — see <a href="environment.html">Environment variables</a> and <a href="features/auth.html">Authentication</a>.</p>
+      <div class="callout"><strong>Workers &amp; agents without Docker</strong>Binary + systemd installs are documented on <a href="features/workers.html">Workers</a> and <a href="features/agents.html">Host agents</a>.</div>
+      <div class="page-nav"><div><a href="architecture.html">← Architecture</a></div><div><a href="quick-start.html">Quick Start →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/site.js"></script>
+</body>
+</html>

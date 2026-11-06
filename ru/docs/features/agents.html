@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Агенты хостов — Monitoring">
+  <link rel="shortcut icon" href="../../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../../css/site.css">
+  <title>Агенты хостов — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Возможности</a>
+          <a href="../../docs/index.html">Документация</a>
+          <a href="../../docs/installation.html">Установка</a>
+          <a href="../../docs/quick-start.html">Быстрый старт</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="../../../docs/features/agents.html">EN</a>
+          <a href="agents.html" class="is-active">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Руководства</h4>
+        <a href="../../docs/index.html">Документация</a>
+        <a href="../../docs/architecture.html">Архитектура</a>
+        <a href="../../docs/installation.html">Установка</a>
+        <a href="../../docs/quick-start.html">Быстрый старт</a>
+        <a href="../../docs/environment.html">Переменные окружения</a>
+        <a href="../../docs/usage.html">Интерфейс</a>
+        <h4>Возможности</h4>
+        <a href="../../docs/features/index.html">Обзор</a>
+        <a href="../../docs/features/dashboard.html">Дашборд</a>
+        <a href="../../docs/features/monitors.html">Мониторы</a>
+        <a href="../../docs/features/workers.html">Воркеры</a>
+        <a href="../../docs/features/agents.html">Агенты хостов</a>
+        <a href="../../docs/features/docker.html">Docker-хосты</a>
+        <a href="../../docs/features/notifications.html">Уведомления</a>
+        <a href="../../docs/features/maintenance.html">Обслуживание</a>
+        <a href="../../docs/features/rbac.html">RBAC и аудит</a>
+        <a href="../../docs/features/auth.html">Аутентификация</a>
+        <a href="../../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../../docs/features/api.html">API и MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Агенты хостов</h1>
+      <p class="lead">Бинарник <code>monitoring-agent</code> пушит телеметрию хоста на сервер примерно каждые 30 секунд.</p>
+      <h2>Что отдаёт</h2>
+      <ul>
+        <li>Идентичность хоста, uptime, виртуализация</li>
+        <li>CPU, память/swap, диски, сеть</li>
+        <li>Docker-контейнеры при доступном сокете</li>
+        <li>Гости Proxmox VE при наличии <code>/etc/pve</code></li>
+        <li>События auth, топ процессов</li>
+      </ul>
+      <h2>UI сервера</h2>
+      <p>Admin → Servers → Create даёт <code>AGENT_KEY_HASH</code>. На карточке — графики, Proxmox, auth, ротация ключа, целевая версия.</p>
+      <h2>Установка в Docker</h2>
+      <div class="pre-wrap"><pre><code>docker run -d --name monitoring-agent --restart unless-stopped \
+  --net host \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  -e SERVER_HOST=https://monitoring.example.com/ \
+  -e AGENT_KEY_HASH=... \
+  akeb/monitoring-agent:latest</code></pre></div>
+      <h2>Установка без Docker (бинарник + systemd)</h2>
+      <p>Скачайте с <a href="https://github.com/AKEB/monitoring-agent/releases">GitHub Releases</a> или соберите:</p>
+      <div class="pre-wrap"><pre><code>go build -buildvcs=false -o monitoring-agent ./cmd/agent/
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-amd64 ./cmd/agent/
+GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-arm64 ./cmd/agent/</code></pre></div>
+      <p>Типовая установка на хост (Proxmox, Debian, Raspberry Pi, LXC):</p>
+      <div class="pre-wrap"><pre><code>sudo mkdir -p /opt/monitoring-agent
+sudo cp monitoring-agent-linux-amd64 /opt/monitoring-agent/monitoring-agent
+sudo chmod 755 /opt/monitoring-agent/monitoring-agent
+sudo tee /opt/monitoring-agent/.env &gt;/dev/null &lt;&lt;'EOF'
+TZ=Europe/Moscow
+SERVER_HOST=https://monitoring.example.com/
+AGENT_KEY_HASH=paste_agent_key_here
+REPORT_INTERVAL_SEC=30
+AUTO_UPDATE=true
+EOF
+sudo cp deploy/monitoring-agent.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now monitoring-agent
+journalctl -u monitoring-agent -f</code></pre></div>
+      <p>Unit: <code>deploy/monitoring-agent.service</code> (подхватывает <code>EnvironmentFile=-/opt/monitoring-agent/.env</code>). Агент также читает <code>.env</code> рядом с бинарником. Полный список: <a href="../environment.html#agent">Окружение → Агент</a>.</p>
+      <h2>Производные мониторы</h2>
+      <p>Типы Server-* привязываются к зарегистрированному серверу.</p>
+      <div class="page-nav"><div><a href="workers.html">← Воркеры</a></div><div><a href="docker.html">Docker-хосты →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Двойная лицензия (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Контакт</a> | <a href="../../LICENSE.md">Лицензия</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../js/site.js"></script>
+</body>
+</html>

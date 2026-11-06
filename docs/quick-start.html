@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quick Start — Monitoring">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/site.css">
+  <title>Quick Start — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <img src="../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../docs/features/index.html">Features</a>
+          <a href="../docs/index.html">Docs</a>
+          <a href="../docs/installation.html">Install</a>
+          <a href="../docs/quick-start.html">Quick Start</a>
+          <a href="../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="quick-start.html" class="is-active">EN</a>
+          <a href="../ru/docs/quick-start.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../docs/index.html">Documentation</a>
+        <a href="../docs/architecture.html">Architecture</a>
+        <a href="../docs/installation.html">Installation</a>
+        <a href="../docs/quick-start.html">Quick Start</a>
+        <a href="../docs/environment.html">Environment variables</a>
+        <a href="../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../docs/features/index.html">Overview</a>
+        <a href="../docs/features/dashboard.html">Dashboard</a>
+        <a href="../docs/features/monitors.html">Monitors</a>
+        <a href="../docs/features/workers.html">Workers</a>
+        <a href="../docs/features/agents.html">Host Agents</a>
+        <a href="../docs/features/docker.html">Docker Hosts</a>
+        <a href="../docs/features/notifications.html">Notifications</a>
+        <a href="../docs/features/maintenance.html">Maintenance</a>
+        <a href="../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../docs/features/auth.html">Authentication</a>
+        <a href="../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Quick start</h1>
+      <p class="lead">From a running server to the first green check in a few minutes.</p>
+      <ol class="steps">
+        <li><strong>Open the UI</strong> and sign in as admin.</li>
+        <li><strong>Create a worker</strong> under Workers → Create. Copy <code>WORKER_KEY_HASH</code>.</li>
+        <li><strong>Start the worker</strong> on any host that can reach your server:<div class="pre-wrap"><pre><code>docker run -d \
+  --name monitoring-worker \
+  -e SERVER_HOST=https://your-monitoring-server.com \
+  -e WORKER_KEY_HASH=your_unique_worker_key_here \
+  akeb/monitoring-worker-go:latest</code></pre></div></li>
+        <li><strong>Create a monitor</strong> — Monitors → Create → HTTPS, set URL, interval, assign the worker, save.</li>
+        <li><strong>Add a notify channel</strong> (optional) — Telegram / Mattermost / Gotify / MAX / Webhook — and attach it to the monitor.</li>
+      </ol>
+      <figure class="shot">
+  <img src="../screenshots/screenshot_workers.png" alt="Workers list" loading="lazy">
+  <figcaption>Workers list</figcaption>
+</figure>
+      <figure class="shot">
+  <img src="../screenshots/screenshot_createMonitor_1.png" alt="Create monitor" loading="lazy">
+  <figcaption>Create monitor</figcaption>
+</figure>
+      <p>First results usually appear within a minute. Next: <a href="usage.html">Using the UI</a> or <a href="features/agents.html">host agents</a>.</p>
+      <div class="page-nav"><div><a href="installation.html">← Installation</a></div><div><a href="usage.html">Using the UI →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/site.js"></script>
+</body>
+</html>

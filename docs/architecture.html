@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Architecture — Monitoring">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/site.css">
+  <title>Architecture — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <img src="../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../docs/features/index.html">Features</a>
+          <a href="../docs/index.html">Docs</a>
+          <a href="../docs/installation.html">Install</a>
+          <a href="../docs/quick-start.html">Quick Start</a>
+          <a href="../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="architecture.html" class="is-active">EN</a>
+          <a href="../ru/docs/architecture.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../docs/index.html">Documentation</a>
+        <a href="../docs/architecture.html">Architecture</a>
+        <a href="../docs/installation.html">Installation</a>
+        <a href="../docs/quick-start.html">Quick Start</a>
+        <a href="../docs/environment.html">Environment variables</a>
+        <a href="../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../docs/features/index.html">Overview</a>
+        <a href="../docs/features/dashboard.html">Dashboard</a>
+        <a href="../docs/features/monitors.html">Monitors</a>
+        <a href="../docs/features/workers.html">Workers</a>
+        <a href="../docs/features/agents.html">Host Agents</a>
+        <a href="../docs/features/docker.html">Docker Hosts</a>
+        <a href="../docs/features/notifications.html">Notifications</a>
+        <a href="../docs/features/maintenance.html">Maintenance</a>
+        <a href="../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../docs/features/auth.html">Authentication</a>
+        <a href="../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Architecture</h1>
+      <p class="lead">Monitoring is a control plane (Server) plus two kinds of edge processes: Workers that pull check jobs, and Agents that push host telemetry.</p>
+      <h2>Components</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Component</th><th>Image / binary</th><th>Role</th></tr>
+        <tr><td>Server</td><td><code>akeb/monitoring</code></td><td>UI, MySQL, Memcached, scheduling, ACL, alerts, APIs</td></tr>
+        <tr><td>Worker</td><td><code>akeb/monitoring-worker-go</code></td><td>Executes HTTP/TCP/Ping/Docker/exporter jobs; protocol 2.0+</td></tr>
+        <tr><td>Agent</td><td><code>akeb/monitoring-agent</code></td><td>Reports CPU/RAM/disk/net/Docker/Proxmox/auth every ~30s</td></tr>
+      </table></div>
+      <h2>Data flow</h2>
+      <div class="mermaid">
+sequenceDiagram
+  participant UI as Web_UI
+  participant S as Server
+  participant W as Worker
+  participant A as Agent
+  participant N as Notify
+  UI->>S: Configure monitors and ACL
+  W->>S: get jobs protocol 2.0
+  S-->>W: job list
+  W->>W: Run checks
+  W->>S: state results
+  A->>S: report host metrics
+  S->>S: Evaluate status events
+  S->>N: Alert when thresholds fail
+  UI->>S: Live dashboard via WebSocket
+</div>
+      <h2>Storage</h2>
+      <ul>
+        <li><strong>MySQL</strong> — configuration, events, aggregated metrics</li>
+        <li><strong>Memcached</strong> — short-lived caches (e.g. status API)</li>
+        <li>Raw check logs are aggregated; old detail is pruned (about 24h)</li>
+      </ul>
+      <h2>Why workers and agents are separate</h2>
+      <p>Workers answer “is the service reachable from this network?”. Agents answer “what is happening on this machine?”. You can run many workers worldwide and many agents on private hosts without opening inbound ports to the Server.</p>
+      <div class="page-nav"><div><a href="index.html">← Documentation</a></div><div><a href="installation.html">Installation →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/site.js"></script>
+</body>
+</html>

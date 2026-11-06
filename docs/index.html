@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Documentation">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/site.css">
+  <title>Documentation</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <img src="../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../docs/features/index.html">Features</a>
+          <a href="../docs/index.html">Docs</a>
+          <a href="../docs/installation.html">Install</a>
+          <a href="../docs/quick-start.html">Quick Start</a>
+          <a href="../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="index.html" class="is-active">EN</a>
+          <a href="../ru/docs/index.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../docs/index.html">Documentation</a>
+        <a href="../docs/architecture.html">Architecture</a>
+        <a href="../docs/installation.html">Installation</a>
+        <a href="../docs/quick-start.html">Quick Start</a>
+        <a href="../docs/environment.html">Environment variables</a>
+        <a href="../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../docs/features/index.html">Overview</a>
+        <a href="../docs/features/dashboard.html">Dashboard</a>
+        <a href="../docs/features/monitors.html">Monitors</a>
+        <a href="../docs/features/workers.html">Workers</a>
+        <a href="../docs/features/agents.html">Host Agents</a>
+        <a href="../docs/features/docker.html">Docker Hosts</a>
+        <a href="../docs/features/notifications.html">Notifications</a>
+        <a href="../docs/features/maintenance.html">Maintenance</a>
+        <a href="../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../docs/features/auth.html">Authentication</a>
+        <a href="../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Documentation</h1>
+      <p class="lead">Everything you need to deploy Monitoring, understand the architecture, and use every feature.</p>
+      <div class="grid-2">
+        <div class="card"><h3>Guides</h3>
+          <ul>
+            <li><a href="architecture.html">Architecture</a> — Server, Worker, Agent</li>
+            <li><a href="installation.html">Installation</a> — Docker Compose server</li>
+            <li><a href="quick-start.html">Quick Start</a> — first worker and monitor</li>
+            <li><a href="environment.html">Environment variables</a> — Server, Worker, Agent</li>
+            <li><a href="usage.html">Using the UI</a> — daily workflow</li>
+          </ul>
+        </div>
+        <div class="card"><h3>Features</h3>
+          <ul>
+            <li><a href="features/index.html">Feature map</a></li>
+            <li><a href="features/monitors.html">Monitors</a> · <a href="features/workers.html">Workers</a> · <a href="features/agents.html">Agents</a></li>
+            <li><a href="features/notifications.html">Notifications</a> · <a href="features/rbac.html">RBAC</a></li>
+            <li><a href="features/api.html">API &amp; MCP</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.5rem">
+        <strong>Default admin</strong>
+        After a fresh install: <code>admin@admin.com</code> / <code>Admin@123</code> — change immediately.
+      </div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/site.js"></script>
+</body>
+</html>

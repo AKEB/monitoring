@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Архитектура — Monitoring">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/site.css">
+  <title>Архитектура — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <img src="../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../docs/features/index.html">Возможности</a>
+          <a href="../docs/index.html">Документация</a>
+          <a href="../docs/installation.html">Установка</a>
+          <a href="../docs/quick-start.html">Быстрый старт</a>
+          <a href="../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="../../docs/architecture.html">EN</a>
+          <a href="architecture.html" class="is-active">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Руководства</h4>
+        <a href="../docs/index.html">Документация</a>
+        <a href="../docs/architecture.html">Архитектура</a>
+        <a href="../docs/installation.html">Установка</a>
+        <a href="../docs/quick-start.html">Быстрый старт</a>
+        <a href="../docs/environment.html">Переменные окружения</a>
+        <a href="../docs/usage.html">Интерфейс</a>
+        <h4>Возможности</h4>
+        <a href="../docs/features/index.html">Обзор</a>
+        <a href="../docs/features/dashboard.html">Дашборд</a>
+        <a href="../docs/features/monitors.html">Мониторы</a>
+        <a href="../docs/features/workers.html">Воркеры</a>
+        <a href="../docs/features/agents.html">Агенты хостов</a>
+        <a href="../docs/features/docker.html">Docker-хосты</a>
+        <a href="../docs/features/notifications.html">Уведомления</a>
+        <a href="../docs/features/maintenance.html">Обслуживание</a>
+        <a href="../docs/features/rbac.html">RBAC и аудит</a>
+        <a href="../docs/features/auth.html">Аутентификация</a>
+        <a href="../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../docs/features/api.html">API и MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Архитектура</h1>
+      <p class="lead">Monitoring — это control plane (сервер) и два типа периферии: воркеры, которые забирают задания проверок, и агенты, которые пушат телеметрию хоста.</p>
+      <h2>Компоненты</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Компонент</th><th>Образ / бинарник</th><th>Роль</th></tr>
+        <tr><td>Сервер</td><td><code>akeb/monitoring</code></td><td>UI, MySQL, Memcached, расписание, ACL, алерты, API</td></tr>
+        <tr><td>Воркер</td><td><code>akeb/monitoring-worker-go</code></td><td>HTTP/TCP/Ping/Docker/exporter; протокол 2.0+</td></tr>
+        <tr><td>Агент</td><td><code>akeb/monitoring-agent</code></td><td>CPU/RAM/диск/сеть/Docker/Proxmox/auth каждые ~30 с</td></tr>
+      </table></div>
+      <h2>Поток данных</h2>
+      <div class="mermaid">
+sequenceDiagram
+  participant UI as Web_UI
+  participant S as Server
+  participant W as Worker
+  participant A as Agent
+  participant N as Notify
+  UI->>S: Мониторы и ACL
+  W->>S: get jobs protocol 2.0
+  S-->>W: список заданий
+  W->>W: Проверки
+  W->>S: state результаты
+  A->>S: report метрики
+  S->>S: События статусов
+  S->>N: Алерты
+  UI->>S: Дашборд WebSocket
+</div>
+      <h2>Хранение</h2>
+      <ul>
+        <li><strong>MySQL</strong> — конфигурация, события, агрегаты</li>
+        <li><strong>Memcached</strong> — короткоживущие кэши</li>
+        <li>Сырые логи агрегируются; детали чистятся примерно за 24 часа</li>
+      </ul>
+      <h2>Зачем разделять воркеры и агенты</h2>
+      <p>Воркеры отвечают: «доступен ли сервис из этой сети?». Агенты — «что происходит на машине?». Можно держать много воркеров по миру и агентов на закрытых хостах без входящих портов к серверу.</p>
+      <div class="page-nav"><div><a href="index.html">← Документация</a></div><div><a href="installation.html">Установка →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Двойная лицензия (<a href="../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Контакт</a> | <a href="../LICENSE.md">Лицензия</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/site.js"></script>
+</body>
+</html>

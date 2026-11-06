@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Docker hosts — Monitoring">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/site.css">
+  <title>Docker hosts — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Features</a>
+          <a href="../../docs/index.html">Docs</a>
+          <a href="../../docs/installation.html">Install</a>
+          <a href="../../docs/quick-start.html">Quick Start</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="docker.html" class="is-active">EN</a>
+          <a href="../../ru/docs/features/docker.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../../docs/index.html">Documentation</a>
+        <a href="../../docs/architecture.html">Architecture</a>
+        <a href="../../docs/installation.html">Installation</a>
+        <a href="../../docs/quick-start.html">Quick Start</a>
+        <a href="../../docs/environment.html">Environment variables</a>
+        <a href="../../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../../docs/features/index.html">Overview</a>
+        <a href="../../docs/features/dashboard.html">Dashboard</a>
+        <a href="../../docs/features/monitors.html">Monitors</a>
+        <a href="../../docs/features/workers.html">Workers</a>
+        <a href="../../docs/features/agents.html">Host Agents</a>
+        <a href="../../docs/features/docker.html">Docker Hosts</a>
+        <a href="../../docs/features/notifications.html">Notifications</a>
+        <a href="../../docs/features/maintenance.html">Maintenance</a>
+        <a href="../../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../../docs/features/auth.html">Authentication</a>
+        <a href="../../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Docker hosts</h1>
+      <p class="lead">Register Docker Engine API endpoints so workers can check container state over TLS.</p>
+      <h2>Configuration</h2>
+      <ul>
+        <li>Host address and port</li>
+        <li>TLS CA / client cert / key (PEM write-only; API only exposes <code>tls_present</code>)</li>
+        <li>Optional <code>tls_server_name</code> when the IP does not match the certificate DNS</li>
+        <li>Link which workers may poll the host</li>
+        <li>Enable/disable + ACL</li>
+      </ul>
+      <p>Docker-type monitors pick a container name from AJAX lists. Interval/timeout can follow the Docker host settings.</p>
+      <div class="page-nav"><div><a href="agents.html">← Host agents</a></div><div><a href="notifications.html">Notifications →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/site.js"></script>
+</body>
+</html>

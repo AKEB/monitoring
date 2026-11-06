@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Monitors — Monitoring">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/site.css">
+  <title>Monitors — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Features</a>
+          <a href="../../docs/index.html">Docs</a>
+          <a href="../../docs/installation.html">Install</a>
+          <a href="../../docs/quick-start.html">Quick Start</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="monitors.html" class="is-active">EN</a>
+          <a href="../../ru/docs/features/monitors.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../../docs/index.html">Documentation</a>
+        <a href="../../docs/architecture.html">Architecture</a>
+        <a href="../../docs/installation.html">Installation</a>
+        <a href="../../docs/quick-start.html">Quick Start</a>
+        <a href="../../docs/environment.html">Environment variables</a>
+        <a href="../../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../../docs/features/index.html">Overview</a>
+        <a href="../../docs/features/dashboard.html">Dashboard</a>
+        <a href="../../docs/features/monitors.html">Monitors</a>
+        <a href="../../docs/features/workers.html">Workers</a>
+        <a href="../../docs/features/agents.html">Host Agents</a>
+        <a href="../../docs/features/docker.html">Docker Hosts</a>
+        <a href="../../docs/features/notifications.html">Notifications</a>
+        <a href="../../docs/features/maintenance.html">Maintenance</a>
+        <a href="../../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../../docs/features/auth.html">Authentication</a>
+        <a href="../../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Monitors</h1>
+      <p class="lead">Monitors are the checks (or folders) that define what Monitoring watches and how it alerts.</p>
+      <h2>Organization</h2>
+      <ul>
+        <li><strong>Folders</strong> — hierarchy; ACL and maintenance inherit to children</li>
+        <li>Enable/disable per monitor; copy monitor in admin UI</li>
+        <li>Assign workers and notify channels (ACL-filtered)</li>
+        <li><strong>Fail modes</strong>: notify when any / majority (≥50%) / all assigned workers fail</li>
+        <li>Interval, timeout, re-alert cadence; optional signatures; <code>api_enabled</code> for Status API</li>
+      </ul>
+      <h2>Check types</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Type</th><th>What it does</th></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout</td></tr>
+        <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type</td></tr>
+        <tr><td>TCP</td><td>Host:port connectivity</td></tr>
+        <tr><td>Ping</td><td>ICMP reachability</td></tr>
+        <tr><td>Docker</td><td>Container status via configured Docker Engine API</td></tr>
+        <tr><td>External</td><td>Push/callback via public <code>/api/external/{hash}/</code> OK/FAIL links</td></tr>
+        <tr><td>node-exporter disk/memory</td><td>Prometheus exporter scrapes with % thresholds</td></tr>
+        <tr><td>Server offline</td><td>Agent heartbeat age (minutes)</td></tr>
+        <tr><td>Server CPU / memory / disk / container</td><td>Thresholds from agent metrics</td></tr>
+        <tr><td>Server net RX / TX</td><td>Bandwidth thresholds in Mbps</td></tr>
+      </table></div>
+      <figure class="shot">
+  <img src="../../screenshots/screenshot_monitors.png" alt="Monitors admin" loading="lazy">
+  <figcaption>Monitors admin</figcaption>
+</figure>
+      <figure class="shot">
+  <img src="../../screenshots/screenshot_createMonitor_1.png" alt="Create monitor (1)" loading="lazy">
+  <figcaption>Create monitor (1)</figcaption>
+</figure>
+      <figure class="shot">
+  <img src="../../screenshots/screenshot_createMonitor_2.png" alt="Create monitor (2)" loading="lazy">
+  <figcaption>Create monitor (2)</figcaption>
+</figure>
+      <div class="page-nav"><div><a href="dashboard.html">← Dashboard</a></div><div><a href="workers.html">Workers →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/site.js"></script>
+</body>
+</html>

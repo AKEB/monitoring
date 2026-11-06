@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Environment variables — Monitoring">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/site.css">
+  <title>Environment variables — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <img src="../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../docs/features/index.html">Features</a>
+          <a href="../docs/index.html">Docs</a>
+          <a href="../docs/installation.html">Install</a>
+          <a href="../docs/quick-start.html">Quick Start</a>
+          <a href="../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="environment.html" class="is-active">EN</a>
+          <a href="../ru/docs/environment.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../docs/index.html">Documentation</a>
+        <a href="../docs/architecture.html">Architecture</a>
+        <a href="../docs/installation.html">Installation</a>
+        <a href="../docs/quick-start.html">Quick Start</a>
+        <a href="../docs/environment.html">Environment variables</a>
+        <a href="../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../docs/features/index.html">Overview</a>
+        <a href="../docs/features/dashboard.html">Dashboard</a>
+        <a href="../docs/features/monitors.html">Monitors</a>
+        <a href="../docs/features/workers.html">Workers</a>
+        <a href="../docs/features/agents.html">Host Agents</a>
+        <a href="../docs/features/docker.html">Docker Hosts</a>
+        <a href="../docs/features/notifications.html">Notifications</a>
+        <a href="../docs/features/maintenance.html">Maintenance</a>
+        <a href="../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../docs/features/auth.html">Authentication</a>
+        <a href="../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../docs/features/api.html">API & MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Environment variables</h1>
+      <p class="lead">Complete reference for the Server container, Go Worker and Host Agent. Defaults match the current code / <code>.env.example</code> files.</p>
+      <div class="callout"><strong>Where to set them</strong>Server: Compose <code>environment</code> / <code>.env</code>. Worker and Agent: process env or a <code>.env</code> file next to the binary (or in the working directory). See also <a href="features/workers.html">Workers</a> and <a href="features/agents.html">Agents</a> for binary installs.</div>
+
+      <h2 id="server">Server (<code>akeb/monitoring</code>)</h2>
+      <h3>Core</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>TZ</code></td><td><code>UTC</code></td><td>Timezone</td></tr>
+        <tr><td><code>PASSWORD_SALT</code></td><td>—</td><td>Required salt for password hashing — use a long random string</td></tr>
+        <tr><td><code>NGINX_PORT</code></td><td><code>80</code></td><td>Published HTTP port in Compose samples</td></tr>
+        <tr><td><code>APP_DEBUG</code></td><td><code>false</code></td><td>Application debug mode</td></tr>
+        <tr><td><code>APP_SIGNIN_ACTIVE</code></td><td><code>true</code></td><td>Allow email/password sign-in</td></tr>
+        <tr><td><code>APP_SIGNUP_ACTIVE</code></td><td><code>true</code></td><td>Allow self-registration</td></tr>
+        <tr><td><code>APP_BASE_URL</code></td><td>empty</td><td>Public absolute URL (scheme+host) for redirects/emails; empty = detect from request</td></tr>
+        <tr><td><code>TRUST_PROXY</code></td><td><code>false</code></td><td>Trust <code>X-Real-IP</code> / <code>X-Forwarded-*</code> only behind a known reverse proxy</td></tr>
+        <tr><td><code>DESIRED_AGENT_VERSION</code></td><td>empty</td><td>Fallback target agent version (GitHub tag) if not set in Admin → Servers</td></tr>
+        <tr><td><code>DESIRED_WORKER_VERSION</code></td><td>empty</td><td>Fallback target worker version if not set in Admin → Workers</td></tr>
+      </table></div>
+      <h3>MySQL</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>MYSQL_HOST</code></td><td><code>localhost</code></td><td>MySQL host</td></tr>
+        <tr><td><code>MYSQL_PORT</code></td><td><code>3306</code></td><td>MySQL port</td></tr>
+        <tr><td><code>MYSQL_USERNAME</code></td><td><code>root</code></td><td>MySQL user</td></tr>
+        <tr><td><code>MYSQL_PASSWORD</code></td><td>—</td><td>MySQL password</td></tr>
+        <tr><td><code>MYSQL_DB_NAME</code></td><td><code>monitoring</code></td><td>Database name</td></tr>
+        <tr><td><code>MYSQL_DEBUG</code></td><td><code>false</code></td><td>SQL debug logs</td></tr>
+        <tr><td><code>MYSQL_DONT_USE_SLAVE</code></td><td><code>true</code></td><td>Disable read replica</td></tr>
+        <tr><td><code>MYSQL_SLAVE_HOST</code></td><td><code>MYSQL_HOST</code></td><td>Replica host</td></tr>
+        <tr><td><code>MYSQL_SLAVE_PORT</code></td><td><code>MYSQL_PORT</code></td><td>Replica port</td></tr>
+        <tr><td><code>MYSQL_SLAVE_USERNAME</code></td><td><code>MYSQL_USERNAME</code></td><td>Replica user</td></tr>
+        <tr><td><code>MYSQL_SLAVE_PASSWORD</code></td><td><code>MYSQL_PASSWORD</code></td><td>Replica password</td></tr>
+        <tr><td><code>MYSQL_SLAVE_DB_NAME</code></td><td><code>MYSQL_DB_NAME</code></td><td>Replica database</td></tr>
+      </table></div>
+      <h3>Memcached</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>MEMCACHED_HOST</code></td><td>empty</td><td>Memcached host (required in Compose: <code>memcached</code>)</td></tr>
+        <tr><td><code>MEMCACHED_PORT</code></td><td><code>11211</code></td><td>Memcached port</td></tr>
+      </table></div>
+      <h3>SMTP</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>SMTP_HOST</code></td><td>empty</td><td>SMTP host (password reset, mail)</td></tr>
+        <tr><td><code>SMTP_PORT</code></td><td><code>25</code></td><td>SMTP port</td></tr>
+        <tr><td><code>SMTP_USERNAME</code></td><td>empty</td><td>SMTP user</td></tr>
+        <tr><td><code>SMTP_PASSWORD</code></td><td>empty</td><td>SMTP password</td></tr>
+        <tr><td><code>SMTP_TLS</code></td><td><code>false</code></td><td>STARTTLS</td></tr>
+        <tr><td><code>SMTP_SSL</code></td><td><code>false</code></td><td>Implicit SSL</td></tr>
+      </table></div>
+      <h3>OpenID Connect</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>OPENIDCONNECT_PROVIDER</code></td><td>empty</td><td>OIDC provider URL</td></tr>
+        <tr><td><code>OPENIDCONNECT_CLIENT_ID</code></td><td>empty</td><td>Client id</td></tr>
+        <tr><td><code>OPENIDCONNECT_CLIENT_SECRET</code></td><td>empty</td><td>Client secret</td></tr>
+        <tr><td><code>OPENIDCONNECT_BUTTON</code></td><td>empty</td><td>Login button label</td></tr>
+        <tr><td><code>OPENIDCONNECT_SCOPE</code></td><td><code>email profile openid</code></td><td>Scopes</td></tr>
+        <tr><td><code>OPENIDCONNECT_REGISTER</code></td><td><code>true</code></td><td>Allow auto-register on first login</td></tr>
+      </table></div>
+      <h3>OAuth</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>OAUTH_CLIENT_ID</code></td><td>empty</td><td>OAuth client id</td></tr>
+        <tr><td><code>OAUTH_CLIENT_SECRET</code></td><td>empty</td><td>Client secret</td></tr>
+        <tr><td><code>OAUTH_AUTHORIZATION_ENDPOINT</code></td><td>empty</td><td>Authorize URL</td></tr>
+        <tr><td><code>OAUTH_TOKEN_ENDPOINT</code></td><td>empty</td><td>Token URL</td></tr>
+        <tr><td><code>OAUTH_USERINFO_ENDPOINT</code></td><td>empty</td><td>Userinfo URL</td></tr>
+        <tr><td><code>OAUTH_BUTTON</code></td><td>empty</td><td>Login button label</td></tr>
+        <tr><td><code>OAUTH_SCOPE</code></td><td><code>self_profile</code></td><td>Scopes</td></tr>
+        <tr><td><code>OAUTH_REGISTER</code></td><td><code>true</code></td><td>Allow auto-register</td></tr>
+      </table></div>
+      <h3>Telegram (server-side bot / proxy)</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>TELEGRAM_BOT_TOKEN</code></td><td>empty</td><td>Optional global bot token (channels can also store their own)</td></tr>
+        <tr><td><code>TELEGRAM_PROXY_SOCKS5</code></td><td><code>true</code></td><td>Use SOCKS5 for Telegram proxy</td></tr>
+        <tr><td><code>TELEGRAM_PROXY_HOST</code></td><td>empty</td><td>Proxy host</td></tr>
+        <tr><td><code>TELEGRAM_PROXY_PORT</code></td><td><code>8080</code></td><td>Proxy port</td></tr>
+        <tr><td><code>TELEGRAM_PROXY_USERNAME</code></td><td>empty</td><td>Proxy user</td></tr>
+        <tr><td><code>TELEGRAM_PROXY_PASSWORD</code></td><td>empty</td><td>Proxy password</td></tr>
+      </table></div>
+
+      <h2 id="worker">Worker (<code>monitoring-worker-go</code>)</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>SERVER_HOST</code></td><td>—</td><td><strong>Required.</strong> Monitoring base URL (trailing slash added if missing)</td></tr>
+        <tr><td><code>WORKER_KEY_HASH</code></td><td>—</td><td><strong>Required.</strong> Key from Admin → Workers</td></tr>
+        <tr><td><code>TZ</code></td><td><code>UTC</code></td><td>Timezone</td></tr>
+        <tr><td><code>PROTOCOL_VERSION</code></td><td><code>2.0</code></td><td>Must be 2.0+ (server ≥ v2.1)</td></tr>
+        <tr><td><code>WORKER_THREADS</code></td><td><code>10</code></td><td>Concurrent check threads</td></tr>
+        <tr><td><code>JOBS_GET_TIMEOUT</code></td><td><code>30</code></td><td>Seconds between job polls</td></tr>
+        <tr><td><code>LOOP_TIMEOUT</code></td><td><code>200000</code></td><td>Main loop delay (microseconds)</td></tr>
+        <tr><td><code>RESPONSE_SEND_TIMEOUT</code></td><td><code>5</code></td><td>Seconds between result POSTs</td></tr>
+        <tr><td><code>LOGS_WRITE_TIMEOUT</code></td><td><code>10</code></td><td>Seconds between log flushes</td></tr>
+        <tr><td><code>PROXY_HOST</code></td><td>empty</td><td>Optional outbound proxy for checks</td></tr>
+        <tr><td><code>PROXY_TYPE</code></td><td>empty</td><td>Proxy type (HTTP / SOCKS5 as in cURL)</td></tr>
+        <tr><td><code>WORKER_VERSION</code></td><td>ldflags / <code>local</code></td><td>Reported version (env overrides build ldflags)</td></tr>
+        <tr><td><code>DEBUG</code></td><td><code>false</code></td><td>Verbose worker logs</td></tr>
+        <tr><td><code>CURL_DEBUG</code></td><td><code>false</code></td><td>HTTP check request logging</td></tr>
+        <tr><td><code>DOCKER_DEBUG</code></td><td><code>false</code></td><td>Docker Engine API debug lines</td></tr>
+        <tr><td><code>IMMEDIATE_ERROR_RETRY</code></td><td><code>true</code></td><td><code>true</code> = retry failed job on next loop tick (PHP-compatible); <code>false</code> = wait <code>repeat_seconds</code></td></tr>
+        <tr><td><code>AUTO_UPDATE</code></td><td><code>true</code></td><td>Apply <code>data.update</code> from server (binary replace)</td></tr>
+        <tr><td><code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Allow only <code>github.com/AKEB/monitoring-worker-go</code> release URLs</td></tr>
+      </table></div>
+      <p>In Docker prefer image tags and set <code>AUTO_UPDATE=false</code>.</p>
+
+      <h2 id="agent">Agent (<code>monitoring-agent</code>)</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>SERVER_HOST</code></td><td>—</td><td><strong>Required.</strong> Monitoring base URL</td></tr>
+        <tr><td><code>AGENT_KEY_HASH</code></td><td>—</td><td><strong>Required.</strong> Key from Admin → Servers</td></tr>
+        <tr><td><code>TZ</code></td><td><code>UTC</code></td><td>Timezone</td></tr>
+        <tr><td><code>REPORT_INTERVAL_SEC</code></td><td><code>30</code></td><td>Push interval (clamped 15–600)</td></tr>
+        <tr><td><code>AGENT_VERSION</code></td><td>ldflags / <code>local</code></td><td>Reported version</td></tr>
+        <tr><td><code>DEBUG</code></td><td><code>false</code></td><td>Verbose stderr</td></tr>
+        <tr><td><code>COLLECT_DOCKER</code></td><td><code>true</code></td><td>Docker container inventory</td></tr>
+        <tr><td><code>COLLECT_PROXMOX</code></td><td><code>true</code></td><td>Proxmox VE QEMU/LXC inventory</td></tr>
+        <tr><td><code>COLLECT_AUTH</code></td><td><code>true</code></td><td>Auth log delta (SSH/sudo)</td></tr>
+        <tr><td><code>COLLECT_PROCESSES</code></td><td><code>true</code></td><td>Process snapshot</td></tr>
+        <tr><td><code>PROCESS_TOP_N</code></td><td><code>20</code></td><td>Top processes by CPU (5–100)</td></tr>
+        <tr><td><code>AUTO_UPDATE</code></td><td><code>true</code></td><td>Honor update payload from report API</td></tr>
+        <tr><td><code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Allow only <code>github.com/AKEB/monitoring-agent</code> release URLs</td></tr>
+      </table></div>
+
+      <div class="page-nav"><div><a href="usage.html">← Using the UI</a></div><div><a href="features/index.html">Features →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/site.js"></script>
+</body>
+</html>

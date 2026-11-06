@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Переменные окружения — Monitoring">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/site.css">
+  <title>Переменные окружения — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <img src="../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../docs/features/index.html">Возможности</a>
+          <a href="../docs/index.html">Документация</a>
+          <a href="../docs/installation.html">Установка</a>
+          <a href="../docs/quick-start.html">Быстрый старт</a>
+          <a href="../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="../../docs/environment.html">EN</a>
+          <a href="environment.html" class="is-active">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Руководства</h4>
+        <a href="../docs/index.html">Документация</a>
+        <a href="../docs/architecture.html">Архитектура</a>
+        <a href="../docs/installation.html">Установка</a>
+        <a href="../docs/quick-start.html">Быстрый старт</a>
+        <a href="../docs/environment.html">Переменные окружения</a>
+        <a href="../docs/usage.html">Интерфейс</a>
+        <h4>Возможности</h4>
+        <a href="../docs/features/index.html">Обзор</a>
+        <a href="../docs/features/dashboard.html">Дашборд</a>
+        <a href="../docs/features/monitors.html">Мониторы</a>
+        <a href="../docs/features/workers.html">Воркеры</a>
+        <a href="../docs/features/agents.html">Агенты хостов</a>
+        <a href="../docs/features/docker.html">Docker-хосты</a>
+        <a href="../docs/features/notifications.html">Уведомления</a>
+        <a href="../docs/features/maintenance.html">Обслуживание</a>
+        <a href="../docs/features/rbac.html">RBAC и аудит</a>
+        <a href="../docs/features/auth.html">Аутентификация</a>
+        <a href="../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../docs/features/api.html">API и MCP</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Переменные окружения</h1>
+      <p class="lead">Полный справочник для сервера, Go-воркера и агента. Значения по умолчанию — из кода и <code>.env.example</code>.</p>
+      <div class="callout"><strong>Где задавать</strong>Сервер: Compose <code>environment</code> / <code>.env</code>. Воркер и агент: env процесса или файл <code>.env</code> рядом с бинарником. См. также <a href="features/workers.html">Воркеры</a> и <a href="features/agents.html">Агенты</a>.</div>
+
+      <h2 id="server">Сервер (<code>akeb/monitoring</code>)</h2>
+      <h3>Ядро</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Переменная</th><th>По умолчанию</th><th>Описание</th></tr>
+        <tr><td><code>TZ</code></td><td><code>UTC</code></td><td>Часовой пояс</td></tr>
+        <tr><td><code>PASSWORD_SALT</code></td><td>—</td><td>Соль для хешей паролей — длинная случайная строка</td></tr>
+        <tr><td><code>NGINX_PORT</code></td><td><code>80</code></td><td>Порт HTTP в примерах Compose</td></tr>
+        <tr><td><code>APP_DEBUG</code></td><td><code>false</code></td><td>Режим отладки</td></tr>
+        <tr><td><code>APP_SIGNIN_ACTIVE</code></td><td><code>true</code></td><td>Вход по e-mail/паролю</td></tr>
+        <tr><td><code>APP_SIGNUP_ACTIVE</code></td><td><code>true</code></td><td>Самостоятельная регистрация</td></tr>
+        <tr><td><code>APP_BASE_URL</code></td><td>пусто</td><td>Публичный URL (scheme+host) для редиректов/писем</td></tr>
+        <tr><td><code>TRUST_PROXY</code></td><td><code>false</code></td><td>Доверять <code>X-Forwarded-*</code> только за известным proxy</td></tr>
+        <tr><td><code>DESIRED_AGENT_VERSION</code></td><td>пусто</td><td>Целевая версия агента, если не задана в UI</td></tr>
+        <tr><td><code>DESIRED_WORKER_VERSION</code></td><td>пусто</td><td>Целевая версия воркера, если не задана в UI</td></tr>
+      </table></div>
+      <h3>MySQL</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Переменная</th><th>По умолчанию</th><th>Описание</th></tr>
+        <tr><td><code>MYSQL_HOST</code></td><td><code>localhost</code></td><td>Хост MySQL</td></tr>
+        <tr><td><code>MYSQL_PORT</code></td><td><code>3306</code></td><td>Порт</td></tr>
+        <tr><td><code>MYSQL_USERNAME</code></td><td><code>root</code></td><td>Пользователь</td></tr>
+        <tr><td><code>MYSQL_PASSWORD</code></td><td>—</td><td>Пароль</td></tr>
+        <tr><td><code>MYSQL_DB_NAME</code></td><td><code>monitoring</code></td><td>Имя БД</td></tr>
+        <tr><td><code>MYSQL_DEBUG</code></td><td><code>false</code></td><td>Отладка SQL</td></tr>
+        <tr><td><code>MYSQL_DONT_USE_SLAVE</code></td><td><code>true</code></td><td>Не использовать реплику</td></tr>
+        <tr><td><code>MYSQL_SLAVE_*</code></td><td>как master</td><td>Параметры read-replica (HOST/PORT/USERNAME/PASSWORD/DB_NAME)</td></tr>
+      </table></div>
+      <h3>Memcached</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Переменная</th><th>По умолчанию</th><th>Описание</th></tr>
+        <tr><td><code>MEMCACHED_HOST</code></td><td>пусто</td><td>Хост Memcached</td></tr>
+        <tr><td><code>MEMCACHED_PORT</code></td><td><code>11211</code></td><td>Порт</td></tr>
+      </table></div>
+      <h3>SMTP</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Переменная</th><th>По умолчанию</th><th>Описание</th></tr>
+        <tr><td><code>SMTP_HOST</code></td><td>пусто</td><td>SMTP-хост</td></tr>
+        <tr><td><code>SMTP_PORT</code></td><td><code>25</code></td><td>Порт</td></tr>
+        <tr><td><code>SMTP_USERNAME</code> / <code>SMTP_PASSWORD</code></td><td>пусто</td><td>Учётные данные</td></tr>
+        <tr><td><code>SMTP_TLS</code> / <code>SMTP_SSL</code></td><td><code>false</code></td><td>STARTTLS / implicit SSL</td></tr>
+      </table></div>
+      <h3>OpenID Connect и OAuth</h3>
+      <p>Набор <code>OPENIDCONNECT_*</code> (PROVIDER, CLIENT_ID/SECRET, BUTTON, SCOPE, REGISTER) и <code>OAUTH_*</code> (CLIENT_ID/SECRET, AUTHORIZATION/TOKEN/USERINFO_ENDPOINT, BUTTON, SCOPE, REGISTER). Подробности — в английской таблице выше и в <a href="features/auth.html">Аутентификации</a>.</p>
+      <h3>Telegram</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Переменная</th><th>По умолчанию</th><th>Описание</th></tr>
+        <tr><td><code>TELEGRAM_BOT_TOKEN</code></td><td>пусто</td><td>Опциональный глобальный токен бота</td></tr>
+        <tr><td><code>TELEGRAM_PROXY_SOCKS5</code></td><td><code>true</code></td><td>SOCKS5 для proxy</td></tr>
+        <tr><td><code>TELEGRAM_PROXY_HOST</code> / <code>PORT</code></td><td>пусто / <code>8080</code></td><td>Адрес proxy</td></tr>
+        <tr><td><code>TELEGRAM_PROXY_USERNAME</code> / <code>PASSWORD</code></td><td>пусто</td><td>Учётка proxy</td></tr>
+      </table></div>
+
+      <h2 id="worker">Воркер (<code>monitoring-worker-go</code>)</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Переменная</th><th>По умолчанию</th><th>Описание</th></tr>
+        <tr><td><code>SERVER_HOST</code></td><td>—</td><td><strong>Обязательно.</strong> URL сервера</td></tr>
+        <tr><td><code>WORKER_KEY_HASH</code></td><td>—</td><td><strong>Обязательно.</strong> Ключ из Admin → Workers</td></tr>
+        <tr><td><code>TZ</code></td><td><code>UTC</code></td><td>Часовой пояс</td></tr>
+        <tr><td><code>PROTOCOL_VERSION</code></td><td><code>2.0</code></td><td>Только 2.0+</td></tr>
+        <tr><td><code>WORKER_THREADS</code></td><td><code>10</code></td><td>Потоки проверок</td></tr>
+        <tr><td><code>JOBS_GET_TIMEOUT</code></td><td><code>30</code></td><td>Интервал опроса заданий (сек)</td></tr>
+        <tr><td><code>LOOP_TIMEOUT</code></td><td><code>200000</code></td><td>Задержка цикла (мкс)</td></tr>
+        <tr><td><code>RESPONSE_SEND_TIMEOUT</code></td><td><code>5</code></td><td>Интервал отправки результатов (сек)</td></tr>
+        <tr><td><code>LOGS_WRITE_TIMEOUT</code></td><td><code>10</code></td><td>Интервал записи логов (сек)</td></tr>
+        <tr><td><code>PROXY_HOST</code> / <code>PROXY_TYPE</code></td><td>пусто</td><td>Исходящий proxy для проверок</td></tr>
+        <tr><td><code>WORKER_VERSION</code></td><td>ldflags / <code>local</code></td><td>Версия в API</td></tr>
+        <tr><td><code>DEBUG</code> / <code>CURL_DEBUG</code> / <code>DOCKER_DEBUG</code></td><td><code>false</code></td><td>Логи воркера / HTTP / Docker API</td></tr>
+        <tr><td><code>IMMEDIATE_ERROR_RETRY</code></td><td><code>true</code></td><td>Сразу повторять упавшую задачу (как PHP)</td></tr>
+        <tr><td><code>AUTO_UPDATE</code> / <code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Автообновление бинарника с GitHub</td></tr>
+      </table></div>
+      <p>В Docker лучше обновлять тегом образа и ставить <code>AUTO_UPDATE=false</code>.</p>
+
+      <h2 id="agent">Агент (<code>monitoring-agent</code>)</h2>
+      <div class="table-wrap"><table>
+        <tr><th>Переменная</th><th>По умолчанию</th><th>Описание</th></tr>
+        <tr><td><code>SERVER_HOST</code></td><td>—</td><td><strong>Обязательно.</strong> URL сервера</td></tr>
+        <tr><td><code>AGENT_KEY_HASH</code></td><td>—</td><td><strong>Обязательно.</strong> Ключ из Admin → Servers</td></tr>
+        <tr><td><code>TZ</code></td><td><code>UTC</code></td><td>Часовой пояс</td></tr>
+        <tr><td><code>REPORT_INTERVAL_SEC</code></td><td><code>30</code></td><td>Интервал отчёта (15–600)</td></tr>
+        <tr><td><code>AGENT_VERSION</code></td><td>ldflags / <code>local</code></td><td>Версия в API</td></tr>
+        <tr><td><code>DEBUG</code></td><td><code>false</code></td><td>Подробный stderr</td></tr>
+        <tr><td><code>COLLECT_DOCKER</code></td><td><code>true</code></td><td>Инвентарь Docker</td></tr>
+        <tr><td><code>COLLECT_PROXMOX</code></td><td><code>true</code></td><td>Гости Proxmox VE</td></tr>
+        <tr><td><code>COLLECT_AUTH</code></td><td><code>true</code></td><td>Дельта auth-лога</td></tr>
+        <tr><td><code>COLLECT_PROCESSES</code></td><td><code>true</code></td><td>Снимок процессов</td></tr>
+        <tr><td><code>PROCESS_TOP_N</code></td><td><code>20</code></td><td>Топ процессов по CPU (5–100)</td></tr>
+        <tr><td><code>AUTO_UPDATE</code> / <code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Автообновление с GitHub</td></tr>
+      </table></div>
+
+      <div class="page-nav"><div><a href="usage.html">← Интерфейс</a></div><div><a href="features/index.html">Возможности →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Двойная лицензия (<a href="../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Контакт</a> | <a href="../LICENSE.md">Лицензия</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/site.js"></script>
+</body>
+</html>
