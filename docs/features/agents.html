@@ -73,15 +73,22 @@
   -e SERVER_HOST=https://monitoring.example.com/ \
   -e AGENT_KEY_HASH=... \
   akeb/monitoring-agent:latest</code></pre></div>
-      <h2>Install without Docker (binary + systemd)</h2>
-      <p>Download from <a href="https://github.com/AKEB/monitoring-agent/releases">GitHub Releases</a>, or build:</p>
-      <div class="pre-wrap"><pre><code>go build -buildvcs=false -o monitoring-agent ./cmd/agent/
-GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-amd64 ./cmd/agent/
-GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-arm64 ./cmd/agent/</code></pre></div>
-      <p>Typical host install (Proxmox, Debian, Raspberry Pi, LXC):</p>
-      <div class="pre-wrap"><pre><code>sudo mkdir -p /opt/monitoring-agent
-sudo cp monitoring-agent-linux-amd64 /opt/monitoring-agent/monitoring-agent
+      <h2>Install without Docker — download binary from GitHub</h2>
+      <p>No Go on the host. Assets: <code>monitoring-agent-linux-amd64</code> / <code>linux-arm64</code> (+ <code>.sha256</code>) from <a href="https://github.com/AKEB/monitoring-agent/releases">AKEB/monitoring-agent releases</a>. Works on Proxmox, Debian, Raspberry Pi, LXC.</p>
+      <div class="pre-wrap"><pre><code># Pick the latest tag on https://github.com/AKEB/monitoring-agent/releases
+VER=v1.2.0
+ARCH=amd64   # or arm64
+
+sudo mkdir -p /opt/monitoring-agent
+sudo curl -fsSL -o /opt/monitoring-agent/monitoring-agent \
+  "https://github.com/AKEB/monitoring-agent/releases/download/${VER}/monitoring-agent-linux-${ARCH}"
 sudo chmod 755 /opt/monitoring-agent/monitoring-agent
+
+# Optional checksum check:
+# curl -fsSL -o /tmp/monitoring-agent.sha256 \
+#   "https://github.com/AKEB/monitoring-agent/releases/download/${VER}/monitoring-agent-linux-${ARCH}.sha256"
+# echo "$(cat /tmp/monitoring-agent.sha256)  /opt/monitoring-agent/monitoring-agent" | sha256sum -c -
+
 sudo tee /opt/monitoring-agent/.env &gt;/dev/null &lt;&lt;'EOF'
 TZ=Europe/Moscow
 SERVER_HOST=https://monitoring.example.com/
@@ -89,11 +96,36 @@ AGENT_KEY_HASH=paste_agent_key_here
 REPORT_INTERVAL_SEC=30
 AUTO_UPDATE=true
 EOF
-sudo cp deploy/monitoring-agent.service /etc/systemd/system/
+
+sudo tee /etc/systemd/system/monitoring-agent.service &gt;/dev/null &lt;&lt;'EOF'
+[Unit]
+Description=Monitoring host agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/monitoring-agent
+ExecStart=/opt/monitoring-agent/monitoring-agent
+Restart=always
+RestartSec=5
+EnvironmentFile=-/opt/monitoring-agent/.env
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 sudo systemctl daemon-reload
 sudo systemctl enable --now monitoring-agent
 journalctl -u monitoring-agent -f</code></pre></div>
-      <p>Unit file: <code>deploy/monitoring-agent.service</code> (loads <code>EnvironmentFile=-/opt/monitoring-agent/.env</code>). The agent also reads <code>.env</code> next to the binary. Full variables: <a href="../environment.html#agent">Environment → Agent</a>.</p>
+      <p>Full variables: <a href="../environment.html#agent">Environment → Agent</a>.</p>
+      <h3>Optional: build from source</h3>
+      <p>Only for custom builds — not needed on production servers.</p>
+      <div class="pre-wrap"><pre><code># Only if you need a custom build — prefer GitHub Releases on servers.
+go build -buildvcs=false -o monitoring-agent ./cmd/agent/
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-amd64 ./cmd/agent/
+GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-arm64 ./cmd/agent/</code></pre></div>
       <h2>Derived monitors</h2>
       <p>Create Server-* monitor types bound to a registered server for offline/CPU/RAM/disk/container/net alerts.</p>
       <div class="page-nav"><div><a href="workers.html">← Workers</a></div><div><a href="docker.html">Docker hosts →</a></div></div>

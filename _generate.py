@@ -675,7 +675,7 @@ add_doc(
         <li>Password: <code>Admin@123</code></li>
       </ul>
       <p>Optional: configure SMTP, Telegram bot token, OpenID/OAuth via environment variables — see <a href="environment.html">Environment variables</a> and <a href="features/auth.html">Authentication</a>.</p>
-      <div class="callout"><strong>Workers &amp; agents without Docker</strong>Binary + systemd installs are documented on <a href="features/workers.html">Workers</a> and <a href="features/agents.html">Host agents</a>.</div>
+      <div class="callout"><strong>Workers &amp; agents without Docker</strong>Download ready binaries from GitHub Releases (no Go build on the server) — see <a href="features/workers.html">Workers</a> and <a href="features/agents.html">Host agents</a>.</div>
       <div class="page-nav"><div><a href="architecture.html">← Architecture</a></div><div><a href="quick-start.html">Quick Start →</a></div></div>
     """,
     f"""
@@ -698,7 +698,7 @@ add_doc(
         <li>Пароль: <code>Admin@123</code></li>
       </ul>
       <p>Опционально: SMTP, Telegram, OpenID/OAuth — см. <a href="environment.html">переменные окружения</a> и <a href="features/auth.html">Аутентификацию</a>.</p>
-      <div class="callout"><strong>Воркер и агент без Docker</strong>Установка бинарником + systemd описана на страницах <a href="features/workers.html">Воркеры</a> и <a href="features/agents.html">Агенты</a>.</div>
+      <div class="callout"><strong>Воркер и агент без Docker</strong>Готовые бинарники скачиваются с GitHub Releases (без сборки Go на сервере) — см. <a href="features/workers.html">Воркеры</a> и <a href="features/agents.html">Агенты</a>.</div>
       <div class="page-nav"><div><a href="architecture.html">← Архитектура</a></div><div><a href="quick-start.html">Быстрый старт →</a></div></div>
     """,
 )
@@ -720,6 +720,7 @@ add_doc(
       </ol>
       {shot("screenshot_workers.png", "Workers list")}
       {shot("screenshot_createMonitor_1.png", "Create monitor")}
+      <p>Prefer a host binary instead of Docker? Download <code>monitoring-worker-linux-amd64</code> (or <code>arm64</code>) from <a href="https://github.com/AKEB/monitoring-worker-go/releases">GitHub Releases</a> — full systemd steps on <a href="features/workers.html">Workers</a>.</p>
       <p>First results usually appear within a minute. Next: <a href="usage.html">Using the UI</a> or <a href="features/agents.html">host agents</a>.</p>
       <div class="page-nav"><div><a href="installation.html">← Installation</a></div><div><a href="usage.html">Using the UI →</a></div></div>
     """,
@@ -735,6 +736,7 @@ add_doc(
       </ol>
       {shot("screenshot_workers.png", "Список воркеров")}
       {shot("screenshot_createMonitor_1.png", "Создание монитора")}
+      <p>Нужен бинарник вместо Docker? Скачайте <code>monitoring-worker-linux-amd64</code> (или <code>arm64</code>) с <a href="https://github.com/AKEB/monitoring-worker-go/releases">GitHub Releases</a> — шаги systemd на странице <a href="features/workers.html">Воркеры</a>.</p>
       <p>Первые результаты обычно за минуту. Дальше: <a href="usage.html">интерфейс</a> или <a href="features/agents.html">агенты</a>.</p>
       <div class="page-nav"><div><a href="installation.html">← Установка</a></div><div><a href="usage.html">Интерфейс →</a></div></div>
     """,
@@ -795,10 +797,21 @@ add_doc(
     """,
 )
 
-WORKER_BINARY_INSTALL = """sudo mkdir -p /opt/monitoring-worker
-# From GitHub Releases: monitoring-worker-linux-amd64 or arm64
-sudo cp monitoring-worker-linux-amd64 /opt/monitoring-worker/monitoring-worker
+WORKER_DOWNLOAD_INSTALL = """# Pick the latest tag on https://github.com/AKEB/monitoring-worker-go/releases
+# Use linux-arm64 on Raspberry Pi / ARM hosts.
+VER=v2.3.0
+ARCH=amd64   # or arm64
+
+sudo mkdir -p /opt/monitoring-worker
+sudo curl -fsSL -o /opt/monitoring-worker/monitoring-worker \\
+  "https://github.com/AKEB/monitoring-worker-go/releases/download/${VER}/monitoring-worker-linux-${ARCH}"
 sudo chmod 755 /opt/monitoring-worker/monitoring-worker
+
+# Optional checksum check:
+# curl -fsSL -o /tmp/monitoring-worker.sha256 \\
+#   "https://github.com/AKEB/monitoring-worker-go/releases/download/${VER}/monitoring-worker-linux-${ARCH}.sha256"
+# echo "$(cat /tmp/monitoring-worker.sha256)  /opt/monitoring-worker/monitoring-worker" | sha256sum -c -
+
 sudo tee /opt/monitoring-worker/.env >/dev/null <<'EOF'
 TZ=Europe/Moscow
 SERVER_HOST=https://monitoring.example.com/
@@ -806,21 +819,49 @@ WORKER_KEY_HASH=paste_worker_key_here
 PROTOCOL_VERSION=2.0
 AUTO_UPDATE=true
 EOF
-sudo cp deploy/monitoring-worker.service /etc/systemd/system/
+
+sudo tee /etc/systemd/system/monitoring-worker.service >/dev/null <<'EOF'
+[Unit]
+Description=Monitoring worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/monitoring-worker
+ExecStart=/opt/monitoring-worker/monitoring-worker
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 sudo systemctl daemon-reload
 sudo systemctl enable --now monitoring-worker
 journalctl -u monitoring-worker -f
 """
 
-WORKER_BUILD = """go build -buildvcs=false -o monitoring-worker ./cmd/worker/
-# cross-compile:
+WORKER_BUILD = """# Only if you need a custom build — prefer GitHub Releases on servers.
+go build -buildvcs=false -o monitoring-worker ./cmd/worker/
 GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-worker-linux-amd64 ./cmd/worker/
 GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-worker-linux-arm64 ./cmd/worker/
 """
 
-AGENT_BINARY_INSTALL = """sudo mkdir -p /opt/monitoring-agent
-sudo cp monitoring-agent-linux-amd64 /opt/monitoring-agent/monitoring-agent
+AGENT_DOWNLOAD_INSTALL = """# Pick the latest tag on https://github.com/AKEB/monitoring-agent/releases
+VER=v1.2.0
+ARCH=amd64   # or arm64
+
+sudo mkdir -p /opt/monitoring-agent
+sudo curl -fsSL -o /opt/monitoring-agent/monitoring-agent \\
+  "https://github.com/AKEB/monitoring-agent/releases/download/${VER}/monitoring-agent-linux-${ARCH}"
 sudo chmod 755 /opt/monitoring-agent/monitoring-agent
+
+# Optional checksum check:
+# curl -fsSL -o /tmp/monitoring-agent.sha256 \\
+#   "https://github.com/AKEB/monitoring-agent/releases/download/${VER}/monitoring-agent-linux-${ARCH}.sha256"
+# echo "$(cat /tmp/monitoring-agent.sha256)  /opt/monitoring-agent/monitoring-agent" | sha256sum -c -
+
 sudo tee /opt/monitoring-agent/.env >/dev/null <<'EOF'
 TZ=Europe/Moscow
 SERVER_HOST=https://monitoring.example.com/
@@ -828,13 +869,33 @@ AGENT_KEY_HASH=paste_agent_key_here
 REPORT_INTERVAL_SEC=30
 AUTO_UPDATE=true
 EOF
-sudo cp deploy/monitoring-agent.service /etc/systemd/system/
+
+sudo tee /etc/systemd/system/monitoring-agent.service >/dev/null <<'EOF'
+[Unit]
+Description=Monitoring host agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/monitoring-agent
+ExecStart=/opt/monitoring-agent/monitoring-agent
+Restart=always
+RestartSec=5
+EnvironmentFile=-/opt/monitoring-agent/.env
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 sudo systemctl daemon-reload
 sudo systemctl enable --now monitoring-agent
 journalctl -u monitoring-agent -f
 """
 
-AGENT_BUILD = """go build -buildvcs=false -o monitoring-agent ./cmd/agent/
+AGENT_BUILD = """# Only if you need a custom build — prefer GitHub Releases on servers.
+go build -buildvcs=false -o monitoring-agent ./cmd/agent/
 GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-amd64 ./cmd/agent/
 GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-agent-linux-arm64 ./cmd/agent/
 """
@@ -1238,12 +1299,13 @@ add_doc(
       <h2>Run with Docker</h2>
       {pre(WORKER_RUN)}
       <p>Set <code>AUTO_UPDATE=false</code> in Docker images if you prefer image tags over binary self-replace.</p>
-      <h2>Run without Docker (binary + systemd)</h2>
-      <p>Download a release binary from <a href="https://github.com/AKEB/monitoring-worker-go/releases">GitHub Releases</a>, or build:</p>
+      <h2>Run without Docker — download binary from GitHub</h2>
+      <p>No Go toolchain on the server. Assets: <code>monitoring-worker-linux-amd64</code> / <code>linux-arm64</code> (+ <code>.sha256</code>) from <a href="https://github.com/AKEB/monitoring-worker-go/releases">AKEB/monitoring-worker-go releases</a>. Set <code>VER</code> to the latest tag.</p>
+      {pre(WORKER_DOWNLOAD_INSTALL)}
+      <p>The worker loads <code>.env</code> from the working directory or next to the binary. Full variables: <a href="../environment.html#worker">Environment → Worker</a>.</p>
+      <h3>Optional: build from source</h3>
+      <p>Only if you need a custom binary — not required for production hosts.</p>
       {pre(WORKER_BUILD)}
-      <p>Install under <code>/opt/monitoring-worker</code> with unit <code>deploy/monitoring-worker.service</code>:</p>
-      {pre(WORKER_BINARY_INSTALL)}
-      <p>The worker loads <code>.env</code> from the working directory or next to the binary. Full variable list: <a href="../environment.html#worker">Environment → Worker</a>.</p>
       {shot("screenshot_workers.png", "Workers admin")}
       <div class="page-nav"><div><a href="monitors.html">← Monitors</a></div><div><a href="agents.html">Host agents →</a></div></div>
     """,
@@ -1261,12 +1323,13 @@ add_doc(
       <h2>Запуск в Docker</h2>
       {pre(WORKER_RUN)}
       <p>В Docker лучше <code>AUTO_UPDATE=false</code> и обновление тегом образа.</p>
-      <h2>Запуск без Docker (бинарник + systemd)</h2>
-      <p>Скачайте релиз с <a href="https://github.com/AKEB/monitoring-worker-go/releases">GitHub Releases</a> или соберите:</p>
-      {pre(WORKER_BUILD)}
-      <p>Установка в <code>/opt/monitoring-worker</code> с unit <code>deploy/monitoring-worker.service</code>:</p>
-      {pre(WORKER_BINARY_INSTALL)}
+      <h2>Без Docker — скачать бинарник с GitHub</h2>
+      <p>На сервере не нужен Go. Файлы: <code>monitoring-worker-linux-amd64</code> / <code>linux-arm64</code> (+ <code>.sha256</code>) в <a href="https://github.com/AKEB/monitoring-worker-go/releases">релизах AKEB/monitoring-worker-go</a>. Подставьте актуальный тег в <code>VER</code>.</p>
+      {pre(WORKER_DOWNLOAD_INSTALL)}
       <p>Воркер читает <code>.env</code> из рабочей директории или рядом с бинарником. Полный список: <a href="../environment.html#worker">Окружение → Воркер</a>.</p>
+      <h3>Опционально: сборка из исходников</h3>
+      <p>Только если нужен свой бинарник — на проде обычно не требуется.</p>
+      {pre(WORKER_BUILD)}
       {shot("screenshot_workers.png", "Админка воркеров")}
       <div class="page-nav"><div><a href="monitors.html">← Мониторы</a></div><div><a href="agents.html">Агенты →</a></div></div>
     """,
@@ -1292,12 +1355,13 @@ add_doc(
       <p>Admin → Servers → Create yields <code>AGENT_KEY_HASH</code>. Edit page shows live charts, Proxmox guests, auth events, key rotate, desired agent version / update now.</p>
       <h2>Install with Docker</h2>
       {pre(AGENT_RUN)}
-      <h2>Install without Docker (binary + systemd)</h2>
-      <p>Download from <a href="https://github.com/AKEB/monitoring-agent/releases">GitHub Releases</a>, or build:</p>
+      <h2>Install without Docker — download binary from GitHub</h2>
+      <p>No Go on the host. Assets: <code>monitoring-agent-linux-amd64</code> / <code>linux-arm64</code> (+ <code>.sha256</code>) from <a href="https://github.com/AKEB/monitoring-agent/releases">AKEB/monitoring-agent releases</a>. Works on Proxmox, Debian, Raspberry Pi, LXC.</p>
+      {pre(AGENT_DOWNLOAD_INSTALL)}
+      <p>Full variables: <a href="../environment.html#agent">Environment → Agent</a>.</p>
+      <h3>Optional: build from source</h3>
+      <p>Only for custom builds — not needed on production servers.</p>
       {pre(AGENT_BUILD)}
-      <p>Typical host install (Proxmox, Debian, Raspberry Pi, LXC):</p>
-      {pre(AGENT_BINARY_INSTALL)}
-      <p>Unit file: <code>deploy/monitoring-agent.service</code> (loads <code>EnvironmentFile=-/opt/monitoring-agent/.env</code>). The agent also reads <code>.env</code> next to the binary. Full variables: <a href="../environment.html#agent">Environment → Agent</a>.</p>
       <h2>Derived monitors</h2>
       <p>Create Server-* monitor types bound to a registered server for offline/CPU/RAM/disk/container/net alerts.</p>
       <div class="page-nav"><div><a href="workers.html">← Workers</a></div><div><a href="docker.html">Docker hosts →</a></div></div>
@@ -1317,12 +1381,13 @@ add_doc(
       <p>Admin → Servers → Create даёт <code>AGENT_KEY_HASH</code>. На карточке — графики, Proxmox, auth, ротация ключа, целевая версия.</p>
       <h2>Установка в Docker</h2>
       {pre(AGENT_RUN)}
-      <h2>Установка без Docker (бинарник + systemd)</h2>
-      <p>Скачайте с <a href="https://github.com/AKEB/monitoring-agent/releases">GitHub Releases</a> или соберите:</p>
+      <h2>Без Docker — скачать бинарник с GitHub</h2>
+      <p>Go на хосте не нужен. Файлы: <code>monitoring-agent-linux-amd64</code> / <code>linux-arm64</code> (+ <code>.sha256</code>) в <a href="https://github.com/AKEB/monitoring-agent/releases">релизах AKEB/monitoring-agent</a>. Подходит для Proxmox, Debian, Raspberry Pi, LXC.</p>
+      {pre(AGENT_DOWNLOAD_INSTALL)}
+      <p>Полный список переменных: <a href="../environment.html#agent">Окружение → Агент</a>.</p>
+      <h3>Опционально: сборка из исходников</h3>
+      <p>Только для кастомной сборки — на серверах обычно не нужна.</p>
       {pre(AGENT_BUILD)}
-      <p>Типовая установка на хост (Proxmox, Debian, Raspberry Pi, LXC):</p>
-      {pre(AGENT_BINARY_INSTALL)}
-      <p>Unit: <code>deploy/monitoring-agent.service</code> (подхватывает <code>EnvironmentFile=-/opt/monitoring-agent/.env</code>). Агент также читает <code>.env</code> рядом с бинарником. Полный список: <a href="../environment.html#agent">Окружение → Агент</a>.</p>
       <h2>Производные мониторы</h2>
       <p>Типы Server-* привязываются к зарегистрированному серверу.</p>
       <div class="page-nav"><div><a href="workers.html">← Воркеры</a></div><div><a href="docker.html">Docker-хосты →</a></div></div>

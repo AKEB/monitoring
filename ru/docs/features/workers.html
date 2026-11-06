@@ -71,17 +71,23 @@
   -e WORKER_KEY_HASH=your_unique_worker_key_here \
   akeb/monitoring-worker-go:latest</code></pre></div>
       <p>В Docker лучше <code>AUTO_UPDATE=false</code> и обновление тегом образа.</p>
-      <h2>Запуск без Docker (бинарник + systemd)</h2>
-      <p>Скачайте релиз с <a href="https://github.com/AKEB/monitoring-worker-go/releases">GitHub Releases</a> или соберите:</p>
-      <div class="pre-wrap"><pre><code>go build -buildvcs=false -o monitoring-worker ./cmd/worker/
-# cross-compile:
-GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-worker-linux-amd64 ./cmd/worker/
-GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-worker-linux-arm64 ./cmd/worker/</code></pre></div>
-      <p>Установка в <code>/opt/monitoring-worker</code> с unit <code>deploy/monitoring-worker.service</code>:</p>
-      <div class="pre-wrap"><pre><code>sudo mkdir -p /opt/monitoring-worker
-# From GitHub Releases: monitoring-worker-linux-amd64 or arm64
-sudo cp monitoring-worker-linux-amd64 /opt/monitoring-worker/monitoring-worker
+      <h2>Без Docker — скачать бинарник с GitHub</h2>
+      <p>На сервере не нужен Go. Файлы: <code>monitoring-worker-linux-amd64</code> / <code>linux-arm64</code> (+ <code>.sha256</code>) в <a href="https://github.com/AKEB/monitoring-worker-go/releases">релизах AKEB/monitoring-worker-go</a>. Подставьте актуальный тег в <code>VER</code>.</p>
+      <div class="pre-wrap"><pre><code># Pick the latest tag on https://github.com/AKEB/monitoring-worker-go/releases
+# Use linux-arm64 on Raspberry Pi / ARM hosts.
+VER=v2.3.0
+ARCH=amd64   # or arm64
+
+sudo mkdir -p /opt/monitoring-worker
+sudo curl -fsSL -o /opt/monitoring-worker/monitoring-worker \
+  "https://github.com/AKEB/monitoring-worker-go/releases/download/${VER}/monitoring-worker-linux-${ARCH}"
 sudo chmod 755 /opt/monitoring-worker/monitoring-worker
+
+# Optional checksum check:
+# curl -fsSL -o /tmp/monitoring-worker.sha256 \
+#   "https://github.com/AKEB/monitoring-worker-go/releases/download/${VER}/monitoring-worker-linux-${ARCH}.sha256"
+# echo "$(cat /tmp/monitoring-worker.sha256)  /opt/monitoring-worker/monitoring-worker" | sha256sum -c -
+
 sudo tee /opt/monitoring-worker/.env &gt;/dev/null &lt;&lt;'EOF'
 TZ=Europe/Moscow
 SERVER_HOST=https://monitoring.example.com/
@@ -89,11 +95,34 @@ WORKER_KEY_HASH=paste_worker_key_here
 PROTOCOL_VERSION=2.0
 AUTO_UPDATE=true
 EOF
-sudo cp deploy/monitoring-worker.service /etc/systemd/system/
+
+sudo tee /etc/systemd/system/monitoring-worker.service &gt;/dev/null &lt;&lt;'EOF'
+[Unit]
+Description=Monitoring worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/monitoring-worker
+ExecStart=/opt/monitoring-worker/monitoring-worker
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 sudo systemctl daemon-reload
 sudo systemctl enable --now monitoring-worker
 journalctl -u monitoring-worker -f</code></pre></div>
       <p>Воркер читает <code>.env</code> из рабочей директории или рядом с бинарником. Полный список: <a href="../environment.html#worker">Окружение → Воркер</a>.</p>
+      <h3>Опционально: сборка из исходников</h3>
+      <p>Только если нужен свой бинарник — на проде обычно не требуется.</p>
+      <div class="pre-wrap"><pre><code># Only if you need a custom build — prefer GitHub Releases on servers.
+go build -buildvcs=false -o monitoring-worker ./cmd/worker/
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-worker-linux-amd64 ./cmd/worker/
+GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -buildvcs=false -o monitoring-worker-linux-arm64 ./cmd/worker/</code></pre></div>
       <figure class="shot">
   <img src="../../../screenshots/screenshot_workers.png" alt="Админка воркеров" loading="lazy">
   <figcaption>Админка воркеров</figcaption>
