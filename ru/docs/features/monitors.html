@@ -67,7 +67,14 @@
       <h2>Типы проверок</h2>
       <div class="table-wrap"><table>
         <tr><th>Тип</th><th>Назначение</th></tr>
-        <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify. Опциональный response-заголовок <code>Log</code> для текста алерта</td></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL: методы, body + encoding, Basic/Bearer/OAuth2-CC/mTLS, cache bust, коды, редиректы, заголовки, proxy, SSL. Опциональный <code>Log</code></td></tr>
+        <tr><td>HTTP Keyword</td><td>Как HTTPS + keyword в теле (опционально invert)</td></tr>
+        <tr><td>Websocket Upgrade</td><td>HTTP Upgrade; успех при 101 + Upgrade websocket</td></tr>
+        <tr><td>SMTP</td><td>Banner + EHLO; none/STARTTLS/TLS</td></tr>
+        <tr><td>NTP</td><td>UDP NTP; опциональный max offset</td></tr>
+        <tr><td>MySQL / PostgreSQL / Redis / MongoDB</td><td>Connect / ping (опциональный SQL + expected)</td></tr>
+        <tr><td>SFTP / SNMP / RADIUS / gRPC</td><td>Auth или протокольный probe</td></tr>
+        <tr><td>MQTT / RabbitMQ / Kafka Producer</td><td>Проверки messaging</td></tr>
         <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение; тот же заголовок <code>Log</code></td></tr>
         <tr><td>TCP</td><td>Доступность host:port</td></tr>
         <tr><td>UDP</td><td>UDP host:port: ICMP unreachable = down, таймаут/ответ = up. Не handshake протокола (например WireGuard)</td></tr>

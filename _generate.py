@@ -353,7 +353,7 @@ def landing_en() -> str:
       <h2>What you can do</h2>
       <p class="section-lead">Open any card for a full feature guide with setup steps and screenshots.</p>
       <div class="grid-3">
-        <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS, HTTP JSON, TCP, UDP, Ping, Domain expiry, DNS, Docker, External callbacks, node-exporter and host-agent metrics.</p></a></div>
+        <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS (body/auth/mTLS), Keyword, JSON, TCP/UDP, Ping, DNS, Domain, SMTP/NTP/Websocket, databases, messaging, Docker, External, node-exporter and host-agent metrics.</p></a></div>
         <div class="card feature-card"><span class="tag">Scale</span><a class="stretched" href="docs/features/workers.html"><h3>Distributed workers</h3><p>Run lightweight Go workers in any network or region for objective availability.</p></a></div>
         <div class="card feature-card"><span class="tag">Hosts</span><a class="stretched" href="docs/features/agents.html"><h3>Host agents</h3><p>CPU, RAM, disks, network, listening ports, Docker, Proxmox guests and auth events from each server.</p></a></div>
         <div class="card feature-card"><span class="tag">Alerts</span><a class="stretched" href="docs/features/notifications.html"><h3>Smart notifications</h3><p>Telegram, Mattermost, Gotify, MAX, webhooks — with mute, take, resolve actions.</p></a></div>
@@ -426,7 +426,7 @@ def landing_ru() -> str:
       <h2>Что умеет система</h2>
       <p class="section-lead">Откройте карточку — подробное описание с настройкой и скриншотами.</p>
       <div class="grid-3">
-        <div class="card feature-card"><span class="tag">Ядро</span><a class="stretched" href="docs/features/monitors.html"><h3>Типы проверок</h3><p>HTTPS, HTTP JSON, TCP, UDP, Ping, истечение домена, DNS, Docker, External, node-exporter и метрики агента.</p></a></div>
+        <div class="card feature-card"><span class="tag">Ядро</span><a class="stretched" href="docs/features/monitors.html"><h3>Типы проверок</h3><p>HTTPS (body/auth/mTLS), Keyword, JSON, TCP/UDP, Ping, DNS, домен, SMTP/NTP/Websocket, БД, messaging, Docker, External, node-exporter и метрики агента.</p></a></div>
         <div class="card feature-card"><span class="tag">Масштаб</span><a class="stretched" href="docs/features/workers.html"><h3>Распределённые воркеры</h3><p>Лёгкие Go-воркеры в любых сетях и регионах для объективной доступности.</p></a></div>
         <div class="card feature-card"><span class="tag">Хосты</span><a class="stretched" href="docs/features/agents.html"><h3>Агенты хостов</h3><p>CPU, RAM, диски, сеть, слушающие порты, Docker, гости Proxmox и события auth с каждого сервера.</p></a></div>
         <div class="card feature-card"><span class="tag">Алерты</span><a class="stretched" href="docs/features/notifications.html"><h3>Умные уведомления</h3><p>Telegram, Mattermost, Gotify, MAX, webhook — с действиями mute / take / resolve.</p></a></div>
@@ -1234,7 +1234,14 @@ add_doc(
       <h2>Check types</h2>
       <div class="table-wrap"><table>
         <tr><th>Type</th><th>What it does</th></tr>
-        <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout. Optional response header <code>Log</code> for custom alert text</td></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL check: methods, body + encoding (json/form/xml/raw), Basic/Bearer/OAuth2-CC/mTLS, cache bust, status codes, redirects, headers, proxy, SSL verify. Optional response header <code>Log</code></td></tr>
+        <tr><td>HTTP Keyword</td><td>Same as HTTPS plus case-sensitive body keyword (optional invert)</td></tr>
+        <tr><td>Websocket Upgrade</td><td>HTTP Upgrade handshake; success on 101 + Upgrade websocket</td></tr>
+        <tr><td>SMTP</td><td>Banner + EHLO; security none/STARTTLS/TLS</td></tr>
+        <tr><td>NTP</td><td>UDP NTP query; optional max clock offset</td></tr>
+        <tr><td>MySQL / PostgreSQL / Redis / MongoDB</td><td>Connect / ping (optional SQL query + expected value)</td></tr>
+        <tr><td>SFTP / SNMP / RADIUS / gRPC</td><td>Auth or protocol-specific probe</td></tr>
+        <tr><td>MQTT / RabbitMQ / Kafka Producer</td><td>Messaging connectivity checks</td></tr>
         <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type; same optional <code>Log</code> response header</td></tr>
         <tr><td>TCP</td><td>Host:port connectivity</td></tr>
         <tr><td>UDP</td><td>UDP host:port listen probe (ICMP unreachable = down; timeout/reply = up). Not a protocol handshake (e.g. WireGuard)</td></tr>
@@ -1290,7 +1297,14 @@ curl 'https://monitoring.example.com/api/external/<64hex>/?status=fail&log=disk%
       <h2>Типы проверок</h2>
       <div class="table-wrap"><table>
         <tr><th>Тип</th><th>Назначение</th></tr>
-        <tr><td>HTTPS / HTTP</td><td>URL: коды, редиректы, заголовки, proxy, SSL verify. Опциональный response-заголовок <code>Log</code> для текста алерта</td></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL: методы, body + encoding, Basic/Bearer/OAuth2-CC/mTLS, cache bust, коды, редиректы, заголовки, proxy, SSL. Опциональный <code>Log</code></td></tr>
+        <tr><td>HTTP Keyword</td><td>Как HTTPS + keyword в теле (опционально invert)</td></tr>
+        <tr><td>Websocket Upgrade</td><td>HTTP Upgrade; успех при 101 + Upgrade websocket</td></tr>
+        <tr><td>SMTP</td><td>Banner + EHLO; none/STARTTLS/TLS</td></tr>
+        <tr><td>NTP</td><td>UDP NTP; опциональный max offset</td></tr>
+        <tr><td>MySQL / PostgreSQL / Redis / MongoDB</td><td>Connect / ping (опциональный SQL + expected)</td></tr>
+        <tr><td>SFTP / SNMP / RADIUS / gRPC</td><td>Auth или протокольный probe</td></tr>
+        <tr><td>MQTT / RabbitMQ / Kafka Producer</td><td>Проверки messaging</td></tr>
         <tr><td>HTTP JSON</td><td>HTTP + <code>json_path</code> и ожидаемое значение; тот же заголовок <code>Log</code></td></tr>
         <tr><td>TCP</td><td>Доступность host:port</td></tr>
         <tr><td>UDP</td><td>UDP host:port: ICMP unreachable = down, таймаут/ответ = up. Не handshake протокола (например WireGuard)</td></tr>

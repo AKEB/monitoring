@@ -67,7 +67,14 @@
       <h2>Check types</h2>
       <div class="table-wrap"><table>
         <tr><th>Type</th><th>What it does</th></tr>
-        <tr><td>HTTPS / HTTP</td><td>URL check: status codes, redirects, headers, proxy, SSL verify, timeout. Optional response header <code>Log</code> for custom alert text</td></tr>
+        <tr><td>HTTPS / HTTP</td><td>URL check: methods, body + encoding (json/form/xml/raw), Basic/Bearer/OAuth2-CC/mTLS, cache bust, status codes, redirects, headers, proxy, SSL verify. Optional response header <code>Log</code></td></tr>
+        <tr><td>HTTP Keyword</td><td>Same as HTTPS plus case-sensitive body keyword (optional invert)</td></tr>
+        <tr><td>Websocket Upgrade</td><td>HTTP Upgrade handshake; success on 101 + Upgrade websocket</td></tr>
+        <tr><td>SMTP</td><td>Banner + EHLO; security none/STARTTLS/TLS</td></tr>
+        <tr><td>NTP</td><td>UDP NTP query; optional max clock offset</td></tr>
+        <tr><td>MySQL / PostgreSQL / Redis / MongoDB</td><td>Connect / ping (optional SQL query + expected value)</td></tr>
+        <tr><td>SFTP / SNMP / RADIUS / gRPC</td><td>Auth or protocol-specific probe</td></tr>
+        <tr><td>MQTT / RabbitMQ / Kafka Producer</td><td>Messaging connectivity checks</td></tr>
         <tr><td>HTTP JSON</td><td>HTTP plus <code>json_path</code> and expected value/type; same optional <code>Log</code> response header</td></tr>
         <tr><td>TCP</td><td>Host:port connectivity</td></tr>
         <tr><td>UDP</td><td>UDP host:port listen probe (ICMP unreachable = down; timeout/reply = up). Not a protocol handshake (e.g. WireGuard)</td></tr>
