@@ -353,7 +353,7 @@ def landing_en() -> str:
       <h2>What you can do</h2>
       <p class="section-lead">Open any card for a full feature guide with setup steps and screenshots.</p>
       <div class="grid-3">
-        <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS, HTTP JSON, TCP, UDP, Ping, Docker, External callbacks, node-exporter and host-agent metrics.</p></a></div>
+        <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS, HTTP JSON, TCP, UDP, Ping, Domain expiry, DNS, Docker, External callbacks, node-exporter and host-agent metrics.</p></a></div>
         <div class="card feature-card"><span class="tag">Scale</span><a class="stretched" href="docs/features/workers.html"><h3>Distributed workers</h3><p>Run lightweight Go workers in any network or region for objective availability.</p></a></div>
         <div class="card feature-card"><span class="tag">Hosts</span><a class="stretched" href="docs/features/agents.html"><h3>Host agents</h3><p>CPU, RAM, disks, network, listening ports, Docker, Proxmox guests and auth events from each server.</p></a></div>
         <div class="card feature-card"><span class="tag">Alerts</span><a class="stretched" href="docs/features/notifications.html"><h3>Smart notifications</h3><p>Telegram, Mattermost, Gotify, MAX, webhooks — with mute, take, resolve actions.</p></a></div>
@@ -426,7 +426,7 @@ def landing_ru() -> str:
       <h2>Что умеет система</h2>
       <p class="section-lead">Откройте карточку — подробное описание с настройкой и скриншотами.</p>
       <div class="grid-3">
-        <div class="card feature-card"><span class="tag">Ядро</span><a class="stretched" href="docs/features/monitors.html"><h3>Типы проверок</h3><p>HTTPS, HTTP JSON, TCP, UDP, Ping, Docker, External, node-exporter и метрики агента.</p></a></div>
+        <div class="card feature-card"><span class="tag">Ядро</span><a class="stretched" href="docs/features/monitors.html"><h3>Типы проверок</h3><p>HTTPS, HTTP JSON, TCP, UDP, Ping, истечение домена, DNS, Docker, External, node-exporter и метрики агента.</p></a></div>
         <div class="card feature-card"><span class="tag">Масштаб</span><a class="stretched" href="docs/features/workers.html"><h3>Распределённые воркеры</h3><p>Лёгкие Go-воркеры в любых сетях и регионах для объективной доступности.</p></a></div>
         <div class="card feature-card"><span class="tag">Хосты</span><a class="stretched" href="docs/features/agents.html"><h3>Агенты хостов</h3><p>CPU, RAM, диски, сеть, слушающие порты, Docker, гости Proxmox и события auth с каждого сервера.</p></a></div>
         <div class="card feature-card"><span class="tag">Алерты</span><a class="stretched" href="docs/features/notifications.html"><h3>Умные уведомления</h3><p>Telegram, Mattermost, Gotify, MAX, webhook — с действиями mute / take / resolve.</p></a></div>
@@ -583,7 +583,7 @@ add_doc(
       <div class="table-wrap"><table>
         <tr><th>Component</th><th>Image / binary</th><th>Role</th></tr>
         <tr><td>Server</td><td><code>akeb/monitoring</code></td><td>UI, MySQL, Memcached, scheduling, ACL, alerts, APIs</td></tr>
-        <tr><td>Worker</td><td><code>akeb/monitoring-worker-go</code></td><td>Executes HTTP/TCP/UDP/Ping/Docker/exporter jobs; protocol 2.0+</td></tr>
+        <tr><td>Worker</td><td><code>akeb/monitoring-worker-go</code></td><td>Executes HTTP/TCP/UDP/Ping/Domain/DNS/Docker/exporter jobs; protocol 2.0+</td></tr>
         <tr><td>Agent</td><td><code>akeb/monitoring-agent</code></td><td>Reports CPU/RAM/disk/net/listeners/Docker/Proxmox/auth every ~30s</td></tr>
       </table></div>
       <h2>Data flow</h2>
@@ -619,7 +619,7 @@ add_doc(
       <div class="table-wrap"><table>
         <tr><th>Компонент</th><th>Образ / бинарник</th><th>Роль</th></tr>
         <tr><td>Сервер</td><td><code>akeb/monitoring</code></td><td>UI, MySQL, Memcached, расписание, ACL, алерты, API</td></tr>
-        <tr><td>Воркер</td><td><code>akeb/monitoring-worker-go</code></td><td>HTTP/TCP/UDP/Ping/Docker/exporter; протокол 2.0+</td></tr>
+        <tr><td>Воркер</td><td><code>akeb/monitoring-worker-go</code></td><td>HTTP/TCP/UDP/Ping/Domain/DNS/Docker/exporter; протокол 2.0+</td></tr>
         <tr><td>Агент</td><td><code>akeb/monitoring-agent</code></td><td>CPU/RAM/диск/сеть/порты/Docker/Proxmox/auth каждые ~30 с</td></tr>
       </table></div>
       <h2>Поток данных</h2>
@@ -1008,7 +1008,7 @@ add_doc(
         <tr><td><code>DEBUG</code></td><td><code>false</code></td><td>Verbose worker logs</td></tr>
         <tr><td><code>CURL_DEBUG</code></td><td><code>false</code></td><td>HTTP check request logging</td></tr>
         <tr><td><code>DOCKER_DEBUG</code></td><td><code>false</code></td><td>Docker Engine API debug lines</td></tr>
-        <tr><td><code>IMMEDIATE_ERROR_RETRY</code></td><td><code>true</code></td><td><code>true</code> = retry failed job on next loop tick (PHP-compatible); <code>false</code> = wait <code>repeat_seconds</code></td></tr>
+        <tr><td><code>IMMEDIATE_ERROR_RETRY</code></td><td><code>false</code></td><td><code>true</code> = retry failed job on next loop tick (PHP-compatible); <code>false</code> = wait <code>repeat_seconds</code></td></tr>
         <tr><td><code>AUTO_UPDATE</code></td><td><code>true</code></td><td>Apply <code>data.update</code> from server (binary replace)</td></tr>
         <tr><td><code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Allow only <code>github.com/AKEB/monitoring-worker-go</code> release URLs</td></tr>
       </table></div>
@@ -1107,7 +1107,7 @@ add_doc(
         <tr><td><code>PROXY_HOST</code> / <code>PROXY_TYPE</code></td><td>пусто</td><td>Исходящий proxy для проверок</td></tr>
         <tr><td><code>WORKER_VERSION</code></td><td>ldflags / <code>local</code></td><td>Версия в API</td></tr>
         <tr><td><code>DEBUG</code> / <code>CURL_DEBUG</code> / <code>DOCKER_DEBUG</code></td><td><code>false</code></td><td>Логи воркера / HTTP / Docker API</td></tr>
-        <tr><td><code>IMMEDIATE_ERROR_RETRY</code></td><td><code>true</code></td><td>Сразу повторять упавшую задачу (как PHP)</td></tr>
+        <tr><td><code>IMMEDIATE_ERROR_RETRY</code></td><td><code>false</code></td><td>Сразу повторять упавшую задачу (как PHP)</td></tr>
         <tr><td><code>AUTO_UPDATE</code> / <code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Автообновление бинарника с GitHub</td></tr>
       </table></div>
       <p>В Docker лучше обновлять тегом образа и ставить <code>AUTO_UPDATE=false</code>.</p>
@@ -1239,6 +1239,8 @@ add_doc(
         <tr><td>TCP</td><td>Host:port connectivity</td></tr>
         <tr><td>UDP</td><td>UDP host:port listen probe (ICMP unreachable = down; timeout/reply = up). Not a protocol handshake (e.g. WireGuard)</td></tr>
         <tr><td>Ping</td><td>ICMP reachability</td></tr>
+        <tr><td>Domain expiry</td><td>WHOIS/RDAP lookup of registration expiry. FAIL while days left ≤ max selected alert days (default 14…0). Chart of days remaining; default re-alert 1440 minutes</td></tr>
+        <tr><td>DNS</td><td>Query A/AAAA/CNAME/MX/TXT/NS via system or custom resolver (UDP/TCP/DoT/DoH). Match modes: exact, any, all, exact set, TXT contains/regex, MX host/priority, NXDOMAIN</td></tr>
         <tr><td>Docker</td><td>Container status via configured Docker Engine API</td></tr>
         <tr><td>External</td><td>Push/callback via public <code>/api/external/{{hash}}/</code>; optional <code>Log</code> header or <code>?log=</code> / <code>?message=</code></td></tr>
         <tr><td>node-exporter disk/memory</td><td>Prometheus exporter scrapes with % thresholds</td></tr>
@@ -1293,6 +1295,8 @@ curl 'https://monitoring.example.com/api/external/<64hex>/?status=fail&log=disk%
         <tr><td>TCP</td><td>Доступность host:port</td></tr>
         <tr><td>UDP</td><td>UDP host:port: ICMP unreachable = down, таймаут/ответ = up. Не handshake протокола (например WireGuard)</td></tr>
         <tr><td>Ping</td><td>ICMP</td></tr>
+        <tr><td>Истечение домена</td><td>WHOIS/RDAP дата продления. FAIL пока дней до истечения ≤ max выбранных (по умолчанию 14…0). График дней; повтор алерта по умолчанию 1440 мин</td></tr>
+        <tr><td>DNS</td><td>Запрос A/AAAA/CNAME/MX/TXT/NS через системный или свой резолвер (UDP/TCP/DoT/DoH). Режимы: exact, any, all, exact set, TXT contains/regex, MX, NXDOMAIN</td></tr>
         <tr><td>Docker</td><td>Статус контейнера через Docker Engine API</td></tr>
         <tr><td>External</td><td>Push через <code>/api/external/{{hash}}/</code>; заголовок <code>Log</code> или <code>?log=</code> / <code>?message=</code></td></tr>
         <tr><td>node-exporter disk/memory</td><td>Скрейп exporter с порогами %</td></tr>

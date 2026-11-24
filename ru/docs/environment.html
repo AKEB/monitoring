@@ -125,7 +125,7 @@
         <tr><td><code>PROXY_HOST</code> / <code>PROXY_TYPE</code></td><td>пусто</td><td>Исходящий proxy для проверок</td></tr>
         <tr><td><code>WORKER_VERSION</code></td><td>ldflags / <code>local</code></td><td>Версия в API</td></tr>
         <tr><td><code>DEBUG</code> / <code>CURL_DEBUG</code> / <code>DOCKER_DEBUG</code></td><td><code>false</code></td><td>Логи воркера / HTTP / Docker API</td></tr>
-        <tr><td><code>IMMEDIATE_ERROR_RETRY</code></td><td><code>true</code></td><td>Сразу повторять упавшую задачу (как PHP)</td></tr>
+        <tr><td><code>IMMEDIATE_ERROR_RETRY</code></td><td><code>false</code></td><td>Сразу повторять упавшую задачу (как PHP)</td></tr>
         <tr><td><code>AUTO_UPDATE</code> / <code>UPDATE_FROM_GITHUB</code></td><td><code>true</code></td><td>Автообновление бинарника с GitHub</td></tr>
       </table></div>
       <p>В Docker лучше обновлять тегом образа и ставить <code>AUTO_UPDATE=false</code>.</p>

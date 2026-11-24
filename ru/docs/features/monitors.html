@@ -72,6 +72,8 @@
         <tr><td>TCP</td><td>Доступность host:port</td></tr>
         <tr><td>UDP</td><td>UDP host:port: ICMP unreachable = down, таймаут/ответ = up. Не handshake протокола (например WireGuard)</td></tr>
         <tr><td>Ping</td><td>ICMP</td></tr>
+        <tr><td>Истечение домена</td><td>WHOIS/RDAP дата продления. FAIL пока дней до истечения ≤ max выбранных (по умолчанию 14…0). График дней; повтор алерта по умолчанию 1440 мин</td></tr>
+        <tr><td>DNS</td><td>Запрос A/AAAA/CNAME/MX/TXT/NS через системный или свой резолвер (UDP/TCP/DoT/DoH). Режимы: exact, any, all, exact set, TXT contains/regex, MX, NXDOMAIN</td></tr>
         <tr><td>Docker</td><td>Статус контейнера через Docker Engine API</td></tr>
         <tr><td>External</td><td>Push через <code>/api/external/{hash}/</code>; заголовок <code>Log</code> или <code>?log=</code> / <code>?message=</code></td></tr>
         <tr><td>node-exporter disk/memory</td><td>Скрейп exporter с порогами %</td></tr>

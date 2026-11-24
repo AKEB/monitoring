@@ -72,6 +72,8 @@
         <tr><td>TCP</td><td>Host:port connectivity</td></tr>
         <tr><td>UDP</td><td>UDP host:port listen probe (ICMP unreachable = down; timeout/reply = up). Not a protocol handshake (e.g. WireGuard)</td></tr>
         <tr><td>Ping</td><td>ICMP reachability</td></tr>
+        <tr><td>Domain expiry</td><td>WHOIS/RDAP lookup of registration expiry. FAIL while days left ≤ max selected alert days (default 14…0). Chart of days remaining; default re-alert 1440 minutes</td></tr>
+        <tr><td>DNS</td><td>Query A/AAAA/CNAME/MX/TXT/NS via system or custom resolver (UDP/TCP/DoT/DoH). Match modes: exact, any, all, exact set, TXT contains/regex, MX host/priority, NXDOMAIN</td></tr>
         <tr><td>Docker</td><td>Container status via configured Docker Engine API</td></tr>
         <tr><td>External</td><td>Push/callback via public <code>/api/external/{hash}/</code>; optional <code>Log</code> header or <code>?log=</code> / <code>?message=</code></td></tr>
         <tr><td>node-exporter disk/memory</td><td>Prometheus exporter scrapes with % thresholds</td></tr>
