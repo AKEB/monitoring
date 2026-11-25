@@ -51,6 +51,7 @@
         <a href="../../docs/features/rbac.html">RBAC и аудит</a>
         <a href="../../docs/features/auth.html">Аутентификация</a>
         <a href="../../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../../docs/features/status-pages.html">Status pages</a>
         <a href="../../docs/features/api.html">API и MCP</a>
         <a href="../../docs/features/comparison.html">Сравнение</a>
       </aside>
@@ -61,9 +62,9 @@
       <h2>API-токены</h2>
       <p>Settings → API: токены <code>mnt_…</code> как <code>Authorization: Bearer</code> или <code>X-Api-Token</code>. Права = владелец токена.</p>
       <h2>User Status API</h2>
-      <p><code>GET /api/v1/status/</code> — только мониторы с <code>api_enabled</code>. Статусы, availability, SSL, воркеры, maintenance.</p>
+      <p><code>GET /api/v1/status/</code> — только мониторы с <code>api_enabled</code>. Статусы, availability, SSL, воркеры, maintenance. Отдельно от публичных HTML <a href="status-pages.html">status pages</a>.</p>
       <h2>Management API v2</h2>
-      <p>CRUD сущностей, права, логи. Swagger: <code>/api/docs/</code>.</p>
+      <p>CRUD сущностей (включая <code>statuspages</code>), права, логи. Swagger: <code>/api/docs/</code>.</p>
       <h2>MCP</h2>
       <p><code>POST /mcp/</code> — инструменты как у v2 плюс <code>api_docs</code>.</p>
       <h2>Прочее</h2>
@@ -73,7 +74,7 @@
         <li>Alert-action callbacks</li>
       </ul>
       <p>Детали протоколов — в репозитории сервера (<code>*_API.md</code>).</p>
-      <div class="page-nav"><div><a href="ssl-events.html">← SSL и события</a></div><div><a href="comparison.html">Сравнение →</a></div></div>
+      <div class="page-nav"><div><a href="status-pages.html">← Status pages</a></div><div><a href="comparison.html">Сравнение →</a></div></div>
     
     </article>
   </div>

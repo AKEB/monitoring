@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Status pages — Monitoring">
+  <link rel="shortcut icon" href="../../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../../css/site.css">
+  <title>Status pages — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Возможности</a>
+          <a href="../../docs/features/comparison.html">Сравнение</a>
+          <a href="../../docs/index.html">Документация</a>
+          <a href="../../docs/installation.html">Установка</a>
+          <a href="../../docs/quick-start.html">Быстрый старт</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="../../../docs/features/status-pages.html">EN</a>
+          <a href="status-pages.html" class="is-active">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Руководства</h4>
+        <a href="../../docs/index.html">Документация</a>
+        <a href="../../docs/architecture.html">Архитектура</a>
+        <a href="../../docs/installation.html">Установка</a>
+        <a href="../../docs/quick-start.html">Быстрый старт</a>
+        <a href="../../docs/environment.html">Переменные окружения</a>
+        <a href="../../docs/usage.html">Интерфейс</a>
+        <h4>Возможности</h4>
+        <a href="../../docs/features/index.html">Обзор</a>
+        <a href="../../docs/features/dashboard.html">Дашборд</a>
+        <a href="../../docs/features/monitors.html">Мониторы</a>
+        <a href="../../docs/features/workers.html">Воркеры</a>
+        <a href="../../docs/features/agents.html">Агенты хостов</a>
+        <a href="../../docs/features/docker.html">Docker-хосты</a>
+        <a href="../../docs/features/notifications.html">Уведомления</a>
+        <a href="../../docs/features/maintenance.html">Обслуживание</a>
+        <a href="../../docs/features/rbac.html">RBAC и аудит</a>
+        <a href="../../docs/features/auth.html">Аутентификация</a>
+        <a href="../../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../../docs/features/status-pages.html">Status pages</a>
+        <a href="../../docs/features/api.html">API и MCP</a>
+        <a href="../../docs/features/comparison.html">Сравнение</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Status pages</h1>
+      <p class="lead">Публичная HTML-страница статуса по адресу <code>/status/{slug}/</code> без доступа к админке и без включения Status API для каждого монитора.</p>
+
+      <div class="callout">
+        <strong>Membership ≠ <code>api_enabled</code></strong>
+        Добавление монитора на status page влияет только на публичный HTML. В <code>GET /api/v1/status/</code> монитор попадает только при флаге <code>api_enabled</code>.
+      </div>
+
+      <h2>Что видит посетитель</h2>
+      <ul>
+        <li>Общий статус: всё в порядке / частичный сбой / серьёзный сбой / обслуживание</li>
+        <li>Список мониторов с полосками heartbeat за 24ч и uptime</li>
+        <li>Опубликованные инциденты (заголовок, текст, severity, время)</li>
+        <li>Опциональный custom header HTML и footer</li>
+        <li>Переключатель EN / RU (<code>?lang=</code> или cookie)</li>
+      </ul>
+
+      <h2>Какие мониторы показываются</h2>
+      <p>Только <strong>листья</strong>: не папка, включён (<code>status=1</code>), все родительские папки включены. Пустые папки и выключенные ветки скрыты.</p>
+
+      <h2>Админка</h2>
+      <ol>
+        <li>Меню <strong>Status pages</strong> (по ACL).</li>
+        <li>Создайте страницу: slug, title, description, theme, published.</li>
+        <li>Привяжите мониторы, которые вам доступны на чтение.</li>
+        <li>Добавляйте / редактируйте / удаляйте инциденты в редакторе страницы.</li>
+        <li>Отдайте ссылку <code>https://your-host/status/{slug}/</code> после публикации.</li>
+      </ol>
+
+      <h2>API и MCP</h2>
+      <p>Management API v2 и MCP: CRUD <code>statuspages</code> (membership и incidents). См. <a href="api.html">API и MCP</a> и OpenAPI <code>/api/docs/</code>.</p>
+
+      <div class="page-nav"><div><a href="ssl-events.html">← SSL и события</a></div><div><a href="api.html">API и MCP →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Двойная лицензия (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Контакт</a> | <a href="../../LICENSE.md">Лицензия</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../js/site.js"></script>
+</body>
+</html>

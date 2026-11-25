@@ -51,6 +51,7 @@
         <a href="../../docs/features/rbac.html">RBAC & Audit</a>
         <a href="../../docs/features/auth.html">Authentication</a>
         <a href="../../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../../docs/features/status-pages.html">Status pages</a>
         <a href="../../docs/features/api.html">API & MCP</a>
         <a href="../../docs/features/comparison.html">Compare</a>
       </aside>
@@ -61,9 +62,9 @@
       <h2>API tokens</h2>
       <p>Settings → API: create/revoke tokens (<code>mnt_…</code>). Send as <code>Authorization: Bearer</code> or <code>X-Api-Token</code>. Rights equal the token owner; secrets redacted without permission.</p>
       <h2>User Status API</h2>
-      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits.</p>
+      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits. Separate from public HTML <a href="status-pages.html">status pages</a>.</p>
       <h2>Management API v2</h2>
-      <p>REST CRUD for monitors, notify, signatures, workers, maintenances, dockers, servers; users/groups read-only; logs by date; permissions GET/PUT. Interactive docs: <code>/api/docs/</code> (OpenAPI <code>/api/docs/openapi.json</code>).</p>
+      <p>REST CRUD for monitors, notify, signatures, workers, maintenances, <code>statuspages</code>, dockers, servers; users/groups read-only; logs by date; permissions GET/PUT. Interactive docs: <code>/api/docs/</code> (OpenAPI <code>/api/docs/openapi.json</code>).</p>
       <h2>MCP</h2>
       <p><code>POST /mcp/</code> JSON-RPC; tools mirror v2 plus <code>api_docs</code>. Suitable for Cursor-style remote MCP configs.</p>
       <h2>Other endpoints</h2>
@@ -73,7 +74,7 @@
         <li>Alert-action callbacks for messenger buttons</li>
       </ul>
       <p>Deep protocol notes: <a href="https://github.com/AKEB/monitoring">server docs</a> (<code>WORKER_API.md</code>, <code>USER_API.md</code>, <code>MANAGEMENT_API.md</code>, <code>AGENT_API.md</code>).</p>
-      <div class="page-nav"><div><a href="ssl-events.html">← SSL &amp; events</a></div><div><a href="comparison.html">Compare →</a></div></div>
+      <div class="page-nav"><div><a href="status-pages.html">← Status pages</a></div><div><a href="comparison.html">Compare →</a></div></div>
     
     </article>
   </div>

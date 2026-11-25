@@ -51,6 +51,7 @@
         <a href="../../docs/features/rbac.html">RBAC и аудит</a>
         <a href="../../docs/features/auth.html">Аутентификация</a>
         <a href="../../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../../docs/features/status-pages.html">Status pages</a>
         <a href="../../docs/features/api.html">API и MCP</a>
         <a href="../../docs/features/comparison.html">Сравнение</a>
       </aside>
@@ -128,7 +129,7 @@
           <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
         </thead>
         <tbody>
-          <tr><th>Публичная status page (UI)</th><td><span class="cmp yes">Да</span> — <code>/status/{slug}/</code> + админка/инциденты (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Публичная status page (UI)</th><td><span class="cmp yes">Да</span> — <code>/status/{slug}/</code>, инциденты, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp no">Только бейджи в UI</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Теги мониторов</th><td><span class="cmp partial">Папки</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Каналы уведомлений</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
@@ -196,7 +197,7 @@
         <div class="card">
           <h3>Плюсы Kuma</h3>
           <ul>
-            <li>Красивые <strong>публичные status pages</strong> с доменами и баннерами инцидентов.</li>
+            <li>Более богатая <strong>темизация status pages</strong> и кастомные домены (у нас уже есть <code>/status/{slug}/</code> и инциденты).</li>
             <li><strong>90+ каналов уведомлений</strong> из коробки.</li>
             <li><strong>Теги</strong>, embed <strong>SVG-бейджи</strong>, много языков UI.</li>
             <li>Очень быстрый старт <strong>«один Docker»</strong> для маленьких лабораторий.</li>

@@ -51,6 +51,7 @@
         <a href="../../docs/features/rbac.html">RBAC & Audit</a>
         <a href="../../docs/features/auth.html">Authentication</a>
         <a href="../../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../../docs/features/status-pages.html">Status pages</a>
         <a href="../../docs/features/api.html">API & MCP</a>
         <a href="../../docs/features/comparison.html">Compare</a>
       </aside>
@@ -128,7 +129,7 @@
           <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
         </thead>
         <tbody>
-          <tr><th>Public status page UI</th><td><span class="cmp yes">Yes</span> — <code>/status/{slug}/</code> + admin/incidents (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Public status page UI</th><td><span class="cmp yes">Yes</span> — <code>/status/{slug}/</code>, incidents, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Embed status badges (SVG)</th><td><span class="cmp no">UI badges only</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Monitor tags</th><td><span class="cmp partial">Folders</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Notify channels</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
@@ -196,7 +197,7 @@
         <div class="card">
           <h3>Kuma advantages</h3>
           <ul>
-            <li>Beautiful <strong>public status pages</strong> with custom domains and incident banners.</li>
+            <li>Richer <strong>status page theming</strong> and custom domains (we ship <code>/status/{slug}/</code> + incidents already).</li>
             <li><strong>90+ notification providers</strong> out of the box.</li>
             <li><strong>Tags</strong>, embeddable <strong>SVG badges</strong>, many UI languages.</li>
             <li>Extremely fast <strong>“one Docker”</strong> start for small labs.</li>

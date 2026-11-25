@@ -67,6 +67,7 @@ SIDEBAR = {
             ("RBAC & Audit", "docs/features/rbac.html"),
             ("Authentication", "docs/features/auth.html"),
             ("SSL & Events", "docs/features/ssl-events.html"),
+            ("Status pages", "docs/features/status-pages.html"),
             ("API & MCP", "docs/features/api.html"),
             ("Compare", "docs/features/comparison.html"),
         ]),
@@ -92,6 +93,7 @@ SIDEBAR = {
             ("RBAC и аудит", "docs/features/rbac.html"),
             ("Аутентификация", "docs/features/auth.html"),
             ("SSL и события", "docs/features/ssl-events.html"),
+            ("Status pages", "docs/features/status-pages.html"),
             ("API и MCP", "docs/features/api.html"),
             ("Сравнение", "docs/features/comparison.html"),
         ]),
@@ -364,6 +366,7 @@ def landing_en() -> str:
         <div class="card feature-card"><span class="tag">Alerts</span><a class="stretched" href="docs/features/notifications.html"><h3>Smart notifications</h3><p>Telegram, Mattermost, Gotify, MAX, webhooks — with mute, take, resolve actions.</p></a></div>
         <div class="card feature-card"><span class="tag">Access</span><a class="stretched" href="docs/features/rbac.html"><h3>Multi-tenant RBAC</h3><p>Users, groups, folder-inherited ACL, secrets permissions and audit log.</p></a></div>
         <div class="card feature-card"><span class="tag">Integrations</span><a class="stretched" href="docs/features/api.html"><h3>API &amp; MCP</h3><p>Status feed, Management API v2, Swagger UI and MCP tools for automation.</p></a></div>
+        <div class="card feature-card"><span class="tag">Public</span><a class="stretched" href="docs/features/status-pages.html"><h3>Status pages</h3><p>Public <code>/status/{{slug}}/</code> with heartbeat bars, incidents and EN/RU — membership independent of Status API.</p></a></div>
       </div>
       <p style="margin-top:1.25rem"><a class="btn btn-outline" href="docs/features/index.html">All features →</a> <a class="btn btn-outline" href="docs/features/comparison.html">Compare with alternatives →</a></p>
     </div>
@@ -438,6 +441,7 @@ def landing_ru() -> str:
         <div class="card feature-card"><span class="tag">Алерты</span><a class="stretched" href="docs/features/notifications.html"><h3>Умные уведомления</h3><p>Telegram, Mattermost, Gotify, MAX, webhook — с действиями mute / take / resolve.</p></a></div>
         <div class="card feature-card"><span class="tag">Доступ</span><a class="stretched" href="docs/features/rbac.html"><h3>RBAC и тенанты</h3><p>Пользователи, группы, ACL с наследованием от папок, секреты и журнал аудита.</p></a></div>
         <div class="card feature-card"><span class="tag">Интеграции</span><a class="stretched" href="docs/features/api.html"><h3>API и MCP</h3><p>Status API, Management API v2, Swagger и MCP-инструменты для автоматизации.</p></a></div>
+        <div class="card feature-card"><span class="tag">Публично</span><a class="stretched" href="docs/features/status-pages.html"><h3>Status pages</h3><p>Публичный <code>/status/{{slug}}/</code> с heartbeat bars, инцидентами и EN/RU — membership отдельно от Status API.</p></a></div>
       </div>
       <p style="margin-top:1.25rem"><a class="btn btn-outline" href="docs/features/index.html">Все возможности →</a> <a class="btn btn-outline" href="docs/features/comparison.html">Сравнение с аналогами →</a></p>
     </div>
@@ -539,7 +543,7 @@ add_doc(
             <li><a href="features/index.html">Feature map</a></li>
             <li><a href="features/monitors.html">Monitors</a> · <a href="features/workers.html">Workers</a> · <a href="features/agents.html">Agents</a></li>
             <li><a href="features/notifications.html">Notifications</a> · <a href="features/rbac.html">RBAC</a></li>
-            <li><a href="features/api.html">API &amp; MCP</a></li>
+            <li><a href="features/status-pages.html">Status pages</a> · <a href="features/api.html">API &amp; MCP</a></li>
             <li><a href="features/comparison.html">Compare with alternatives</a></li>
           </ul>
         </div>
@@ -567,7 +571,7 @@ add_doc(
             <li><a href="features/index.html">Карта возможностей</a></li>
             <li><a href="features/monitors.html">Мониторы</a> · <a href="features/workers.html">Воркеры</a> · <a href="features/agents.html">Агенты</a></li>
             <li><a href="features/notifications.html">Уведомления</a> · <a href="features/rbac.html">RBAC</a></li>
-            <li><a href="features/api.html">API и MCP</a></li>
+            <li><a href="features/status-pages.html">Status pages</a> · <a href="features/api.html">API и MCP</a></li>
             <li><a href="features/comparison.html">Сравнение с аналогами</a></li>
           </ul>
         </div>
@@ -776,7 +780,7 @@ add_doc(
       </ul>
       {shot("screenshot_mainpage_monitor.png", "Monitor detail with charts")}
       <h2>Admin areas</h2>
-      <p>Permission-gated menus: Workers, Monitors, Notify, Signatures, Dockers, Servers, Maintenances, Users/Groups/Permissions/Logs, API tokens under Settings.</p>
+      <p>Permission-gated menus: Workers, Monitors, Notify, Signatures, Dockers, Servers, Maintenances, <a href="features/status-pages.html">Status pages</a>, Users/Groups/Permissions/Logs, API tokens under Settings.</p>
       <div class="page-nav"><div><a href="quick-start.html">← Quick Start</a></div><div><a href="environment.html">Environment →</a></div></div>
     """,
     f"""
@@ -800,7 +804,7 @@ add_doc(
       </ul>
       {shot("screenshot_mainpage_monitor.png", "Детали монитора")}
       <h2>Админка</h2>
-      <p>По правам: Workers, Monitors, Notify, Signatures, Dockers, Servers, Maintenances, пользователи/группы/права/логи, API-токены в Settings.</p>
+      <p>По правам: Workers, Monitors, Notify, Signatures, Dockers, Servers, Maintenances, <a href="features/status-pages.html">Status pages</a>, пользователи/группы/права/логи, API-токены в Settings.</p>
       <div class="page-nav"><div><a href="quick-start.html">← Быстрый старт</a></div><div><a href="environment.html">Окружение →</a></div></div>
     """,
 )
@@ -1162,6 +1166,7 @@ add_doc(
         <div class="card"><h3><a href="rbac.html">RBAC &amp; audit</a></h3><p>ACL, groups, secrets, impersonate, logs.</p></div>
         <div class="card"><h3><a href="auth.html">Authentication</a></h3><p>Password, OpenID, OAuth, 2FA, SMTP.</p></div>
         <div class="card"><h3><a href="ssl-events.html">SSL &amp; events</a></h3><p>Certificate expiry alerts and event store.</p></div>
+        <div class="card"><h3><a href="status-pages.html">Status pages</a></h3><p>Public <code>/status/{slug}/</code>, incidents, EN/RU.</p></div>
         <div class="card"><h3><a href="api.html">API &amp; MCP</a></h3><p>Status API, Management v2, Swagger, MCP.</p></div>
         <div class="card"><h3><a href="comparison.html">Compare</a></h3><p>Honest matrix vs Uptime Kuma, UptimeRobot, Better Stack, Pingdom.</p></div>
       </div>
@@ -1180,6 +1185,7 @@ add_doc(
         <div class="card"><h3><a href="rbac.html">RBAC и аудит</a></h3><p>ACL, группы, секреты, логи.</p></div>
         <div class="card"><h3><a href="auth.html">Аутентификация</a></h3><p>Пароль, OpenID, OAuth, 2FA.</p></div>
         <div class="card"><h3><a href="ssl-events.html">SSL и события</a></h3><p>Истечение сертификатов и события.</p></div>
+        <div class="card"><h3><a href="status-pages.html">Status pages</a></h3><p>Публичный <code>/status/{slug}/</code>, инциденты, EN/RU.</p></div>
         <div class="card"><h3><a href="api.html">API и MCP</a></h3><p>Status, Management v2, Swagger, MCP.</p></div>
         <div class="card"><h3><a href="comparison.html">Сравнение</a></h3><p>Честная матрица с Uptime Kuma, UptimeRobot, Better Stack, Pingdom.</p></div>
       </div>
@@ -1691,7 +1697,7 @@ add_doc(
         <li>Shown on the home feed and per-monitor (~2 day window)</li>
         <li>Raw logs aggregated; detail retention about 24 hours</li>
       </ul>
-      <div class="page-nav"><div><a href="auth.html">← Authentication</a></div><div><a href="api.html">API &amp; MCP →</a></div></div>
+      <div class="page-nav"><div><a href="auth.html">← Authentication</a></div><div><a href="status-pages.html">Status pages →</a></div></div>
     """,
     """
       <h1>SSL и события</h1>
@@ -1708,7 +1714,84 @@ add_doc(
         <li>На главной и в карточке монитора (~2 дня)</li>
         <li>Агрегация логов; детали ~24 часа</li>
       </ul>
-      <div class="page-nav"><div><a href="auth.html">← Аутентификация</a></div><div><a href="api.html">API и MCP →</a></div></div>
+      <div class="page-nav"><div><a href="auth.html">← Аутентификация</a></div><div><a href="status-pages.html">Status pages →</a></div></div>
+    """,
+)
+
+add_doc(
+    "status-pages",
+    "docs/features/status-pages.html",
+    "Status pages — Monitoring",
+    "Status pages — Monitoring",
+    """
+      <h1>Status pages</h1>
+      <p class="lead">Publish a customer-facing HTML status page at <code>/status/{slug}/</code> without exposing the admin UI or turning on the Status API for every monitor.</p>
+
+      <div class="callout">
+        <strong>Membership ≠ <code>api_enabled</code></strong>
+        Adding a monitor to a status page only controls the public HTML page. It does <em>not</em> put that monitor into <code>GET /api/v1/status/</code>. Keep Status API opt-in via the monitor’s <code>api_enabled</code> flag.
+      </div>
+
+      <h2>What visitors see</h2>
+      <ul>
+        <li>Overall state: All systems operational / Partial outage / Major outage / Under maintenance</li>
+        <li>Monitor list with 24h heartbeat bars and uptime percentage</li>
+        <li>Published incidents (title, message, severity, timestamps)</li>
+        <li>Optional custom header HTML and footer text</li>
+        <li>EN / RU language switch (<code>?lang=</code> or cookie)</li>
+      </ul>
+
+      <h2>Which monitors appear</h2>
+      <p>Only <strong>leaf</strong> monitors are listed: not a folder, enabled (<code>status=1</code>), and all ancestor folders enabled. Empty folders and disabled branches stay hidden.</p>
+
+      <h2>Admin</h2>
+      <ol>
+        <li>Open <strong>Status pages</strong> in the admin menu (ACL-gated).</li>
+        <li>Create a page: slug, title, description, theme, published flag.</li>
+        <li>Attach monitors you can read (multi-select respects ACL).</li>
+        <li>Add / edit / delete incidents from the page editor.</li>
+        <li>Share <code>https://your-host/status/{slug}/</code> when published.</li>
+      </ol>
+
+      <h2>API &amp; MCP</h2>
+      <p>Management API v2 and MCP expose <code>statuspages</code> CRUD (including membership and incidents). See <a href="api.html">API &amp; MCP</a> and OpenAPI at <code>/api/docs/</code>.</p>
+
+      <div class="page-nav"><div><a href="ssl-events.html">← SSL &amp; events</a></div><div><a href="api.html">API &amp; MCP →</a></div></div>
+    """,
+    """
+      <h1>Status pages</h1>
+      <p class="lead">Публичная HTML-страница статуса по адресу <code>/status/{slug}/</code> без доступа к админке и без включения Status API для каждого монитора.</p>
+
+      <div class="callout">
+        <strong>Membership ≠ <code>api_enabled</code></strong>
+        Добавление монитора на status page влияет только на публичный HTML. В <code>GET /api/v1/status/</code> монитор попадает только при флаге <code>api_enabled</code>.
+      </div>
+
+      <h2>Что видит посетитель</h2>
+      <ul>
+        <li>Общий статус: всё в порядке / частичный сбой / серьёзный сбой / обслуживание</li>
+        <li>Список мониторов с полосками heartbeat за 24ч и uptime</li>
+        <li>Опубликованные инциденты (заголовок, текст, severity, время)</li>
+        <li>Опциональный custom header HTML и footer</li>
+        <li>Переключатель EN / RU (<code>?lang=</code> или cookie)</li>
+      </ul>
+
+      <h2>Какие мониторы показываются</h2>
+      <p>Только <strong>листья</strong>: не папка, включён (<code>status=1</code>), все родительские папки включены. Пустые папки и выключенные ветки скрыты.</p>
+
+      <h2>Админка</h2>
+      <ol>
+        <li>Меню <strong>Status pages</strong> (по ACL).</li>
+        <li>Создайте страницу: slug, title, description, theme, published.</li>
+        <li>Привяжите мониторы, которые вам доступны на чтение.</li>
+        <li>Добавляйте / редактируйте / удаляйте инциденты в редакторе страницы.</li>
+        <li>Отдайте ссылку <code>https://your-host/status/{slug}/</code> после публикации.</li>
+      </ol>
+
+      <h2>API и MCP</h2>
+      <p>Management API v2 и MCP: CRUD <code>statuspages</code> (membership и incidents). См. <a href="api.html">API и MCP</a> и OpenAPI <code>/api/docs/</code>.</p>
+
+      <div class="page-nav"><div><a href="ssl-events.html">← SSL и события</a></div><div><a href="api.html">API и MCP →</a></div></div>
     """,
 )
 
@@ -1723,9 +1806,9 @@ add_doc(
       <h2>API tokens</h2>
       <p>Settings → API: create/revoke tokens (<code>mnt_…</code>). Send as <code>Authorization: Bearer</code> or <code>X-Api-Token</code>. Rights equal the token owner; secrets redacted without permission.</p>
       <h2>User Status API</h2>
-      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits.</p>
+      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits. Separate from public HTML <a href="status-pages.html">status pages</a>.</p>
       <h2>Management API v2</h2>
-      <p>REST CRUD for monitors, notify, signatures, workers, maintenances, dockers, servers; users/groups read-only; logs by date; permissions GET/PUT. Interactive docs: <code>/api/docs/</code> (OpenAPI <code>/api/docs/openapi.json</code>).</p>
+      <p>REST CRUD for monitors, notify, signatures, workers, maintenances, <code>statuspages</code>, dockers, servers; users/groups read-only; logs by date; permissions GET/PUT. Interactive docs: <code>/api/docs/</code> (OpenAPI <code>/api/docs/openapi.json</code>).</p>
       <h2>MCP</h2>
       <p><code>POST /mcp/</code> JSON-RPC; tools mirror v2 plus <code>api_docs</code>. Suitable for Cursor-style remote MCP configs.</p>
       <h2>Other endpoints</h2>
@@ -1735,7 +1818,7 @@ add_doc(
         <li>Alert-action callbacks for messenger buttons</li>
       </ul>
       <p>Deep protocol notes: <a href="https://github.com/AKEB/monitoring">server docs</a> (<code>WORKER_API.md</code>, <code>USER_API.md</code>, <code>MANAGEMENT_API.md</code>, <code>AGENT_API.md</code>).</p>
-      <div class="page-nav"><div><a href="ssl-events.html">← SSL &amp; events</a></div><div><a href="comparison.html">Compare →</a></div></div>
+      <div class="page-nav"><div><a href="status-pages.html">← Status pages</a></div><div><a href="comparison.html">Compare →</a></div></div>
     """,
     """
       <h1>API и MCP</h1>
@@ -1743,9 +1826,9 @@ add_doc(
       <h2>API-токены</h2>
       <p>Settings → API: токены <code>mnt_…</code> как <code>Authorization: Bearer</code> или <code>X-Api-Token</code>. Права = владелец токена.</p>
       <h2>User Status API</h2>
-      <p><code>GET /api/v1/status/</code> — только мониторы с <code>api_enabled</code>. Статусы, availability, SSL, воркеры, maintenance.</p>
+      <p><code>GET /api/v1/status/</code> — только мониторы с <code>api_enabled</code>. Статусы, availability, SSL, воркеры, maintenance. Отдельно от публичных HTML <a href="status-pages.html">status pages</a>.</p>
       <h2>Management API v2</h2>
-      <p>CRUD сущностей, права, логи. Swagger: <code>/api/docs/</code>.</p>
+      <p>CRUD сущностей (включая <code>statuspages</code>), права, логи. Swagger: <code>/api/docs/</code>.</p>
       <h2>MCP</h2>
       <p><code>POST /mcp/</code> — инструменты как у v2 плюс <code>api_docs</code>.</p>
       <h2>Прочее</h2>
@@ -1755,7 +1838,7 @@ add_doc(
         <li>Alert-action callbacks</li>
       </ul>
       <p>Детали протоколов — в репозитории сервера (<code>*_API.md</code>).</p>
-      <div class="page-nav"><div><a href="ssl-events.html">← SSL и события</a></div><div><a href="comparison.html">Сравнение →</a></div></div>
+      <div class="page-nav"><div><a href="status-pages.html">← Status pages</a></div><div><a href="comparison.html">Сравнение →</a></div></div>
     """,
 )
 
@@ -1837,7 +1920,7 @@ add_doc(
           <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
         </thead>
         <tbody>
-          <tr><th>Public status page UI</th><td><span class="cmp yes">Yes</span> — <code>/status/{slug}/</code> + admin/incidents (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Public status page UI</th><td><span class="cmp yes">Yes</span> — <code>/status/{slug}/</code>, incidents, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Embed status badges (SVG)</th><td><span class="cmp no">UI badges only</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Monitor tags</th><td><span class="cmp partial">Folders</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Notify channels</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
@@ -1905,7 +1988,7 @@ add_doc(
         <div class="card">
           <h3>Kuma advantages</h3>
           <ul>
-            <li>Beautiful <strong>public status pages</strong> with custom domains and incident banners.</li>
+            <li>Richer <strong>status page theming</strong> and custom domains (we ship <code>/status/{slug}/</code> + incidents already).</li>
             <li><strong>90+ notification providers</strong> out of the box.</li>
             <li><strong>Tags</strong>, embeddable <strong>SVG badges</strong>, many UI languages.</li>
             <li>Extremely fast <strong>“one Docker”</strong> start for small labs.</li>
@@ -2000,7 +2083,7 @@ add_doc(
           <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
         </thead>
         <tbody>
-          <tr><th>Публичная status page (UI)</th><td><span class="cmp yes">Да</span> — <code>/status/{slug}/</code> + админка/инциденты (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Публичная status page (UI)</th><td><span class="cmp yes">Да</span> — <code>/status/{slug}/</code>, инциденты, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp no">Только бейджи в UI</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Теги мониторов</th><td><span class="cmp partial">Папки</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Каналы уведомлений</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
@@ -2068,7 +2151,7 @@ add_doc(
         <div class="card">
           <h3>Плюсы Kuma</h3>
           <ul>
-            <li>Красивые <strong>публичные status pages</strong> с доменами и баннерами инцидентов.</li>
+            <li>Более богатая <strong>темизация status pages</strong> и кастомные домены (у нас уже есть <code>/status/{slug}/</code> и инциденты).</li>
             <li><strong>90+ каналов уведомлений</strong> из коробки.</li>
             <li><strong>Теги</strong>, embed <strong>SVG-бейджи</strong>, много языков UI.</li>
             <li>Очень быстрый старт <strong>«один Docker»</strong> для маленьких лабораторий.</li>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Status pages — Monitoring">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/site.css">
+  <title>Status pages — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Features</a>
+          <a href="../../docs/features/comparison.html">Compare</a>
+          <a href="../../docs/index.html">Docs</a>
+          <a href="../../docs/installation.html">Install</a>
+          <a href="../../docs/quick-start.html">Quick Start</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="status-pages.html" class="is-active">EN</a>
+          <a href="../../ru/docs/features/status-pages.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../../docs/index.html">Documentation</a>
+        <a href="../../docs/architecture.html">Architecture</a>
+        <a href="../../docs/installation.html">Installation</a>
+        <a href="../../docs/quick-start.html">Quick Start</a>
+        <a href="../../docs/environment.html">Environment variables</a>
+        <a href="../../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../../docs/features/index.html">Overview</a>
+        <a href="../../docs/features/dashboard.html">Dashboard</a>
+        <a href="../../docs/features/monitors.html">Monitors</a>
+        <a href="../../docs/features/workers.html">Workers</a>
+        <a href="../../docs/features/agents.html">Host Agents</a>
+        <a href="../../docs/features/docker.html">Docker Hosts</a>
+        <a href="../../docs/features/notifications.html">Notifications</a>
+        <a href="../../docs/features/maintenance.html">Maintenance</a>
+        <a href="../../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../../docs/features/auth.html">Authentication</a>
+        <a href="../../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../../docs/features/status-pages.html">Status pages</a>
+        <a href="../../docs/features/api.html">API & MCP</a>
+        <a href="../../docs/features/comparison.html">Compare</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Status pages</h1>
+      <p class="lead">Publish a customer-facing HTML status page at <code>/status/{slug}/</code> without exposing the admin UI or turning on the Status API for every monitor.</p>
+
+      <div class="callout">
+        <strong>Membership ≠ <code>api_enabled</code></strong>
+        Adding a monitor to a status page only controls the public HTML page. It does <em>not</em> put that monitor into <code>GET /api/v1/status/</code>. Keep Status API opt-in via the monitor’s <code>api_enabled</code> flag.
+      </div>
+
+      <h2>What visitors see</h2>
+      <ul>
+        <li>Overall state: All systems operational / Partial outage / Major outage / Under maintenance</li>
+        <li>Monitor list with 24h heartbeat bars and uptime percentage</li>
+        <li>Published incidents (title, message, severity, timestamps)</li>
+        <li>Optional custom header HTML and footer text</li>
+        <li>EN / RU language switch (<code>?lang=</code> or cookie)</li>
+      </ul>
+
+      <h2>Which monitors appear</h2>
+      <p>Only <strong>leaf</strong> monitors are listed: not a folder, enabled (<code>status=1</code>), and all ancestor folders enabled. Empty folders and disabled branches stay hidden.</p>
+
+      <h2>Admin</h2>
+      <ol>
+        <li>Open <strong>Status pages</strong> in the admin menu (ACL-gated).</li>
+        <li>Create a page: slug, title, description, theme, published flag.</li>
+        <li>Attach monitors you can read (multi-select respects ACL).</li>
+        <li>Add / edit / delete incidents from the page editor.</li>
+        <li>Share <code>https://your-host/status/{slug}/</code> when published.</li>
+      </ol>
+
+      <h2>API &amp; MCP</h2>
+      <p>Management API v2 and MCP expose <code>statuspages</code> CRUD (including membership and incidents). See <a href="api.html">API &amp; MCP</a> and OpenAPI at <code>/api/docs/</code>.</p>
+
+      <div class="page-nav"><div><a href="ssl-events.html">← SSL &amp; events</a></div><div><a href="api.html">API &amp; MCP →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/site.js"></script>
+</body>
+</html>
