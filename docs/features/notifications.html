@@ -67,6 +67,10 @@
         <tr><td>Gotify</td><td>Server URL, app token, priority</td></tr>
         <tr><td>MAX</td><td>Bot token + receiver; interactive buttons</td></tr>
         <tr><td>Webhook</td><td>HTTP POST; optional basic auth; Alertmanager-style firing/resolved payload</td></tr>
+        <tr><td>Email</td><td>Comma-separated recipients; SMTP via <code>SMTP_*</code> env</td></tr>
+        <tr><td>Discord</td><td>Incoming webhook URL; embed with status color</td></tr>
+        <tr><td>Slack</td><td>Incoming webhook URL; text payload (no interactive buttons in v1)</td></tr>
+        <tr><td>ntfy</td><td>Server URL + topic; optional Bearer token and priority</td></tr>
       </table></div>
       <h2>Alert actions</h2>
       <p>Resolve, Take, Mute, Unmute, Call, OK. Mute suppresses repeats until the monitor is green again. Callbacks hit <code>/api/alert-action/...</code>.</p>

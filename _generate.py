@@ -363,7 +363,7 @@ def landing_en() -> str:
         <div class="card feature-card"><span class="tag">Core</span><a class="stretched" href="docs/features/monitors.html"><h3>Check types</h3><p>HTTPS (body/auth/mTLS), Keyword, JSON, TCP/UDP, Ping, DNS, Domain, SMTP/NTP/Websocket, databases, messaging, Docker, External, node-exporter and host-agent metrics.</p></a></div>
         <div class="card feature-card"><span class="tag">Scale</span><a class="stretched" href="docs/features/workers.html"><h3>Distributed workers</h3><p>Run lightweight Go workers in any network or region for objective availability.</p></a></div>
         <div class="card feature-card"><span class="tag">Hosts</span><a class="stretched" href="docs/features/agents.html"><h3>Host agents</h3><p>CPU, RAM, disks, network, listening ports, Docker, Proxmox guests and auth events from each server.</p></a></div>
-        <div class="card feature-card"><span class="tag">Alerts</span><a class="stretched" href="docs/features/notifications.html"><h3>Smart notifications</h3><p>Telegram, Mattermost, Gotify, MAX, webhooks — with mute, take, resolve actions.</p></a></div>
+        <div class="card feature-card"><span class="tag">Alerts</span><a class="stretched" href="docs/features/notifications.html"><h3>Smart notifications</h3><p>Telegram, Mattermost, Gotify, MAX, Webhook, Email, Discord, Slack, ntfy — with mute, take, resolve on messengers.</p></a></div>
         <div class="card feature-card"><span class="tag">Access</span><a class="stretched" href="docs/features/rbac.html"><h3>Multi-tenant RBAC</h3><p>Users, groups, folder-inherited ACL, secrets permissions and audit log.</p></a></div>
         <div class="card feature-card"><span class="tag">Integrations</span><a class="stretched" href="docs/features/api.html"><h3>API &amp; MCP</h3><p>Status feed, Management API v2, Swagger UI and MCP tools for automation.</p></a></div>
         <div class="card feature-card"><span class="tag">Public</span><a class="stretched" href="docs/features/status-pages.html"><h3>Status pages</h3><p>Public <code>/status/{{slug}}/</code> with heartbeat bars, incidents and EN/RU — membership independent of Status API.</p></a></div>
@@ -438,7 +438,7 @@ def landing_ru() -> str:
         <div class="card feature-card"><span class="tag">Ядро</span><a class="stretched" href="docs/features/monitors.html"><h3>Типы проверок</h3><p>HTTPS (body/auth/mTLS), Keyword, JSON, TCP/UDP, Ping, DNS, домен, SMTP/NTP/Websocket, БД, messaging, Docker, External, node-exporter и метрики агента.</p></a></div>
         <div class="card feature-card"><span class="tag">Масштаб</span><a class="stretched" href="docs/features/workers.html"><h3>Распределённые воркеры</h3><p>Лёгкие Go-воркеры в любых сетях и регионах для объективной доступности.</p></a></div>
         <div class="card feature-card"><span class="tag">Хосты</span><a class="stretched" href="docs/features/agents.html"><h3>Агенты хостов</h3><p>CPU, RAM, диски, сеть, слушающие порты, Docker, гости Proxmox и события auth с каждого сервера.</p></a></div>
-        <div class="card feature-card"><span class="tag">Алерты</span><a class="stretched" href="docs/features/notifications.html"><h3>Умные уведомления</h3><p>Telegram, Mattermost, Gotify, MAX, webhook — с действиями mute / take / resolve.</p></a></div>
+        <div class="card feature-card"><span class="tag">Алерты</span><a class="stretched" href="docs/features/notifications.html"><h3>Умные уведомления</h3><p>Telegram, Mattermost, Gotify, MAX, Webhook, Email, Discord, Slack, ntfy — mute / take / resolve в мессенджерах.</p></a></div>
         <div class="card feature-card"><span class="tag">Доступ</span><a class="stretched" href="docs/features/rbac.html"><h3>RBAC и тенанты</h3><p>Пользователи, группы, ACL с наследованием от папок, секреты и журнал аудита.</p></a></div>
         <div class="card feature-card"><span class="tag">Интеграции</span><a class="stretched" href="docs/features/api.html"><h3>API и MCP</h3><p>Status API, Management API v2, Swagger и MCP-инструменты для автоматизации.</p></a></div>
         <div class="card feature-card"><span class="tag">Публично</span><a class="stretched" href="docs/features/status-pages.html"><h3>Status pages</h3><p>Публичный <code>/status/{{slug}}/</code> с heartbeat bars, инцидентами и EN/RU — membership отдельно от Status API.</p></a></div>
@@ -728,7 +728,7 @@ add_doc(
         <li><strong>Create a worker</strong> under Workers → Create. Copy <code>WORKER_KEY_HASH</code>.</li>
         <li><strong>Start the worker</strong> on any host that can reach your server:{pre(WORKER_RUN)}</li>
         <li><strong>Create a monitor</strong> — Monitors → Create → HTTPS, set URL, interval, assign the worker, save.</li>
-        <li><strong>Add a notify channel</strong> (optional) — Telegram / Mattermost / Gotify / MAX / Webhook — and attach it to the monitor.</li>
+        <li><strong>Add a notify channel</strong> (optional) — Telegram / Mattermost / Gotify / MAX / Webhook / Email / Discord / Slack / ntfy — and attach it to the monitor.</li>
       </ol>
       {shot("screenshot_workers.png", "Workers list")}
       {shot("screenshot_createMonitor_1.png", "Create monitor")}
@@ -1531,6 +1531,10 @@ add_doc(
         <tr><td>Gotify</td><td>Server URL, app token, priority</td></tr>
         <tr><td>MAX</td><td>Bot token + receiver; interactive buttons</td></tr>
         <tr><td>Webhook</td><td>HTTP POST; optional basic auth; Alertmanager-style firing/resolved payload</td></tr>
+        <tr><td>Email</td><td>Comma-separated recipients; SMTP via <code>SMTP_*</code> env</td></tr>
+        <tr><td>Discord</td><td>Incoming webhook URL; embed with status color</td></tr>
+        <tr><td>Slack</td><td>Incoming webhook URL; text payload (no interactive buttons in v1)</td></tr>
+        <tr><td>ntfy</td><td>Server URL + topic; optional Bearer token and priority</td></tr>
       </table></div>
       <h2>Alert actions</h2>
       <p>Resolve, Take, Mute, Unmute, Call, OK. Mute suppresses repeats until the monitor is green again. Callbacks hit <code>/api/alert-action/...</code>.</p>
@@ -1554,6 +1558,10 @@ add_doc(
         <tr><td>Gotify</td><td>URL, app token, priority</td></tr>
         <tr><td>MAX</td><td>Бот + receiver; кнопки</td></tr>
         <tr><td>Webhook</td><td>HTTP POST; payload в стиле Alertmanager</td></tr>
+        <tr><td>Email</td><td>Email через запятую; SMTP из <code>SMTP_*</code></td></tr>
+        <tr><td>Discord</td><td>Incoming webhook; embed с цветом статуса</td></tr>
+        <tr><td>Slack</td><td>Incoming webhook; текст (без interactive buttons в v1)</td></tr>
+        <tr><td>ntfy</td><td>URL сервера + topic; опционально Bearer и priority</td></tr>
       </table></div>
       <h2>Действия</h2>
       <p>Resolve, Take, Mute, Unmute, Call, OK. Mute глушит повторы до зелёного статуса.</p>
@@ -1923,8 +1931,8 @@ add_doc(
           <tr><th>Public status page UI</th><td><span class="cmp yes">Yes</span> — <code>/status/{slug}/</code>, incidents, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Embed status badges (SVG)</th><td><span class="cmp no">UI badges only</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Monitor tags</th><td><span class="cmp partial">Folders</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
-          <tr><th>Notify channels</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
-          <tr><th>Email / Discord / Slack / ntfy native</th><td><span class="cmp partial">Via webhook</span> / not native yet</td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Notify channels</th><td><span class="cmp partial">9</span> — Telegram, Mattermost, Gotify, MAX, Webhook, Email, Discord, Slack, ntfy</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
+          <tr><th>Email / Discord / Slack / ntfy native</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Interactive alert actions</th><td><span class="cmp yes">Mute / Take / Resolve</span> in messengers</td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Limited</span></td></tr>
           <tr><th>Polished consumer UI</th><td><span class="cmp partial">Functional admin UI</span></td><td><span class="cmp yes">Strong SPA</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td></tr>
           <tr><th>UI languages</th><td><span class="cmp partial">EN / RU</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
@@ -1966,7 +1974,7 @@ add_doc(
       <h2 id="gaps">Where others win</h2>
       <ul>
         <li><strong>Public status pages polish</strong> — we ship HTML <code>/status/{slug}/</code> + incidents; Kuma/SaaS still lead on custom domains and richer theming.</li>
-        <li><strong>Notification ecosystem</strong> — Kuma’s 90+ providers and SaaS catalogs beat our five native channels (Webhook covers many cases).</li>
+        <li><strong>Notification ecosystem</strong> — Kuma’s 90+ providers still beat our nine native channels (Email/Discord/Slack/ntfy + messengers + Webhook).</li>
         <li><strong>Tags &amp; embed badges</strong> — common elsewhere; we organize with folders and UI status badges.</li>
         <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom need no MySQL or workers to run.</li>
         <li><strong>Homelab onboarding UX</strong> — Kuma’s single-container SPA is hard to beat for tiny setups.</li>
@@ -2004,7 +2012,7 @@ add_doc(
       <p>Product gaps we intend to close (no dates promised):</p>
       <ol>
         <li><s>Public status pages (HTML UI)</s> — shipped</li>
-        <li>Native notify: Email + Discord + Slack + ntfy (on top of Webhook)</li>
+        <li><s>Native notify: Email + Discord + Slack + ntfy</s> — shipped</li>
         <li>Monitor tags + optional SVG status badges</li>
       </ol>
 
@@ -2086,8 +2094,8 @@ add_doc(
           <tr><th>Публичная status page (UI)</th><td><span class="cmp yes">Да</span> — <code>/status/{slug}/</code>, инциденты, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp no">Только бейджи в UI</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Теги мониторов</th><td><span class="cmp partial">Папки</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
-          <tr><th>Каналы уведомлений</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
-          <tr><th>Email / Discord / Slack / ntfy из коробки</th><td><span class="cmp partial">Через webhook</span> / нативно пока нет</td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Каналы уведомлений</th><td><span class="cmp partial">9</span> — Telegram, Mattermost, Gotify, MAX, Webhook, Email, Discord, Slack, ntfy</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
+          <tr><th>Email / Discord / Slack / ntfy из коробки</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Интерактивные действия в алертах</th><td><span class="cmp yes">Mute / Take / Resolve</span> в мессенджерах</td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
           <tr><th>Отполированный UI</th><td><span class="cmp partial">Функциональная админка</span></td><td><span class="cmp yes">Сильный SPA</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td></tr>
           <tr><th>Языки UI</th><td><span class="cmp partial">EN / RU</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
@@ -2129,7 +2137,7 @@ add_doc(
       <h2 id="gaps">Где выигрывают другие</h2>
       <ul>
         <li><strong>Полировка status pages</strong> — HTML <code>/status/{slug}/</code> и инциденты уже есть; у Kuma/SaaS сильнее кастомные домены и темизация.</li>
-        <li><strong>Экосистема уведомлений</strong> — 90+ провайдеров Kuma и каталоги SaaS шире наших пяти каналов (Webhook закрывает часть кейсов).</li>
+        <li><strong>Экосистема уведомлений</strong> — 90+ провайдеров Kuma всё ещё шире наших девяти нативных каналов (Email/Discord/Slack/ntfy + мессенджеры + Webhook).</li>
         <li><strong>Теги и embed-бейджи</strong> — у других обычны; у нас папки и бейджи в UI.</li>
         <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom не требуют MySQL и воркеров.</li>
         <li><strong>Онбординг для homelab</strong> — у Kuma «один Docker» и красивый SPA для маленьких сетапов.</li>
@@ -2167,7 +2175,7 @@ add_doc(
       <p>Пробелы, которые хотим закрыть (без обещаний дат):</p>
       <ol>
         <li><s>Публичные status pages (HTML UI)</s> — сделано</li>
-        <li>Нативные notify: Email + Discord + Slack + ntfy (поверх Webhook)</li>
+        <li><s>Нативные notify: Email + Discord + Slack + ntfy</s> — сделано</li>
         <li>Теги мониторов + опциональные SVG status badges</li>
       </ol>
 

@@ -132,8 +132,8 @@
           <tr><th>Публичная status page (UI)</th><td><span class="cmp yes">Да</span> — <code>/status/{slug}/</code>, инциденты, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp no">Только бейджи в UI</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Теги мониторов</th><td><span class="cmp partial">Папки</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
-          <tr><th>Каналы уведомлений</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
-          <tr><th>Email / Discord / Slack / ntfy из коробки</th><td><span class="cmp partial">Через webhook</span> / нативно пока нет</td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Каналы уведомлений</th><td><span class="cmp partial">9</span> — Telegram, Mattermost, Gotify, MAX, Webhook, Email, Discord, Slack, ntfy</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
+          <tr><th>Email / Discord / Slack / ntfy из коробки</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Интерактивные действия в алертах</th><td><span class="cmp yes">Mute / Take / Resolve</span> в мессенджерах</td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
           <tr><th>Отполированный UI</th><td><span class="cmp partial">Функциональная админка</span></td><td><span class="cmp yes">Сильный SPA</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td></tr>
           <tr><th>Языки UI</th><td><span class="cmp partial">EN / RU</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
@@ -175,7 +175,7 @@
       <h2 id="gaps">Где выигрывают другие</h2>
       <ul>
         <li><strong>Полировка status pages</strong> — HTML <code>/status/{slug}/</code> и инциденты уже есть; у Kuma/SaaS сильнее кастомные домены и темизация.</li>
-        <li><strong>Экосистема уведомлений</strong> — 90+ провайдеров Kuma и каталоги SaaS шире наших пяти каналов (Webhook закрывает часть кейсов).</li>
+        <li><strong>Экосистема уведомлений</strong> — 90+ провайдеров Kuma всё ещё шире наших девяти нативных каналов (Email/Discord/Slack/ntfy + мессенджеры + Webhook).</li>
         <li><strong>Теги и embed-бейджи</strong> — у других обычны; у нас папки и бейджи в UI.</li>
         <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom не требуют MySQL и воркеров.</li>
         <li><strong>Онбординг для homelab</strong> — у Kuma «один Docker» и красивый SPA для маленьких сетапов.</li>
@@ -213,7 +213,7 @@
       <p>Пробелы, которые хотим закрыть (без обещаний дат):</p>
       <ol>
         <li><s>Публичные status pages (HTML UI)</s> — сделано</li>
-        <li>Нативные notify: Email + Discord + Slack + ntfy (поверх Webhook)</li>
+        <li><s>Нативные notify: Email + Discord + Slack + ntfy</s> — сделано</li>
         <li>Теги мониторов + опциональные SVG status badges</li>
       </ol>
 
