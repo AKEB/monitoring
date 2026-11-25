@@ -1837,7 +1837,7 @@ add_doc(
           <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
         </thead>
         <tbody>
-          <tr><th>Public status page UI</th><td><span class="cmp partial">JSON Status API</span> (<code>api_enabled</code>) — no branded HTML pages yet</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Public status page UI</th><td><span class="cmp yes">Yes</span> — <code>/status/{slug}/</code> + admin/incidents (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Embed status badges (SVG)</th><td><span class="cmp no">UI badges only</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Monitor tags</th><td><span class="cmp partial">Folders</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Notify channels</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
@@ -1882,7 +1882,7 @@ add_doc(
 
       <h2 id="gaps">Where others win</h2>
       <ul>
-        <li><strong>Public status pages</strong> — Kuma, UptimeRobot, Better Stack, and Pingdom ship polished HTML status pages; we expose a Status API today.</li>
+        <li><strong>Public status pages polish</strong> — we ship HTML <code>/status/{slug}/</code> + incidents; Kuma/SaaS still lead on custom domains and richer theming.</li>
         <li><strong>Notification ecosystem</strong> — Kuma’s 90+ providers and SaaS catalogs beat our five native channels (Webhook covers many cases).</li>
         <li><strong>Tags &amp; embed badges</strong> — common elsewhere; we organize with folders and UI status badges.</li>
         <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom need no MySQL or workers to run.</li>
@@ -1920,7 +1920,7 @@ add_doc(
       <h2 id="roadmap">What we plan next</h2>
       <p>Product gaps we intend to close (no dates promised):</p>
       <ol>
-        <li>Public status pages (HTML UI on top of the Status API)</li>
+        <li><s>Public status pages (HTML UI)</s> — shipped</li>
         <li>Native notify: Email + Discord + Slack + ntfy (on top of Webhook)</li>
         <li>Monitor tags + optional SVG status badges</li>
       </ol>
@@ -2000,7 +2000,7 @@ add_doc(
           <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
         </thead>
         <tbody>
-          <tr><th>Публичная status page (UI)</th><td><span class="cmp partial">JSON Status API</span> (<code>api_enabled</code>) — брендированных HTML-страниц пока нет</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Публичная status page (UI)</th><td><span class="cmp yes">Да</span> — <code>/status/{slug}/</code> + админка/инциденты (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp no">Только бейджи в UI</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Теги мониторов</th><td><span class="cmp partial">Папки</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Каналы уведомлений</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
@@ -2045,7 +2045,7 @@ add_doc(
 
       <h2 id="gaps">Где выигрывают другие</h2>
       <ul>
-        <li><strong>Публичные status pages</strong> — у Kuma и SaaS есть готовый HTML; у нас пока Status API.</li>
+        <li><strong>Полировка status pages</strong> — HTML <code>/status/{slug}/</code> и инциденты уже есть; у Kuma/SaaS сильнее кастомные домены и темизация.</li>
         <li><strong>Экосистема уведомлений</strong> — 90+ провайдеров Kuma и каталоги SaaS шире наших пяти каналов (Webhook закрывает часть кейсов).</li>
         <li><strong>Теги и embed-бейджи</strong> — у других обычны; у нас папки и бейджи в UI.</li>
         <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom не требуют MySQL и воркеров.</li>
@@ -2083,7 +2083,7 @@ add_doc(
       <h2 id="roadmap">Что планируем дальше</h2>
       <p>Пробелы, которые хотим закрыть (без обещаний дат):</p>
       <ol>
-        <li>Публичные status pages (HTML UI поверх Status API)</li>
+        <li><s>Публичные status pages (HTML UI)</s> — сделано</li>
         <li>Нативные notify: Email + Discord + Slack + ntfy (поверх Webhook)</li>
         <li>Теги мониторов + опциональные SVG status badges</li>
       </ol>
