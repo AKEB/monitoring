@@ -1818,7 +1818,7 @@ add_doc(
       <h2>API tokens</h2>
       <p>Settings → API: create/revoke tokens (<code>mnt_…</code>). Send as <code>Authorization: Bearer</code> or <code>X-Api-Token</code>. Rights equal the token owner; secrets redacted without permission.</p>
       <h2>User Status API</h2>
-      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits. Separate from public HTML <a href="status-pages.html">status pages</a>.</p>
+      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/degraded/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits. Separate from public HTML <a href="status-pages.html">status pages</a>.</p>
       <h2>Management API v2</h2>
       <p>REST CRUD for monitors, notify, signatures, workers, maintenances, <code>statuspages</code>, dockers, servers; users/groups read-only; logs by date; permissions GET/PUT. Interactive docs: <code>/api/docs/</code> (OpenAPI <code>/api/docs/openapi.json</code>).</p>
       <h2>MCP</h2>
@@ -1995,6 +1995,7 @@ add_doc(
             <li><strong>Scale past ~100 monitors</strong> — remote workers take check load off the UI/API process; operators often see Kuma slow down when everything shares one Node + SQLite process.</li>
             <li><strong>Longer useful history</strong> — daily aggregates and 30d availability in MySQL you own, instead of an ever-growing local heartbeat store.</li>
             <li><strong>Host agents + MCP</strong> for infrastructure depth and automation.</li>
+            <li><strong>Monitor tags + SVG badges</strong> — Bootstrap pills on monitors/folders and public <code>/badge/{hash}.svg</code>.</li>
           </ul>
         </div>
         <div class="card">
@@ -2002,7 +2003,7 @@ add_doc(
           <ul>
             <li>Richer <strong>status page theming</strong> and custom domains (we ship <code>/status/{slug}/</code> + incidents already).</li>
             <li><strong>90+ notification providers</strong> out of the box.</li>
-            <li><strong>Tags</strong>, embeddable <strong>SVG badges</strong>, many UI languages.</li>
+            <li>Many <strong>UI languages</strong> via Weblate (we ship EN/RU).</li>
             <li>Extremely fast <strong>“one Docker”</strong> start for small labs.</li>
           </ul>
         </div>
@@ -2158,6 +2159,7 @@ add_doc(
             <li><strong>Масштаб после ~100 мониторов</strong> — удалённые воркеры снимают нагрузку проверок с UI/API; у Kuma при росте часто становится тяжело, когда всё живёт в одном процессе Node + SQLite.</li>
             <li><strong>Более полезная длинная история</strong> — суточные агрегаты и availability 30д в своём MySQL, а не только раздувающееся локальное heartbeat-хранилище.</li>
             <li><strong>Host-агенты + MCP</strong> для инфраструктуры и автоматизации.</li>
+            <li><strong>Теги мониторов + SVG-бейджи</strong> — Bootstrap pills на мониторах/папках и публичный <code>/badge/{hash}.svg</code>.</li>
           </ul>
         </div>
         <div class="card">
@@ -2165,7 +2167,7 @@ add_doc(
           <ul>
             <li>Более богатая <strong>темизация status pages</strong> и кастомные домены (у нас уже есть <code>/status/{slug}/</code> и инциденты).</li>
             <li><strong>90+ каналов уведомлений</strong> из коробки.</li>
-            <li><strong>Теги</strong>, embed <strong>SVG-бейджи</strong>, много языков UI.</li>
+            <li>Много <strong>языков UI</strong> через Weblate (у нас EN/RU).</li>
             <li>Очень быстрый старт <strong>«один Docker»</strong> для маленьких лабораторий.</li>
           </ul>
         </div>
