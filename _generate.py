@@ -1242,6 +1242,8 @@ add_doc(
       <h2>Organization</h2>
       <ul>
         <li><strong>Folders</strong> — hierarchy; ACL and maintenance inherit to children</li>
+        <li><strong>Tags</strong> — orthogonal Bootstrap color pills; admin CRUD under Tags</li>
+        <li><strong>SVG badges</strong> — enable per monitor for public <code>/badge/{hash}.svg</code> (shields-style Up/Down)</li>
         <li>Enable/disable per monitor; copy monitor in admin UI</li>
         <li>Assign workers and notify channels (ACL-filtered)</li>
         <li><strong>Fail modes</strong>: notify when any / majority (≥50%) / all assigned workers fail</li>
@@ -1305,6 +1307,8 @@ curl 'https://monitoring.example.com/api/external/<64hex>/?status=fail&log=disk%
       <h2>Организация</h2>
       <ul>
         <li><strong>Папки</strong> — иерархия; ACL и maintenance наследуются вниз</li>
+        <li><strong>Теги</strong> — Bootstrap color pills; CRUD в админке Tags</li>
+        <li><strong>SVG-бейджи</strong> — публичный <code>/badge/{hash}.svg</code> (shields-style Up/Down)</li>
         <li>Включение/выключение; копирование в админке</li>
         <li>Назначение воркеров и каналов уведомлений</li>
         <li><strong>Fail modes</strong>: any / majority (≥50%) / all</li>
@@ -1929,8 +1933,8 @@ add_doc(
         </thead>
         <tbody>
           <tr><th>Public status page UI</th><td><span class="cmp yes">Yes</span> — <code>/status/{slug}/</code>, incidents, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
-          <tr><th>Embed status badges (SVG)</th><td><span class="cmp no">UI badges only</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
-          <tr><th>Monitor tags</th><td><span class="cmp partial">Folders</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Embed status badges (SVG)</th><td><span class="cmp yes">Yes</span> — <code>/badge/{hash}.svg</code> shields-style</td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Monitor tags</th><td><span class="cmp yes">Yes</span> — Bootstrap color pills + folders</td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Notify channels</th><td><span class="cmp partial">9</span> — Telegram, Mattermost, Gotify, MAX, Webhook, Email, Discord, Slack, ntfy</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
           <tr><th>Email / Discord / Slack / ntfy native</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
           <tr><th>Interactive alert actions</th><td><span class="cmp yes">Mute / Take / Resolve</span> in messengers</td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Limited</span></td></tr>
@@ -1975,7 +1979,7 @@ add_doc(
       <ul>
         <li><strong>Public status pages polish</strong> — we ship HTML <code>/status/{slug}/</code> + incidents; Kuma/SaaS still lead on custom domains and richer theming.</li>
         <li><strong>Notification ecosystem</strong> — Kuma’s 90+ providers still beat our nine native channels (Email/Discord/Slack/ntfy + messengers + Webhook).</li>
-        <li><strong>Tags &amp; embed badges</strong> — common elsewhere; we organize with folders and UI status badges.</li>
+        <li><strong>Badge theming depth</strong> — we ship shields-style <code>/badge/{hash}.svg</code>; Kuma still has richer badge variants.</li>
         <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom need no MySQL or workers to run.</li>
         <li><strong>Homelab onboarding UX</strong> — Kuma’s single-container SPA is hard to beat for tiny setups.</li>
       </ul>
@@ -2013,7 +2017,7 @@ add_doc(
       <ol>
         <li><s>Public status pages (HTML UI)</s> — shipped</li>
         <li><s>Native notify: Email + Discord + Slack + ntfy</s> — shipped</li>
-        <li>Monitor tags + optional SVG status badges</li>
+        <li><s>Monitor tags + optional SVG status badges</s> — shipped</li>
       </ol>
 
       <div class="page-nav"><div><a href="api.html">← API &amp; MCP</a></div><div><a href="../index.html">Docs home →</a></div></div>
@@ -2092,8 +2096,8 @@ add_doc(
         </thead>
         <tbody>
           <tr><th>Публичная status page (UI)</th><td><span class="cmp yes">Да</span> — <code>/status/{slug}/</code>, инциденты, heartbeat bars, EN/RU (membership ≠ <code>api_enabled</code>)</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
-          <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp no">Только бейджи в UI</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
-          <tr><th>Теги мониторов</th><td><span class="cmp partial">Папки</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp yes">Да</span> — <code>/badge/{hash}.svg</code> shields-style</td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Теги мониторов</th><td><span class="cmp yes">Да</span> — Bootstrap pills + папки</td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Каналы уведомлений</th><td><span class="cmp partial">9</span> — Telegram, Mattermost, Gotify, MAX, Webhook, Email, Discord, Slack, ntfy</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
           <tr><th>Email / Discord / Slack / ntfy из коробки</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
           <tr><th>Интерактивные действия в алертах</th><td><span class="cmp yes">Mute / Take / Resolve</span> в мессенджерах</td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
@@ -2138,7 +2142,7 @@ add_doc(
       <ul>
         <li><strong>Полировка status pages</strong> — HTML <code>/status/{slug}/</code> и инциденты уже есть; у Kuma/SaaS сильнее кастомные домены и темизация.</li>
         <li><strong>Экосистема уведомлений</strong> — 90+ провайдеров Kuma всё ещё шире наших девяти нативных каналов (Email/Discord/Slack/ntfy + мессенджеры + Webhook).</li>
-        <li><strong>Теги и embed-бейджи</strong> — у других обычны; у нас папки и бейджи в UI.</li>
+        <li><strong>Глубина темизации бейджей</strong> — shields-style <code>/badge/{hash}.svg</code> уже есть; у Kuma больше вариантов оформления.</li>
         <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom не требуют MySQL и воркеров.</li>
         <li><strong>Онбординг для homelab</strong> — у Kuma «один Docker» и красивый SPA для маленьких сетапов.</li>
       </ul>
@@ -2176,7 +2180,7 @@ add_doc(
       <ol>
         <li><s>Публичные status pages (HTML UI)</s> — сделано</li>
         <li><s>Нативные notify: Email + Discord + Slack + ntfy</s> — сделано</li>
-        <li>Теги мониторов + опциональные SVG status badges</li>
+        <li><s>Теги мониторов + SVG-бейджи</s> — сделано</li>
       </ol>
 
       <div class="page-nav"><div><a href="api.html">← API и MCP</a></div><div><a href="../index.html">К документации →</a></div></div>
