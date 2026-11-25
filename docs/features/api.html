@@ -62,7 +62,7 @@
       <h2>API tokens</h2>
       <p>Settings → API: create/revoke tokens (<code>mnt_…</code>). Send as <code>Authorization: Bearer</code> or <code>X-Api-Token</code>. Rights equal the token owner; secrets redacted without permission.</p>
       <h2>User Status API</h2>
-      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits. Separate from public HTML <a href="status-pages.html">status pages</a>.</p>
+      <p><code>GET /api/v1/status/</code> — opt-in monitors only (<code>api_enabled</code>). Returns up/degraded/down/maintenance/unknown, availability windows, SSL expiry, workers, maintenances. Cached ~20s with rate limits. Separate from public HTML <a href="status-pages.html">status pages</a>.</p>
       <h2>Management API v2</h2>
       <p>REST CRUD for monitors, notify, signatures, workers, maintenances, <code>statuspages</code>, dockers, servers; users/groups read-only; logs by date; permissions GET/PUT. Interactive docs: <code>/api/docs/</code> (OpenAPI <code>/api/docs/openapi.json</code>).</p>
       <h2>MCP</h2>
