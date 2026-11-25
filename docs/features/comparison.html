@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compare Monitoring with Uptime Kuma, UptimeRobot, Better Stack and Pingdom — strengths and gaps.">
+  <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/site.css">
+  <title>Compare — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Features</a>
+          <a href="../../docs/features/comparison.html">Compare</a>
+          <a href="../../docs/index.html">Docs</a>
+          <a href="../../docs/installation.html">Install</a>
+          <a href="../../docs/quick-start.html">Quick Start</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="comparison.html" class="is-active">EN</a>
+          <a href="../../ru/docs/features/comparison.html">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Guides</h4>
+        <a href="../../docs/index.html">Documentation</a>
+        <a href="../../docs/architecture.html">Architecture</a>
+        <a href="../../docs/installation.html">Installation</a>
+        <a href="../../docs/quick-start.html">Quick Start</a>
+        <a href="../../docs/environment.html">Environment variables</a>
+        <a href="../../docs/usage.html">Using the UI</a>
+        <h4>Features</h4>
+        <a href="../../docs/features/index.html">Overview</a>
+        <a href="../../docs/features/dashboard.html">Dashboard</a>
+        <a href="../../docs/features/monitors.html">Monitors</a>
+        <a href="../../docs/features/workers.html">Workers</a>
+        <a href="../../docs/features/agents.html">Host Agents</a>
+        <a href="../../docs/features/docker.html">Docker Hosts</a>
+        <a href="../../docs/features/notifications.html">Notifications</a>
+        <a href="../../docs/features/maintenance.html">Maintenance</a>
+        <a href="../../docs/features/rbac.html">RBAC & Audit</a>
+        <a href="../../docs/features/auth.html">Authentication</a>
+        <a href="../../docs/features/ssl-events.html">SSL & Events</a>
+        <a href="../../docs/features/api.html">API & MCP</a>
+        <a href="../../docs/features/comparison.html">Compare</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Compare Monitoring</h1>
+      <p class="lead">An honest feature matrix against popular uptime tools: <strong>Uptime Kuma</strong> (self-hosted), <strong>UptimeRobot</strong>, <strong>Better Stack</strong>, and <strong>Pingdom</strong>. This is a capability guide — not a load benchmark.</p>
+      <div class="callout">
+        <strong>How to read the table</strong>
+        <span class="cmp yes">Yes</span> supported · <span class="cmp partial">Partial</span> limited or different model · <span class="cmp no">No</span> not a product focus · <span class="cmp paid">Paid</span> typically behind a plan.
+      </div>
+
+      <h2 id="platform">Platform &amp; operations</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Deployment</th><td><span class="cmp yes">Self-hosted</span></td><td><span class="cmp yes">Self-hosted</span></td><td>SaaS</td><td>SaaS</td><td>SaaS</td></tr>
+          <tr><th>Primary database</th><td><span class="cmp yes">MySQL</span> — backups, replicas, familiar ops</td><td><span class="cmp partial">SQLite</span> by default (single-file growth)</td><td>Managed</td><td>Managed</td><td>Managed</td></tr>
+          <tr><th>Ops burden</th><td>You run Server + DB (+ workers/agents)</td><td>Usually one container — very easy</td><td><span class="cmp yes">Zero</span></td><td><span class="cmp yes">Zero</span></td><td><span class="cmp yes">Zero</span></td></tr>
+          <tr><th>Control-plane scale model</th><td><span class="cmp yes">MySQL + remote workers</span></td><td><span class="cmp partial">Single-node oriented</span></td><td>Vendor HA</td><td>Vendor HA</td><td>Vendor HA</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="scale">Scale &amp; history</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Many monitors (100+)</th><td><span class="cmp yes">Designed for growth</span> — checks run on workers; state in MySQL</td><td><span class="cmp partial">Often slows down</span> as monitors/heartbeats grow on one Node + SQLite instance</td><td><span class="cmp paid">Plan limits</span></td><td><span class="cmp paid">Plan limits</span></td><td><span class="cmp paid">Plan / enterprise</span></td></tr>
+          <tr><th>Multi-location checks</th><td><span class="cmp yes">Native Go workers</span> + fail modes any / majority / all</td><td><span class="cmp partial">Mostly local</span> to the Kuma process</td><td><span class="cmp paid">Paid probes</span></td><td><span class="cmp yes">Cloud probes</span></td><td><span class="cmp yes">Cloud probes</span></td></tr>
+          <tr><th>History &amp; retention</th><td><span class="cmp yes">You control MySQL</span>; daily aggregates; <strong>30d</strong> availability; raw detail ~24h</td><td><span class="cmp partial">Heartbeat history in SQLite</span> — file/latency grow with volume</td><td><span class="cmp paid">Plan-based</span></td><td><span class="cmp paid">Plan-based</span></td><td><span class="cmp paid">Plan-based</span></td></tr>
+          <tr><th>Own the data long-term</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Local disk / backup</span></td><td><span class="cmp no">Vendor</span></td><td><span class="cmp no">Vendor</span></td><td><span class="cmp no">Vendor</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="access">Auth, access &amp; teams</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Multi-user</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span> (basic)</td><td><span class="cmp paid">Team plans</span></td><td><span class="cmp yes">Team</span></td><td><span class="cmp yes">Team</span></td></tr>
+          <tr><th>SSO (OIDC / OAuth)</th><td><span class="cmp yes">Yes</span> — OpenID Connect + generic OAuth</td><td><span class="cmp partial">Limited</span> vs enterprise SSO needs</td><td><span class="cmp paid">Paid / team</span></td><td><span class="cmp yes">Yes</span> (plans)</td><td><span class="cmp paid">Enterprise-ish</span></td></tr>
+          <tr><th>Fine-grained ACL</th><td><span class="cmp yes">Yes</span> — per-object ACL, groups, folder inheritance, secret permissions, impersonation, audit</td><td><span class="cmp partial">Coarse sharing</span></td><td><span class="cmp partial">Roles by plan</span></td><td><span class="cmp yes">Roles / SSO</span></td><td><span class="cmp yes">Roles</span></td></tr>
+          <tr><th>2FA</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Audit log</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Partial</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Partial</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="checks">Monitoring capabilities</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>HTTP(s) + body / auth / mTLS</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Partial</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Keyword / JSON query</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Keyword common</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Transactions</span></td></tr>
+          <tr><th>TCP / Ping / DNS</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Common</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>UDP / domain expiry</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp no">Limited / no</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Limited</span></td></tr>
+          <tr><th>DB / messaging / SNMP / gRPC…</th><td><span class="cmp yes">Broad</span></td><td><span class="cmp yes">Broad</span></td><td><span class="cmp no">Narrow</span></td><td><span class="cmp partial">Uptime-focused</span></td><td><span class="cmp partial">Synthetic focus</span></td></tr>
+          <tr><th>Docker checks</th><td><span class="cmp yes">Engine API</span></td><td><span class="cmp yes">Socket</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td></tr>
+          <tr><th>Host agent metrics</th><td><span class="cmp yes">Deep</span> — CPU/RAM/disk/net/temp/uptime, Docker, systemd, Proxmox, listeners</td><td><span class="cmp partial">Mostly Docker</span></td><td><span class="cmp no">No</span></td><td><span class="cmp partial">Adjacent products</span></td><td><span class="cmp no">No</span></td></tr>
+          <tr><th>Push / External</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Push</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Limited</span></td></tr>
+          <tr><th>Maintenance windows</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>SSL expiry alerts</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="status-alerts">Status pages, alerts &amp; UX</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Public status page UI</th><td><span class="cmp partial">JSON Status API</span> (<code>api_enabled</code>) — no branded HTML pages yet</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Embed status badges (SVG)</th><td><span class="cmp no">UI badges only</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Monitor tags</th><td><span class="cmp partial">Folders</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Notify channels</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
+          <tr><th>Email / Discord / Slack / ntfy native</th><td><span class="cmp partial">Via webhook</span> / not native yet</td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Interactive alert actions</th><td><span class="cmp yes">Mute / Take / Resolve</span> in messengers</td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Limited</span></td></tr>
+          <tr><th>Polished consumer UI</th><td><span class="cmp partial">Functional admin UI</span></td><td><span class="cmp yes">Strong SPA</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td></tr>
+          <tr><th>UI languages</th><td><span class="cmp partial">EN / RU</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="automation">Automation</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Official management API</th><td><span class="cmp yes">REST v2 + OpenAPI</span></td><td><span class="cmp partial">Limited / community</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Public status feed</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Via status pages</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>MCP for AI agents</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="pricing">Pricing model</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Cost model</th><td>AGPLv3 / Commercial — you pay infra</td><td>Free OSS — you pay infra</td><td>Freemium → paid</td><td>Paid</td><td>Paid</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="strengths">Where Monitoring is stronger</h2>
+      <ul>
+        <li><strong>MySQL + distributed workers</strong> — control plane and check execution scale separately; better fit when you outgrow a single Node/SQLite box.</li>
+        <li><strong>SSO and fine-grained ACL</strong> — OIDC/OAuth, groups, per-object permissions, folder inheritance, secret ACLs, impersonation, audit.</li>
+        <li><strong>History you control</strong> — aggregates and 30-day availability in your database; retention is an ops choice, not a vendor plan.</li>
+        <li><strong>Host agents</strong> — deep server metrics (including systemd, Proxmox, listeners), not only synthetic HTTP.</li>
+        <li><strong>Protocol breadth + MCP</strong> — databases, messaging, SNMP/gRPC, and first-class automation for AI tooling.</li>
+        <li><strong>Interactive messenger actions</strong> — mute / take / resolve from the alert itself.</li>
+      </ul>
+
+      <h2 id="gaps">Where others win</h2>
+      <ul>
+        <li><strong>Public status pages</strong> — Kuma, UptimeRobot, Better Stack, and Pingdom ship polished HTML status pages; we expose a Status API today.</li>
+        <li><strong>Notification ecosystem</strong> — Kuma’s 90+ providers and SaaS catalogs beat our five native channels (Webhook covers many cases).</li>
+        <li><strong>Tags &amp; embed badges</strong> — common elsewhere; we organize with folders and UI status badges.</li>
+        <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom need no MySQL or workers to run.</li>
+        <li><strong>Homelab onboarding UX</strong> — Kuma’s single-container SPA is hard to beat for tiny setups.</li>
+      </ul>
+
+      <h2 id="vs-kuma">Deep dive: Monitoring vs Uptime Kuma</h2>
+      <p>Uptime Kuma is the closest popular self-hosted peer. If you already used Kuma and hit limits, these differences matter most:</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Monitoring advantages</h3>
+          <ul>
+            <li><strong>SSO + access control</strong> for real teams and multi-tenant folders — not just a shared admin login.</li>
+            <li><strong>MySQL instead of SQLite</strong> — standard backups/replication; less pain as monitors, events, and aggregates grow.</li>
+            <li><strong>Scale past ~100 monitors</strong> — remote workers take check load off the UI/API process; operators often see Kuma slow down when everything shares one Node + SQLite process.</li>
+            <li><strong>Longer useful history</strong> — daily aggregates and 30d availability in MySQL you own, instead of an ever-growing local heartbeat store.</li>
+            <li><strong>Host agents + MCP</strong> for infrastructure depth and automation.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Kuma advantages</h3>
+          <ul>
+            <li>Beautiful <strong>public status pages</strong> with custom domains and incident banners.</li>
+            <li><strong>90+ notification providers</strong> out of the box.</li>
+            <li><strong>Tags</strong>, embeddable <strong>SVG badges</strong>, many UI languages.</li>
+            <li>Extremely fast <strong>“one Docker”</strong> start for small labs.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn">
+        <strong>About performance claims</strong>
+        We describe the architectural difference (distributed workers + MySQL vs single-node SQLite). We do not publish synthetic RPS numbers here — your interval mix and network paths dominate real results.
+      </div>
+
+      <h2 id="roadmap">What we plan next</h2>
+      <p>Product gaps we intend to close (no dates promised):</p>
+      <ol>
+        <li>Public status pages (HTML UI on top of the Status API)</li>
+        <li>Native notify: Email + Discord + Slack + ntfy (on top of Webhook)</li>
+        <li>Monitor tags + optional SVG status badges</li>
+      </ol>
+
+      <div class="page-nav"><div><a href="api.html">← API &amp; MCP</a></div><div><a href="../index.html">Docs home →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Dual licensing (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Contact</a> | <a href="../../LICENSE.md">License</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../js/site.js"></script>
+</body>
+</html>

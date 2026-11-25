@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Сравнение Monitoring с Uptime Kuma, UptimeRobot, Better Stack и Pingdom — плюсы и минусы.">
+  <link rel="shortcut icon" href="../../../images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../../css/site.css">
+  <title>Сравнение — Monitoring</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../index.html">
+        <img src="../../../images/icon.png" alt="Monitoring" width="36" height="36">
+        <span>Monitoring</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">Menu</button>
+      <nav class="site-nav">
+          <a href="../../docs/features/index.html">Возможности</a>
+          <a href="../../docs/features/comparison.html">Сравнение</a>
+          <a href="../../docs/index.html">Документация</a>
+          <a href="../../docs/installation.html">Установка</a>
+          <a href="../../docs/quick-start.html">Быстрый старт</a>
+          <a href="../../docs/features/api.html">API</a>
+        <div class="lang-switch">
+          <a href="../../../docs/features/comparison.html">EN</a>
+          <a href="comparison.html" class="is-active">RU</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="container docs-layout">
+      <aside class="docs-sidebar">
+        <h4>Руководства</h4>
+        <a href="../../docs/index.html">Документация</a>
+        <a href="../../docs/architecture.html">Архитектура</a>
+        <a href="../../docs/installation.html">Установка</a>
+        <a href="../../docs/quick-start.html">Быстрый старт</a>
+        <a href="../../docs/environment.html">Переменные окружения</a>
+        <a href="../../docs/usage.html">Интерфейс</a>
+        <h4>Возможности</h4>
+        <a href="../../docs/features/index.html">Обзор</a>
+        <a href="../../docs/features/dashboard.html">Дашборд</a>
+        <a href="../../docs/features/monitors.html">Мониторы</a>
+        <a href="../../docs/features/workers.html">Воркеры</a>
+        <a href="../../docs/features/agents.html">Агенты хостов</a>
+        <a href="../../docs/features/docker.html">Docker-хосты</a>
+        <a href="../../docs/features/notifications.html">Уведомления</a>
+        <a href="../../docs/features/maintenance.html">Обслуживание</a>
+        <a href="../../docs/features/rbac.html">RBAC и аудит</a>
+        <a href="../../docs/features/auth.html">Аутентификация</a>
+        <a href="../../docs/features/ssl-events.html">SSL и события</a>
+        <a href="../../docs/features/api.html">API и MCP</a>
+        <a href="../../docs/features/comparison.html">Сравнение</a>
+      </aside>
+    <article class="docs-content">
+
+      <h1>Сравнение Monitoring</h1>
+      <p class="lead">Честная матрица с популярными uptime-инструментами: <strong>Uptime Kuma</strong> (self-hosted), <strong>UptimeRobot</strong>, <strong>Better Stack</strong> и <strong>Pingdom</strong>. Это обзор возможностей, а не нагрузочный бенчмарк.</p>
+      <div class="callout">
+        <strong>Как читать таблицу</strong>
+        <span class="cmp yes">Yes</span> есть · <span class="cmp partial">Partial</span> частично / другая модель · <span class="cmp no">No</span> не фокус продукта · <span class="cmp paid">Paid</span> обычно в платном плане.
+      </div>
+
+      <h2 id="platform">Платформа и эксплуатация</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Развёртывание</th><td><span class="cmp yes">Self-hosted</span></td><td><span class="cmp yes">Self-hosted</span></td><td>SaaS</td><td>SaaS</td><td>SaaS</td></tr>
+          <tr><th>Основная БД</th><td><span class="cmp yes">MySQL</span> — бэкапы, реплики, привычный ops</td><td><span class="cmp partial">SQLite</span> по умолчанию (рост одного файла)</td><td>Managed</td><td>Managed</td><td>Managed</td></tr>
+          <tr><th>Нагрузка на ops</th><td>Сервер + БД (+ воркеры/агенты)</td><td>Обычно один контейнер — очень просто</td><td><span class="cmp yes">Zero</span></td><td><span class="cmp yes">Zero</span></td><td><span class="cmp yes">Zero</span></td></tr>
+          <tr><th>Модель масштаба control plane</th><td><span class="cmp yes">MySQL + удалённые воркеры</span></td><td><span class="cmp partial">Ориентация на один узел</span></td><td>Vendor HA</td><td>Vendor HA</td><td>Vendor HA</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="scale">Масштаб и история</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Много мониторов (100+)</th><td><span class="cmp yes">Рассчитано на рост</span> — проверки на воркерах; состояние в MySQL</td><td><span class="cmp partial">Часто тормозит</span> при росте мониторов/heartbeats на одном Node + SQLite</td><td><span class="cmp paid">Лимиты плана</span></td><td><span class="cmp paid">Лимиты плана</span></td><td><span class="cmp paid">План / enterprise</span></td></tr>
+          <tr><th>Проверки из разных точек</th><td><span class="cmp yes">Нативные Go-воркеры</span> + fail modes any / majority / all</td><td><span class="cmp partial">В основном локально</span> в процессе Kuma</td><td><span class="cmp paid">Платные пробы</span></td><td><span class="cmp yes">Облачные пробы</span></td><td><span class="cmp yes">Облачные пробы</span></td></tr>
+          <tr><th>История и retention</th><td><span class="cmp yes">Вы контролируете MySQL</span>; суточные агрегаты; availability <strong>30д</strong>; сырые детали ~24ч</td><td><span class="cmp partial">История heartbeat в SQLite</span> — файл и латентность растут с объёмом</td><td><span class="cmp paid">По плану</span></td><td><span class="cmp paid">По плану</span></td><td><span class="cmp paid">По плану</span></td></tr>
+          <tr><th>Долго хранить данные у себя</th><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Локальный диск / бэкап</span></td><td><span class="cmp no">Vendor</span></td><td><span class="cmp no">Vendor</span></td><td><span class="cmp no">Vendor</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="access">Auth, доступы и команды</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Несколько пользователей</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span> (базово)</td><td><span class="cmp paid">Team-планы</span></td><td><span class="cmp yes">Team</span></td><td><span class="cmp yes">Team</span></td></tr>
+          <tr><th>SSO (OIDC / OAuth)</th><td><span class="cmp yes">Да</span> — OpenID Connect + generic OAuth</td><td><span class="cmp partial">Ограничено</span> для enterprise SSO</td><td><span class="cmp paid">Платно / team</span></td><td><span class="cmp yes">Да</span> (планы)</td><td><span class="cmp paid">Скорее enterprise</span></td></tr>
+          <tr><th>Тонкий ACL</th><td><span class="cmp yes">Да</span> — права на объекты, группы, наследование от папок, ACL секретов, impersonation, аудит</td><td><span class="cmp partial">Грубый sharing</span></td><td><span class="cmp partial">Роли по плану</span></td><td><span class="cmp yes">Роли / SSO</span></td><td><span class="cmp yes">Роли</span></td></tr>
+          <tr><th>2FA</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Журнал аудита</th><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Частично</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Частично</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="checks">Возможности мониторинга</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>HTTP(s) + body / auth / mTLS</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Частично</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Keyword / JSON query</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Часто keyword</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Транзакции</span></td></tr>
+          <tr><th>TCP / Ping / DNS</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Обычно</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>UDP / истечение домена</th><td><span class="cmp yes">Да</span></td><td><span class="cmp no">Мало / нет</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
+          <tr><th>БД / messaging / SNMP / gRPC…</th><td><span class="cmp yes">Широко</span></td><td><span class="cmp yes">Широко</span></td><td><span class="cmp no">Узко</span></td><td><span class="cmp partial">Фокус на uptime</span></td><td><span class="cmp partial">Synthetic</span></td></tr>
+          <tr><th>Проверки Docker</th><td><span class="cmp yes">Engine API</span></td><td><span class="cmp yes">Socket</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td></tr>
+          <tr><th>Метрики host-агента</th><td><span class="cmp yes">Глубоко</span> — CPU/RAM/диск/сеть/temp/uptime, Docker, systemd, Proxmox, listeners</td><td><span class="cmp partial">В основном Docker</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp partial">Смежные продукты</span></td><td><span class="cmp no">Нет</span></td></tr>
+          <tr><th>Push / External</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Push</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
+          <tr><th>Окна обслуживания</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Алерты по SSL</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="status-alerts">Status pages, алерты и UX</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Публичная status page (UI)</th><td><span class="cmp partial">JSON Status API</span> (<code>api_enabled</code>) — брендированных HTML-страниц пока нет</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp no">Только бейджи в UI</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Теги мониторов</th><td><span class="cmp partial">Папки</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Каналы уведомлений</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
+          <tr><th>Email / Discord / Slack / ntfy из коробки</th><td><span class="cmp partial">Через webhook</span> / нативно пока нет</td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Интерактивные действия в алертах</th><td><span class="cmp yes">Mute / Take / Resolve</span> в мессенджерах</td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
+          <tr><th>Отполированный UI</th><td><span class="cmp partial">Функциональная админка</span></td><td><span class="cmp yes">Сильный SPA</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td></tr>
+          <tr><th>Языки UI</th><td><span class="cmp partial">EN / RU</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="automation">Автоматизация</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Официальный management API</th><td><span class="cmp yes">REST v2 + OpenAPI</span></td><td><span class="cmp partial">Ограничен / community</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Публичный status feed</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Через status pages</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>MCP для AI-агентов</th><td><span class="cmp yes">Да</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="pricing">Модель оплаты</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Стоимость</th><td>AGPLv3 / Commercial — платите за инфру</td><td>Бесплатный OSS — платите за инфру</td><td>Freemium → paid</td><td>Paid</td><td>Paid</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="strengths">Где Monitoring сильнее</h2>
+      <ul>
+        <li><strong>MySQL + распределённые воркеры</strong> — control plane и проверки масштабируются раздельно; удобнее, когда один Node/SQLite уже тесен.</li>
+        <li><strong>SSO и тонкий ACL</strong> — OIDC/OAuth, группы, права на объекты, наследование от папок, ACL секретов, impersonation, аудит.</li>
+        <li><strong>История под вашим контролем</strong> — агрегаты и availability за 30 дней в своей БД; retention — выбор ops, а не план вендора.</li>
+        <li><strong>Host-агенты</strong> — глубокие метрики серверов (systemd, Proxmox, listeners), а не только synthetic HTTP.</li>
+        <li><strong>Широта протоколов + MCP</strong> — БД, messaging, SNMP/gRPC и автоматизация для AI-инструментов.</li>
+        <li><strong>Интерактивные действия в мессенджерах</strong> — mute / take / resolve прямо из алерта.</li>
+      </ul>
+
+      <h2 id="gaps">Где выигрывают другие</h2>
+      <ul>
+        <li><strong>Публичные status pages</strong> — у Kuma и SaaS есть готовый HTML; у нас пока Status API.</li>
+        <li><strong>Экосистема уведомлений</strong> — 90+ провайдеров Kuma и каталоги SaaS шире наших пяти каналов (Webhook закрывает часть кейсов).</li>
+        <li><strong>Теги и embed-бейджи</strong> — у других обычны; у нас папки и бейджи в UI.</li>
+        <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom не требуют MySQL и воркеров.</li>
+        <li><strong>Онбординг для homelab</strong> — у Kuma «один Docker» и красивый SPA для маленьких сетапов.</li>
+      </ul>
+
+      <h2 id="vs-kuma">Подробно: Monitoring vs Uptime Kuma</h2>
+      <p>Uptime Kuma — ближайший популярный self-hosted аналог. Если вы уже пользовались Kuma и упирались в лимиты, важнее всего вот это:</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Плюсы Monitoring</h3>
+          <ul>
+            <li><strong>SSO + доступы</strong> для команд и multi-tenant папок — не только общий admin-логин.</li>
+            <li><strong>MySQL вместо SQLite</strong> — привычные бэкапы/репликация; меньше боли при росте мониторов, событий и агрегатов.</li>
+            <li><strong>Масштаб после ~100 мониторов</strong> — удалённые воркеры снимают нагрузку проверок с UI/API; у Kuma при росте часто становится тяжело, когда всё живёт в одном процессе Node + SQLite.</li>
+            <li><strong>Более полезная длинная история</strong> — суточные агрегаты и availability 30д в своём MySQL, а не только раздувающееся локальное heartbeat-хранилище.</li>
+            <li><strong>Host-агенты + MCP</strong> для инфраструктуры и автоматизации.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Плюсы Kuma</h3>
+          <ul>
+            <li>Красивые <strong>публичные status pages</strong> с доменами и баннерами инцидентов.</li>
+            <li><strong>90+ каналов уведомлений</strong> из коробки.</li>
+            <li><strong>Теги</strong>, embed <strong>SVG-бейджи</strong>, много языков UI.</li>
+            <li>Очень быстрый старт <strong>«один Docker»</strong> для маленьких лабораторий.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn">
+        <strong>Про производительность</strong>
+        Мы описываем архитектурное отличие (распределённые воркеры + MySQL vs single-node SQLite). Синтетические RPS здесь не публикуем — интервалы и сеть обычно важнее.
+      </div>
+
+      <h2 id="roadmap">Что планируем дальше</h2>
+      <p>Пробелы, которые хотим закрыть (без обещаний дат):</p>
+      <ol>
+        <li>Публичные status pages (HTML UI поверх Status API)</li>
+        <li>Нативные notify: Email + Discord + Slack + ntfy (поверх Webhook)</li>
+        <li>Теги мониторов + опциональные SVG status badges</li>
+      </ol>
+
+      <div class="page-nav"><div><a href="api.html">← API и MCP</a></div><div><a href="../index.html">К документации →</a></div></div>
+    
+    </article>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Monitoring Project. Двойная лицензия (<a href="../../LICENSE.md">AGPLv3 / Commercial</a>).</p>
+      <div class="footer-links">
+        <a href="https://github.com/AKEB/monitoring">GitHub</a> | <a href="https://hub.docker.com/repository/docker/akeb/monitoring/general">Docker Hub</a> | <a href="mailto:vadimakeb@gmail.com">Контакт</a> | <a href="../../LICENSE.md">Лицензия</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../js/site.js"></script>
+</body>
+</html>

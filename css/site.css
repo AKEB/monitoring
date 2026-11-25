@@ -499,6 +499,78 @@ th {
   background: var(--bg-muted);
 }
 
+table.table-compare {
+  font-size: 0.88rem;
+  min-width: 920px;
+}
+
+table.table-compare th,
+table.table-compare td {
+  padding: 0.45rem 0.55rem;
+}
+
+table.table-compare thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg-muted);
+}
+
+table.table-compare tbody th,
+table.table-compare thead th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--bg-elevated);
+  min-width: 11rem;
+  max-width: 14rem;
+  box-shadow: 1px 0 0 var(--border);
+}
+
+table.table-compare thead th:first-child {
+  z-index: 3;
+  background: var(--bg-muted);
+}
+
+table.table-compare tbody tr:nth-child(even) th,
+table.table-compare tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--bg-muted) 55%, var(--bg-elevated));
+}
+
+table.table-compare tbody tr:nth-child(even) th {
+  background: color-mix(in srgb, var(--bg-muted) 70%, var(--bg-elevated));
+}
+
+.cmp {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.82em;
+  padding: 0.12rem 0.4rem;
+  border-radius: 6px;
+  margin-right: 0.25rem;
+  white-space: nowrap;
+}
+
+.cmp.yes {
+  color: #0f5c32;
+  background: #e5f6ec;
+}
+
+.cmp.partial {
+  color: #7a4d00;
+  background: #fff1d6;
+}
+
+.cmp.no {
+  color: #8a2430;
+  background: #fde8eb;
+}
+
+.cmp.paid {
+  color: #1a4f8a;
+  background: #e7f0fb;
+}
+
 .pre-wrap {
   position: relative;
   margin: 1rem 0;

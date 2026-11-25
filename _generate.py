@@ -29,6 +29,7 @@ def lang_href(logical_rel: str, lang: str) -> str:
 NAV = {
     "en": [
         ("Features", "docs/features/index.html"),
+        ("Compare", "docs/features/comparison.html"),
         ("Docs", "docs/index.html"),
         ("Install", "docs/installation.html"),
         ("Quick Start", "docs/quick-start.html"),
@@ -36,6 +37,7 @@ NAV = {
     ],
     "ru": [
         ("Возможности", "docs/features/index.html"),
+        ("Сравнение", "docs/features/comparison.html"),
         ("Документация", "docs/index.html"),
         ("Установка", "docs/installation.html"),
         ("Быстрый старт", "docs/quick-start.html"),
@@ -66,6 +68,7 @@ SIDEBAR = {
             ("Authentication", "docs/features/auth.html"),
             ("SSL & Events", "docs/features/ssl-events.html"),
             ("API & MCP", "docs/features/api.html"),
+            ("Compare", "docs/features/comparison.html"),
         ]),
     ],
     "ru": [
@@ -90,6 +93,7 @@ SIDEBAR = {
             ("Аутентификация", "docs/features/auth.html"),
             ("SSL и события", "docs/features/ssl-events.html"),
             ("API и MCP", "docs/features/api.html"),
+            ("Сравнение", "docs/features/comparison.html"),
         ]),
     ],
 }
@@ -344,6 +348,7 @@ def landing_en() -> str:
       <div class="hero-actions">
         <a class="btn btn-primary" href="docs/installation.html">Install in 5 minutes</a>
         <a class="btn btn-secondary" href="docs/index.html">Read the docs</a>
+        <a class="btn btn-outline" href="docs/features/comparison.html">Compare</a>
       </div>
     </div>
   </section>
@@ -360,7 +365,7 @@ def landing_en() -> str:
         <div class="card feature-card"><span class="tag">Access</span><a class="stretched" href="docs/features/rbac.html"><h3>Multi-tenant RBAC</h3><p>Users, groups, folder-inherited ACL, secrets permissions and audit log.</p></a></div>
         <div class="card feature-card"><span class="tag">Integrations</span><a class="stretched" href="docs/features/api.html"><h3>API &amp; MCP</h3><p>Status feed, Management API v2, Swagger UI and MCP tools for automation.</p></a></div>
       </div>
-      <p style="margin-top:1.25rem"><a class="btn btn-outline" href="docs/features/index.html">All features →</a></p>
+      <p style="margin-top:1.25rem"><a class="btn btn-outline" href="docs/features/index.html">All features →</a> <a class="btn btn-outline" href="docs/features/comparison.html">Compare with alternatives →</a></p>
     </div>
   </section>
 
@@ -417,6 +422,7 @@ def landing_ru() -> str:
       <div class="hero-actions">
         <a class="btn btn-primary" href="docs/installation.html">Установка за 5 минут</a>
         <a class="btn btn-secondary" href="docs/index.html">Документация</a>
+        <a class="btn btn-outline" href="docs/features/comparison.html">Сравнение</a>
       </div>
     </div>
   </section>
@@ -433,7 +439,7 @@ def landing_ru() -> str:
         <div class="card feature-card"><span class="tag">Доступ</span><a class="stretched" href="docs/features/rbac.html"><h3>RBAC и тенанты</h3><p>Пользователи, группы, ACL с наследованием от папок, секреты и журнал аудита.</p></a></div>
         <div class="card feature-card"><span class="tag">Интеграции</span><a class="stretched" href="docs/features/api.html"><h3>API и MCP</h3><p>Status API, Management API v2, Swagger и MCP-инструменты для автоматизации.</p></a></div>
       </div>
-      <p style="margin-top:1.25rem"><a class="btn btn-outline" href="docs/features/index.html">Все возможности →</a></p>
+      <p style="margin-top:1.25rem"><a class="btn btn-outline" href="docs/features/index.html">Все возможности →</a> <a class="btn btn-outline" href="docs/features/comparison.html">Сравнение с аналогами →</a></p>
     </div>
   </section>
 
@@ -534,6 +540,7 @@ add_doc(
             <li><a href="features/monitors.html">Monitors</a> · <a href="features/workers.html">Workers</a> · <a href="features/agents.html">Agents</a></li>
             <li><a href="features/notifications.html">Notifications</a> · <a href="features/rbac.html">RBAC</a></li>
             <li><a href="features/api.html">API &amp; MCP</a></li>
+            <li><a href="features/comparison.html">Compare with alternatives</a></li>
           </ul>
         </div>
       </div>
@@ -561,6 +568,7 @@ add_doc(
             <li><a href="features/monitors.html">Мониторы</a> · <a href="features/workers.html">Воркеры</a> · <a href="features/agents.html">Агенты</a></li>
             <li><a href="features/notifications.html">Уведомления</a> · <a href="features/rbac.html">RBAC</a></li>
             <li><a href="features/api.html">API и MCP</a></li>
+            <li><a href="features/comparison.html">Сравнение с аналогами</a></li>
           </ul>
         </div>
       </div>
@@ -1155,6 +1163,7 @@ add_doc(
         <div class="card"><h3><a href="auth.html">Authentication</a></h3><p>Password, OpenID, OAuth, 2FA, SMTP.</p></div>
         <div class="card"><h3><a href="ssl-events.html">SSL &amp; events</a></h3><p>Certificate expiry alerts and event store.</p></div>
         <div class="card"><h3><a href="api.html">API &amp; MCP</a></h3><p>Status API, Management v2, Swagger, MCP.</p></div>
+        <div class="card"><h3><a href="comparison.html">Compare</a></h3><p>Honest matrix vs Uptime Kuma, UptimeRobot, Better Stack, Pingdom.</p></div>
       </div>
     """,
     """
@@ -1172,6 +1181,7 @@ add_doc(
         <div class="card"><h3><a href="auth.html">Аутентификация</a></h3><p>Пароль, OpenID, OAuth, 2FA.</p></div>
         <div class="card"><h3><a href="ssl-events.html">SSL и события</a></h3><p>Истечение сертификатов и события.</p></div>
         <div class="card"><h3><a href="api.html">API и MCP</a></h3><p>Status, Management v2, Swagger, MCP.</p></div>
+        <div class="card"><h3><a href="comparison.html">Сравнение</a></h3><p>Честная матрица с Uptime Kuma, UptimeRobot, Better Stack, Pingdom.</p></div>
       </div>
     """,
 )
@@ -1725,7 +1735,7 @@ add_doc(
         <li>Alert-action callbacks for messenger buttons</li>
       </ul>
       <p>Deep protocol notes: <a href="https://github.com/AKEB/monitoring">server docs</a> (<code>WORKER_API.md</code>, <code>USER_API.md</code>, <code>MANAGEMENT_API.md</code>, <code>AGENT_API.md</code>).</p>
-      <div class="page-nav"><div><a href="ssl-events.html">← SSL &amp; events</a></div><div><a href="../index.html">Docs home →</a></div></div>
+      <div class="page-nav"><div><a href="ssl-events.html">← SSL &amp; events</a></div><div><a href="comparison.html">Compare →</a></div></div>
     """,
     """
       <h1>API и MCP</h1>
@@ -1745,8 +1755,343 @@ add_doc(
         <li>Alert-action callbacks</li>
       </ul>
       <p>Детали протоколов — в репозитории сервера (<code>*_API.md</code>).</p>
-      <div class="page-nav"><div><a href="ssl-events.html">← SSL и события</a></div><div><a href="../index.html">К документации →</a></div></div>
+      <div class="page-nav"><div><a href="ssl-events.html">← SSL и события</a></div><div><a href="comparison.html">Сравнение →</a></div></div>
     """,
+)
+
+add_doc(
+    "comparison",
+    "docs/features/comparison.html",
+    "Compare — Monitoring",
+    "Сравнение — Monitoring",
+    """
+      <h1>Compare Monitoring</h1>
+      <p class="lead">An honest feature matrix against popular uptime tools: <strong>Uptime Kuma</strong> (self-hosted), <strong>UptimeRobot</strong>, <strong>Better Stack</strong>, and <strong>Pingdom</strong>. This is a capability guide — not a load benchmark.</p>
+      <div class="callout">
+        <strong>How to read the table</strong>
+        <span class="cmp yes">Yes</span> supported · <span class="cmp partial">Partial</span> limited or different model · <span class="cmp no">No</span> not a product focus · <span class="cmp paid">Paid</span> typically behind a plan.
+      </div>
+
+      <h2 id="platform">Platform &amp; operations</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Deployment</th><td><span class="cmp yes">Self-hosted</span></td><td><span class="cmp yes">Self-hosted</span></td><td>SaaS</td><td>SaaS</td><td>SaaS</td></tr>
+          <tr><th>Primary database</th><td><span class="cmp yes">MySQL</span> — backups, replicas, familiar ops</td><td><span class="cmp partial">SQLite</span> by default (single-file growth)</td><td>Managed</td><td>Managed</td><td>Managed</td></tr>
+          <tr><th>Ops burden</th><td>You run Server + DB (+ workers/agents)</td><td>Usually one container — very easy</td><td><span class="cmp yes">Zero</span></td><td><span class="cmp yes">Zero</span></td><td><span class="cmp yes">Zero</span></td></tr>
+          <tr><th>Control-plane scale model</th><td><span class="cmp yes">MySQL + remote workers</span></td><td><span class="cmp partial">Single-node oriented</span></td><td>Vendor HA</td><td>Vendor HA</td><td>Vendor HA</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="scale">Scale &amp; history</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Many monitors (100+)</th><td><span class="cmp yes">Designed for growth</span> — checks run on workers; state in MySQL</td><td><span class="cmp partial">Often slows down</span> as monitors/heartbeats grow on one Node + SQLite instance</td><td><span class="cmp paid">Plan limits</span></td><td><span class="cmp paid">Plan limits</span></td><td><span class="cmp paid">Plan / enterprise</span></td></tr>
+          <tr><th>Multi-location checks</th><td><span class="cmp yes">Native Go workers</span> + fail modes any / majority / all</td><td><span class="cmp partial">Mostly local</span> to the Kuma process</td><td><span class="cmp paid">Paid probes</span></td><td><span class="cmp yes">Cloud probes</span></td><td><span class="cmp yes">Cloud probes</span></td></tr>
+          <tr><th>History &amp; retention</th><td><span class="cmp yes">You control MySQL</span>; daily aggregates; <strong>30d</strong> availability; raw detail ~24h</td><td><span class="cmp partial">Heartbeat history in SQLite</span> — file/latency grow with volume</td><td><span class="cmp paid">Plan-based</span></td><td><span class="cmp paid">Plan-based</span></td><td><span class="cmp paid">Plan-based</span></td></tr>
+          <tr><th>Own the data long-term</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Local disk / backup</span></td><td><span class="cmp no">Vendor</span></td><td><span class="cmp no">Vendor</span></td><td><span class="cmp no">Vendor</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="access">Auth, access &amp; teams</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Multi-user</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span> (basic)</td><td><span class="cmp paid">Team plans</span></td><td><span class="cmp yes">Team</span></td><td><span class="cmp yes">Team</span></td></tr>
+          <tr><th>SSO (OIDC / OAuth)</th><td><span class="cmp yes">Yes</span> — OpenID Connect + generic OAuth</td><td><span class="cmp partial">Limited</span> vs enterprise SSO needs</td><td><span class="cmp paid">Paid / team</span></td><td><span class="cmp yes">Yes</span> (plans)</td><td><span class="cmp paid">Enterprise-ish</span></td></tr>
+          <tr><th>Fine-grained ACL</th><td><span class="cmp yes">Yes</span> — per-object ACL, groups, folder inheritance, secret permissions, impersonation, audit</td><td><span class="cmp partial">Coarse sharing</span></td><td><span class="cmp partial">Roles by plan</span></td><td><span class="cmp yes">Roles / SSO</span></td><td><span class="cmp yes">Roles</span></td></tr>
+          <tr><th>2FA</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Audit log</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Partial</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Partial</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="checks">Monitoring capabilities</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>HTTP(s) + body / auth / mTLS</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Partial</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Keyword / JSON query</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Keyword common</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Transactions</span></td></tr>
+          <tr><th>TCP / Ping / DNS</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Common</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>UDP / domain expiry</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp no">Limited / no</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Limited</span></td></tr>
+          <tr><th>DB / messaging / SNMP / gRPC…</th><td><span class="cmp yes">Broad</span></td><td><span class="cmp yes">Broad</span></td><td><span class="cmp no">Narrow</span></td><td><span class="cmp partial">Uptime-focused</span></td><td><span class="cmp partial">Synthetic focus</span></td></tr>
+          <tr><th>Docker checks</th><td><span class="cmp yes">Engine API</span></td><td><span class="cmp yes">Socket</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td></tr>
+          <tr><th>Host agent metrics</th><td><span class="cmp yes">Deep</span> — CPU/RAM/disk/net/temp/uptime, Docker, systemd, Proxmox, listeners</td><td><span class="cmp partial">Mostly Docker</span></td><td><span class="cmp no">No</span></td><td><span class="cmp partial">Adjacent products</span></td><td><span class="cmp no">No</span></td></tr>
+          <tr><th>Push / External</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Push</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp partial">Limited</span></td></tr>
+          <tr><th>Maintenance windows</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>SSL expiry alerts</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="status-alerts">Status pages, alerts &amp; UX</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Public status page UI</th><td><span class="cmp partial">JSON Status API</span> (<code>api_enabled</code>) — no branded HTML pages yet</td><td><span class="cmp yes">Native multi-page</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Strong</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Embed status badges (SVG)</th><td><span class="cmp no">UI badges only</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Monitor tags</th><td><span class="cmp partial">Folders</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Notify channels</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
+          <tr><th>Email / Discord / Slack / ntfy native</th><td><span class="cmp partial">Via webhook</span> / not native yet</td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Interactive alert actions</th><td><span class="cmp yes">Mute / Take / Resolve</span> in messengers</td><td><span class="cmp partial">Limited</span></td><td><span class="cmp partial">Limited</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Limited</span></td></tr>
+          <tr><th>Polished consumer UI</th><td><span class="cmp partial">Functional admin UI</span></td><td><span class="cmp yes">Strong SPA</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td></tr>
+          <tr><th>UI languages</th><td><span class="cmp partial">EN / RU</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td><td><span class="cmp yes">Many</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="automation">Automation</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Official management API</th><td><span class="cmp yes">REST v2 + OpenAPI</span></td><td><span class="cmp partial">Limited / community</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>Public status feed</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Via status pages</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td><td><span class="cmp yes">Yes</span></td></tr>
+          <tr><th>MCP for AI agents</th><td><span class="cmp yes">Yes</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td><td><span class="cmp no">No</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="pricing">Pricing model</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Capability</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Cost model</th><td>AGPLv3 / Commercial — you pay infra</td><td>Free OSS — you pay infra</td><td>Freemium → paid</td><td>Paid</td><td>Paid</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="strengths">Where Monitoring is stronger</h2>
+      <ul>
+        <li><strong>MySQL + distributed workers</strong> — control plane and check execution scale separately; better fit when you outgrow a single Node/SQLite box.</li>
+        <li><strong>SSO and fine-grained ACL</strong> — OIDC/OAuth, groups, per-object permissions, folder inheritance, secret ACLs, impersonation, audit.</li>
+        <li><strong>History you control</strong> — aggregates and 30-day availability in your database; retention is an ops choice, not a vendor plan.</li>
+        <li><strong>Host agents</strong> — deep server metrics (including systemd, Proxmox, listeners), not only synthetic HTTP.</li>
+        <li><strong>Protocol breadth + MCP</strong> — databases, messaging, SNMP/gRPC, and first-class automation for AI tooling.</li>
+        <li><strong>Interactive messenger actions</strong> — mute / take / resolve from the alert itself.</li>
+      </ul>
+
+      <h2 id="gaps">Where others win</h2>
+      <ul>
+        <li><strong>Public status pages</strong> — Kuma, UptimeRobot, Better Stack, and Pingdom ship polished HTML status pages; we expose a Status API today.</li>
+        <li><strong>Notification ecosystem</strong> — Kuma’s 90+ providers and SaaS catalogs beat our five native channels (Webhook covers many cases).</li>
+        <li><strong>Tags &amp; embed badges</strong> — common elsewhere; we organize with folders and UI status badges.</li>
+        <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom need no MySQL or workers to run.</li>
+        <li><strong>Homelab onboarding UX</strong> — Kuma’s single-container SPA is hard to beat for tiny setups.</li>
+      </ul>
+
+      <h2 id="vs-kuma">Deep dive: Monitoring vs Uptime Kuma</h2>
+      <p>Uptime Kuma is the closest popular self-hosted peer. If you already used Kuma and hit limits, these differences matter most:</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Monitoring advantages</h3>
+          <ul>
+            <li><strong>SSO + access control</strong> for real teams and multi-tenant folders — not just a shared admin login.</li>
+            <li><strong>MySQL instead of SQLite</strong> — standard backups/replication; less pain as monitors, events, and aggregates grow.</li>
+            <li><strong>Scale past ~100 monitors</strong> — remote workers take check load off the UI/API process; operators often see Kuma slow down when everything shares one Node + SQLite process.</li>
+            <li><strong>Longer useful history</strong> — daily aggregates and 30d availability in MySQL you own, instead of an ever-growing local heartbeat store.</li>
+            <li><strong>Host agents + MCP</strong> for infrastructure depth and automation.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Kuma advantages</h3>
+          <ul>
+            <li>Beautiful <strong>public status pages</strong> with custom domains and incident banners.</li>
+            <li><strong>90+ notification providers</strong> out of the box.</li>
+            <li><strong>Tags</strong>, embeddable <strong>SVG badges</strong>, many UI languages.</li>
+            <li>Extremely fast <strong>“one Docker”</strong> start for small labs.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn">
+        <strong>About performance claims</strong>
+        We describe the architectural difference (distributed workers + MySQL vs single-node SQLite). We do not publish synthetic RPS numbers here — your interval mix and network paths dominate real results.
+      </div>
+
+      <h2 id="roadmap">What we plan next</h2>
+      <p>Product gaps we intend to close (no dates promised):</p>
+      <ol>
+        <li>Public status pages (HTML UI on top of the Status API)</li>
+        <li>Native notify: Email + Discord + Slack + ntfy (on top of Webhook)</li>
+        <li>Monitor tags + optional SVG status badges</li>
+      </ol>
+
+      <div class="page-nav"><div><a href="api.html">← API &amp; MCP</a></div><div><a href="../index.html">Docs home →</a></div></div>
+    """,
+    """
+      <h1>Сравнение Monitoring</h1>
+      <p class="lead">Честная матрица с популярными uptime-инструментами: <strong>Uptime Kuma</strong> (self-hosted), <strong>UptimeRobot</strong>, <strong>Better Stack</strong> и <strong>Pingdom</strong>. Это обзор возможностей, а не нагрузочный бенчмарк.</p>
+      <div class="callout">
+        <strong>Как читать таблицу</strong>
+        <span class="cmp yes">Yes</span> есть · <span class="cmp partial">Partial</span> частично / другая модель · <span class="cmp no">No</span> не фокус продукта · <span class="cmp paid">Paid</span> обычно в платном плане.
+      </div>
+
+      <h2 id="platform">Платформа и эксплуатация</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Развёртывание</th><td><span class="cmp yes">Self-hosted</span></td><td><span class="cmp yes">Self-hosted</span></td><td>SaaS</td><td>SaaS</td><td>SaaS</td></tr>
+          <tr><th>Основная БД</th><td><span class="cmp yes">MySQL</span> — бэкапы, реплики, привычный ops</td><td><span class="cmp partial">SQLite</span> по умолчанию (рост одного файла)</td><td>Managed</td><td>Managed</td><td>Managed</td></tr>
+          <tr><th>Нагрузка на ops</th><td>Сервер + БД (+ воркеры/агенты)</td><td>Обычно один контейнер — очень просто</td><td><span class="cmp yes">Zero</span></td><td><span class="cmp yes">Zero</span></td><td><span class="cmp yes">Zero</span></td></tr>
+          <tr><th>Модель масштаба control plane</th><td><span class="cmp yes">MySQL + удалённые воркеры</span></td><td><span class="cmp partial">Ориентация на один узел</span></td><td>Vendor HA</td><td>Vendor HA</td><td>Vendor HA</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="scale">Масштаб и история</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Много мониторов (100+)</th><td><span class="cmp yes">Рассчитано на рост</span> — проверки на воркерах; состояние в MySQL</td><td><span class="cmp partial">Часто тормозит</span> при росте мониторов/heartbeats на одном Node + SQLite</td><td><span class="cmp paid">Лимиты плана</span></td><td><span class="cmp paid">Лимиты плана</span></td><td><span class="cmp paid">План / enterprise</span></td></tr>
+          <tr><th>Проверки из разных точек</th><td><span class="cmp yes">Нативные Go-воркеры</span> + fail modes any / majority / all</td><td><span class="cmp partial">В основном локально</span> в процессе Kuma</td><td><span class="cmp paid">Платные пробы</span></td><td><span class="cmp yes">Облачные пробы</span></td><td><span class="cmp yes">Облачные пробы</span></td></tr>
+          <tr><th>История и retention</th><td><span class="cmp yes">Вы контролируете MySQL</span>; суточные агрегаты; availability <strong>30д</strong>; сырые детали ~24ч</td><td><span class="cmp partial">История heartbeat в SQLite</span> — файл и латентность растут с объёмом</td><td><span class="cmp paid">По плану</span></td><td><span class="cmp paid">По плану</span></td><td><span class="cmp paid">По плану</span></td></tr>
+          <tr><th>Долго хранить данные у себя</th><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Локальный диск / бэкап</span></td><td><span class="cmp no">Vendor</span></td><td><span class="cmp no">Vendor</span></td><td><span class="cmp no">Vendor</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="access">Auth, доступы и команды</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Несколько пользователей</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span> (базово)</td><td><span class="cmp paid">Team-планы</span></td><td><span class="cmp yes">Team</span></td><td><span class="cmp yes">Team</span></td></tr>
+          <tr><th>SSO (OIDC / OAuth)</th><td><span class="cmp yes">Да</span> — OpenID Connect + generic OAuth</td><td><span class="cmp partial">Ограничено</span> для enterprise SSO</td><td><span class="cmp paid">Платно / team</span></td><td><span class="cmp yes">Да</span> (планы)</td><td><span class="cmp paid">Скорее enterprise</span></td></tr>
+          <tr><th>Тонкий ACL</th><td><span class="cmp yes">Да</span> — права на объекты, группы, наследование от папок, ACL секретов, impersonation, аудит</td><td><span class="cmp partial">Грубый sharing</span></td><td><span class="cmp partial">Роли по плану</span></td><td><span class="cmp yes">Роли / SSO</span></td><td><span class="cmp yes">Роли</span></td></tr>
+          <tr><th>2FA</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Журнал аудита</th><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Частично</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Частично</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="checks">Возможности мониторинга</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>HTTP(s) + body / auth / mTLS</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Частично</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Keyword / JSON query</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Часто keyword</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Транзакции</span></td></tr>
+          <tr><th>TCP / Ping / DNS</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Обычно</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>UDP / истечение домена</th><td><span class="cmp yes">Да</span></td><td><span class="cmp no">Мало / нет</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
+          <tr><th>БД / messaging / SNMP / gRPC…</th><td><span class="cmp yes">Широко</span></td><td><span class="cmp yes">Широко</span></td><td><span class="cmp no">Узко</span></td><td><span class="cmp partial">Фокус на uptime</span></td><td><span class="cmp partial">Synthetic</span></td></tr>
+          <tr><th>Проверки Docker</th><td><span class="cmp yes">Engine API</span></td><td><span class="cmp yes">Socket</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td></tr>
+          <tr><th>Метрики host-агента</th><td><span class="cmp yes">Глубоко</span> — CPU/RAM/диск/сеть/temp/uptime, Docker, systemd, Proxmox, listeners</td><td><span class="cmp partial">В основном Docker</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp partial">Смежные продукты</span></td><td><span class="cmp no">Нет</span></td></tr>
+          <tr><th>Push / External</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Push</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
+          <tr><th>Окна обслуживания</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Алерты по SSL</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="status-alerts">Status pages, алерты и UX</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Публичная status page (UI)</th><td><span class="cmp partial">JSON Status API</span> (<code>api_enabled</code>) — брендированных HTML-страниц пока нет</td><td><span class="cmp yes">Нативные multi-page</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Сильно</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Embed-бейджи (SVG)</th><td><span class="cmp no">Только бейджи в UI</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Теги мониторов</th><td><span class="cmp partial">Папки</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Каналы уведомлений</th><td><span class="cmp partial">5</span> — Telegram, Mattermost, Gotify, MAX, Webhook</td><td><span class="cmp yes">90+</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
+          <tr><th>Email / Discord / Slack / ntfy из коробки</th><td><span class="cmp partial">Через webhook</span> / нативно пока нет</td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Интерактивные действия в алертах</th><td><span class="cmp yes">Mute / Take / Resolve</span> в мессенджерах</td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp partial">Ограниченно</span></td><td><span class="cmp yes">Incidents</span></td><td><span class="cmp partial">Ограниченно</span></td></tr>
+          <tr><th>Отполированный UI</th><td><span class="cmp partial">Функциональная админка</span></td><td><span class="cmp yes">Сильный SPA</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td><td><span class="cmp yes">SaaS UX</span></td></tr>
+          <tr><th>Языки UI</th><td><span class="cmp partial">EN / RU</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td><td><span class="cmp yes">Много</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="automation">Автоматизация</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Официальный management API</th><td><span class="cmp yes">REST v2 + OpenAPI</span></td><td><span class="cmp partial">Ограничен / community</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>Публичный status feed</th><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Через status pages</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td><td><span class="cmp yes">Да</span></td></tr>
+          <tr><th>MCP для AI-агентов</th><td><span class="cmp yes">Да</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td><td><span class="cmp no">Нет</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="pricing">Модель оплаты</h2>
+      <div class="table-wrap"><table class="table-compare">
+        <thead>
+          <tr><th>Возможность</th><th>Monitoring</th><th>Uptime Kuma</th><th>UptimeRobot</th><th>Better Stack</th><th>Pingdom</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Стоимость</th><td>AGPLv3 / Commercial — платите за инфру</td><td>Бесплатный OSS — платите за инфру</td><td>Freemium → paid</td><td>Paid</td><td>Paid</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="strengths">Где Monitoring сильнее</h2>
+      <ul>
+        <li><strong>MySQL + распределённые воркеры</strong> — control plane и проверки масштабируются раздельно; удобнее, когда один Node/SQLite уже тесен.</li>
+        <li><strong>SSO и тонкий ACL</strong> — OIDC/OAuth, группы, права на объекты, наследование от папок, ACL секретов, impersonation, аудит.</li>
+        <li><strong>История под вашим контролем</strong> — агрегаты и availability за 30 дней в своей БД; retention — выбор ops, а не план вендора.</li>
+        <li><strong>Host-агенты</strong> — глубокие метрики серверов (systemd, Proxmox, listeners), а не только synthetic HTTP.</li>
+        <li><strong>Широта протоколов + MCP</strong> — БД, messaging, SNMP/gRPC и автоматизация для AI-инструментов.</li>
+        <li><strong>Интерактивные действия в мессенджерах</strong> — mute / take / resolve прямо из алерта.</li>
+      </ul>
+
+      <h2 id="gaps">Где выигрывают другие</h2>
+      <ul>
+        <li><strong>Публичные status pages</strong> — у Kuma и SaaS есть готовый HTML; у нас пока Status API.</li>
+        <li><strong>Экосистема уведомлений</strong> — 90+ провайдеров Kuma и каталоги SaaS шире наших пяти каналов (Webhook закрывает часть кейсов).</li>
+        <li><strong>Теги и embed-бейджи</strong> — у других обычны; у нас папки и бейджи в UI.</li>
+        <li><strong>Zero-ops SaaS</strong> — UptimeRobot / Better Stack / Pingdom не требуют MySQL и воркеров.</li>
+        <li><strong>Онбординг для homelab</strong> — у Kuma «один Docker» и красивый SPA для маленьких сетапов.</li>
+      </ul>
+
+      <h2 id="vs-kuma">Подробно: Monitoring vs Uptime Kuma</h2>
+      <p>Uptime Kuma — ближайший популярный self-hosted аналог. Если вы уже пользовались Kuma и упирались в лимиты, важнее всего вот это:</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Плюсы Monitoring</h3>
+          <ul>
+            <li><strong>SSO + доступы</strong> для команд и multi-tenant папок — не только общий admin-логин.</li>
+            <li><strong>MySQL вместо SQLite</strong> — привычные бэкапы/репликация; меньше боли при росте мониторов, событий и агрегатов.</li>
+            <li><strong>Масштаб после ~100 мониторов</strong> — удалённые воркеры снимают нагрузку проверок с UI/API; у Kuma при росте часто становится тяжело, когда всё живёт в одном процессе Node + SQLite.</li>
+            <li><strong>Более полезная длинная история</strong> — суточные агрегаты и availability 30д в своём MySQL, а не только раздувающееся локальное heartbeat-хранилище.</li>
+            <li><strong>Host-агенты + MCP</strong> для инфраструктуры и автоматизации.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Плюсы Kuma</h3>
+          <ul>
+            <li>Красивые <strong>публичные status pages</strong> с доменами и баннерами инцидентов.</li>
+            <li><strong>90+ каналов уведомлений</strong> из коробки.</li>
+            <li><strong>Теги</strong>, embed <strong>SVG-бейджи</strong>, много языков UI.</li>
+            <li>Очень быстрый старт <strong>«один Docker»</strong> для маленьких лабораторий.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn">
+        <strong>Про производительность</strong>
+        Мы описываем архитектурное отличие (распределённые воркеры + MySQL vs single-node SQLite). Синтетические RPS здесь не публикуем — интервалы и сеть обычно важнее.
+      </div>
+
+      <h2 id="roadmap">Что планируем дальше</h2>
+      <p>Пробелы, которые хотим закрыть (без обещаний дат):</p>
+      <ol>
+        <li>Публичные status pages (HTML UI поверх Status API)</li>
+        <li>Нативные notify: Email + Discord + Slack + ntfy (поверх Webhook)</li>
+        <li>Теги мониторов + опциональные SVG status badges</li>
+      </ol>
+
+      <div class="page-nav"><div><a href="api.html">← API и MCP</a></div><div><a href="../index.html">К документации →</a></div></div>
+    """,
+    desc_en="Compare Monitoring with Uptime Kuma, UptimeRobot, Better Stack and Pingdom — strengths and gaps.",
+    desc_ru="Сравнение Monitoring с Uptime Kuma, UptimeRobot, Better Stack и Pingdom — плюсы и минусы.",
 )
 
 
